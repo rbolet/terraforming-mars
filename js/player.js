@@ -1,7 +1,7 @@
 class Player {
   constructor(){
     this.name = '';
-    this.canPlay = false;
+    this.passedTurn = false;
     this.resources = {};
     this.victoryPoints = 0;
     this.cardsInHand = [];
@@ -21,6 +21,9 @@ class Player {
     }
 
     addCardtoHand ( cardtoAdd ){ // expects a Card object
+
+    }
+    passTurn(){
 
     }
 }

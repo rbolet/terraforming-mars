@@ -5,6 +5,7 @@ class Game {
     this.currentGeneration = 1;
     this.currentPhase = 0;
     this.phaseList = ['Research','Action','Production'];
+    this.currentPlayer = 0;
     this.cardsInDeck = [];
     this.playerList =[];
   }
@@ -15,6 +16,7 @@ class Game {
     this.currentOxygen+=numToAdvance;
     if(this.currentOxygen>14){
       this.currentOxygen=14;
+      return false;
     }
     return true;
   }
@@ -25,6 +27,7 @@ class Game {
     this.currentTemperature += numToAdvance;
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
+      return false;
     }
     return true;
   }
@@ -35,6 +38,7 @@ class Game {
     this.currentGeneration += numToAdvance;
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
+      return false;
     }
     return true;
   }
@@ -62,7 +66,10 @@ class Game {
 
   }
   advanceTurn(){
-
+    this.currentPlayer++;
+    if (this.currentPlayer===this.playerList.length){
+      this.currentPlayer=0;
+    }
   }
   dealCard(){
 
@@ -81,5 +88,10 @@ class Game {
   addCard() {
     var newCard = new Card(15, "plants", 5, 2);
     this.cardsInDeck.push(newCard);
+  }
+  }
+  addPlayer(name){
+  var newPlayer = new Player(name)k
+
   }
 }
