@@ -40,11 +40,11 @@ class Player {
     } else {
       return true;
     }
+  }
 
 
+  passTurn(){
 
-    passTurn(){
-
-    }
+  }
 
 }
