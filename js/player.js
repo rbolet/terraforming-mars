@@ -55,7 +55,7 @@ class Player {
       "Energy: " + this.resources.energy.currentValue
     );
     $(currentPlayerClass + " .heat").text(
-      "Heat: " + This.resources.heat.currentValue
+      "Heat: " + this.resources.heat.currentValue
     );
   }
   passTurn() {}
