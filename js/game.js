@@ -1,23 +1,23 @@
 class Game{
   constructor(){
     this.currentOxygen = 0;
-    this.currentTemprature = -30;
+    this.currentTemperature = -30;
     this.currentGeneration = 1;
     this.currentPhase = '';
     this.phaseList = ['Research','Action','Production'];
     this.cardsInDeck = [];
     this.playerList =[];
   }
-  get o2(){
+  get oxygen(){
 
   }
-  set o2(numToAdvance){
+  set oxygen(numToAdvance){
 
   }
-  get temprature(){
+  get temperature(){
 
   }
-  set temprature(numToAdvance){
+  set temperature(numToAdvance){
 
   }
   get generation(){
