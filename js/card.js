@@ -1,3 +1,9 @@
+class Cards{
+  constructor(cost,type,currentRate){
+    this.name = '';
+    this.cost = null;
+    this.effect = {type:{'rate':currentRate}}
+    this.permanent = false;
 class Card {
   constructor(cost, type, changeRate, changeVal) {
     //Accepts cost as number, type as string, changeRate as number, and changeVal as number
