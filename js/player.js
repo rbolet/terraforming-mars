@@ -11,7 +11,7 @@ class Player {
     };
     this.victoryPoints = 0;
     this.cardsInHand = [];
-    this.updateStats();
+    //this.updateStats();
   }
 
   playCard(cardToPlay) {
