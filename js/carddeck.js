@@ -7,7 +7,9 @@ class CardDeck{
   }
 
   dealCard() {
-
+    var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
+    this.playerList[this.currentPlayer].addCardtoHand(dealCard);
+    this.cardsInDeck.pop();
   }
   shuffleCards() {
     var newPos = 0;
