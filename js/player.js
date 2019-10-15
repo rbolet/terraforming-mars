@@ -11,6 +11,7 @@ class Player {
     };
     this.victoryPoints = 0;
     this.cardsInHand = [];
+    this.updateStats();
   }
 
   playCard(cardToPlay) {
@@ -42,6 +43,20 @@ class Player {
       return true;
     }
   }
-
+  updateStats() {
+    var currentPlayerClass = "." + this.name + ".resources";
+    $(currentPlayerClass + " .money").text(
+      "Mega Credits: " + this.resources.money.currentValue
+    );
+    $(currentPlayerClass + " .plants").text(
+      "Plants: " + this.resources.plants.currentValue
+    );
+    $(currentPlayerClass + " .energy").text(
+      "Energy: " + this.resources.energy.currentValue
+    );
+    $(currentPlayerClass + " .heat").text(
+      "Heat: " + This.resources.heat.currentValue
+    );
+  }
   passTurn() {}
 }
