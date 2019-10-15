@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+}
+
+.game {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  background: #d1d523;
+}
+
+.state {
+  position: absolute;
+  width: 610px;
+  height: 1080px;
+  left: 1310px;
+  top: 0px;
+}
+
+.cards {
+  position: absolute;
+  width: 700px;
+  height: 224px;
+  left: 610px;
+  top: 805px;
+  background: #2cd53d;
+}
+
+.board {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  left: 610px;
+  top: 61px;
+  background: #432e3e;
+}
+
+.stats {
+  position: absolute;
+  width: 610px;
+  height: 1080px;
+  left: 0;
+  top: 0;
+}
