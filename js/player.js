@@ -1,7 +1,7 @@
 class Player {
 
-  constructor(){
-    this.name = '';
+  constructor( playerName ){ //expects String
+    this.name = playerName;
     this.passedTurn = false;
     this.resources = {
       money: {currentValue : 42, rate : 1} ,
