@@ -1,7 +1,6 @@
 class Player {
-
-  constructor(){
-    this.name = '';
+  constructor() {
+    this.name = "";
     this.passedTurn = false;
     this.resources = {};
     this.victoryPoints = 0;
@@ -12,6 +11,7 @@ class Player {
     // expects a Card object
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
+      //Check Game Board location
     } else {
       return false;
     }
@@ -35,11 +35,9 @@ class Player {
     } else {
       return true;
     }
-
-
-
-    passTurn(){
-
-    }
-
+  }
+  updateStats() {
+    $("." + this.name);
+  }
+  passTurn() {}
 }
