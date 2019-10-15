@@ -1,4 +1,4 @@
-class Player{
+class Player {
   constructor(){
     this.name = '';
     this.canPlay = false;
@@ -23,4 +23,4 @@ class Player{
     addCardtoHand ( cardtoAdd ){ // expects a Card object
 
     }
-  }
+}
