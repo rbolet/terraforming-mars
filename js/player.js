@@ -32,6 +32,9 @@ class Player {
 
   addCardtoHand(cardtoAdd) {
     // expects a Card object
+    this.cardsInHand.push(cardtoAdd);
+    cardtoAdd.render();
+    //going to append
   }
 
   canPlay(cardToPlay) {
