@@ -1,8 +1,13 @@
 class Player {
   constructor(){
     this.name = '';
-    this.canPlay = false;
-    this.resources = {};
+    this.passedTurn = false;
+    this.resources = {
+      money: {currentValue : 42, rate : 1} ,
+      plants: {currentValue : 0, rate : 1} ,
+      energy: {currentValue: 0, rate: 1},
+      heat: {currentValue: 0, rate: 1}
+    };
     this.victoryPoints = 0;
     this.cardsInHand = [];
 
@@ -21,6 +26,9 @@ class Player {
     }
 
     addCardtoHand ( cardtoAdd ){ // expects a Card object
+
+    }
+    passTurn(){
 
     }
 }
