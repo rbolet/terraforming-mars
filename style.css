@@ -97,7 +97,8 @@
   height: 20%;
 }
 
-.cell {
+.cell,
+.empty {
   width: 20%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0);
