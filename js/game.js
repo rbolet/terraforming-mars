@@ -75,9 +75,6 @@ class Game {
       this.currentPlayer=0;
     }
   }
-  dealCard(){
-
-  }
   shuffleCards(){
     var newPos = 0;
     var tempVar = 0;
@@ -90,13 +87,8 @@ class Game {
     return this.cardsInDeck;
   }
 
-  addCard() {
-    var newCard = new Card(15, "plants", 5, 2);
-    this.cardsInDeck.push(newCard);
-  }
-
   addPlayer(name){ // expects string
   var newPlayer = new Player(name);
-
+  this.playerList.push(newPlayer);
   }
 }
