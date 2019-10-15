@@ -1,7 +1,8 @@
 class Player {
-  constructor() {
-    this.name = "";
-    this.canPlay = false;
+
+  constructor(){
+    this.name = '';
+    this.passedTurn = false;
     this.resources = {};
     this.victoryPoints = 0;
     this.cardsInHand = [];
@@ -34,5 +35,11 @@ class Player {
     } else {
       return true;
     }
-  }
+
+
+
+    passTurn(){
+
+    }
+
 }
