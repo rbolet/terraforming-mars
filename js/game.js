@@ -88,12 +88,13 @@ class Game {
       this.cardsInDeck[newPos] = tempVar;
     }
     return this.cardsInDeck;
+  }
 
   addCard() {
     var newCard = new Card(15, "plants", 5, 2);
     this.cardsInDeck.push(newCard);
   }
-  }
+
   addPlayer(name){ // expects string
   var newPlayer = new Player(name);
 

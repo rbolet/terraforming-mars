@@ -1,7 +1,9 @@
 $(document).ready(initializeApp);
 var game;
-function initializeApp(){
-game = new Game()
+var player1;
 
-var player1 = new Player("player1");
+function initializeApp(){
+  game = new Game()
+
+  player1 = new Player("player1");
 }
