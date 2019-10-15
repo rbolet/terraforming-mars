@@ -1,5 +1,5 @@
-class Game{
-  constructor(){
+class Game {
+  constructor() {
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -77,5 +77,9 @@ class Game{
       this.cardsInDeck[newPos] = tempVar;
     }
     return this.cardsInDeck;
+
+  addCard() {
+    var newCard = new Card(15, "plants", 5, 2);
+    this.cardsInDeck.push(newCard);
   }
 }
