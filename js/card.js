@@ -1,10 +1,11 @@
-class Card {
-  constructor(cost, type, changeRate, changeVal) {
+class Card{
+  constructor( cost, type, changeRate, changeVal ) {
     //Accepts cost as number, type as string, changeRate as number, and changeVal as number
     this.causeEffect = this.causeEffect.bind(this);
     this.playCard = this.playCard.bind(this);
     this.cost = cost;
     this.type = type;
+    this.permanent = false;
     this.valuesToChange = {
       changeRate: changeRate,
       changeVal: changeVal

@@ -1,8 +1,14 @@
 class Player {
-  constructor() {
-    this.name = "";
+  constructor(playerName) {
+    //expects String
+    this.name = playerName;
     this.passedTurn = false;
-    this.resources = {};
+    this.resources = {
+      money: { currentValue: 42, rate: 1 },
+      plants: { currentValue: 0, rate: 1 },
+      energy: { currentValue: 0, rate: 1 },
+      heat: { currentValue: 0, rate: 1 }
+    };
     this.victoryPoints = 0;
     this.cardsInHand = [];
   }
@@ -36,8 +42,6 @@ class Player {
       return true;
     }
   }
-  updateStats() {
-    $("." + this.name);
-  }
+
   passTurn() {}
 }

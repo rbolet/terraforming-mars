@@ -6,13 +6,12 @@ class Game {
     this.currentPhase = 0;
     this.phaseList = ['Research','Action','Production'];
     this.currentPlayer = 0;
-    this.cardsInDeck = [];
     this.playerList =[];
   }
   get oxygen(){
     return this.currentOxygen;
   }
-  set oxygen(numToAdvance){
+  set oxygen(numToAdvance){ // expects number
     this.currentOxygen+=numToAdvance;
     if(this.currentOxygen>14){
       this.currentOxygen=14;
@@ -23,7 +22,7 @@ class Game {
   get temperature(){
     return this.currentTemperature;
   }
-  set temperature(numToAdvance){
+  set temperature(numToAdvance){ //expects number
     this.currentTemperature += numToAdvance;
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
@@ -34,7 +33,7 @@ class Game {
   get generation(){
     return this.currentGeneration
   }
-  set generation(numToAdvance){
+  set generation(numToAdvance){ //expects number
     this.currentGeneration += numToAdvance;
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
@@ -53,7 +52,12 @@ class Game {
       this.currentPhase++;
     }
   }
-  changeRescource(player,type,valuesToChange){
+  changeResource(player , typeToChange, valuesToChange){ //expects number, string, object
+    var playerToChange = this.playerList[player];
+    var resourceToChange = this.playerToChange.resource[typeToChange];
+
+    playerToChange.resourceToChange.currentValue += valuesToChange.currentValue;
+    playerToChange.resourceToChange += valuesToChange.rate;
 
   }
   researchPhase(){
@@ -84,13 +88,15 @@ class Game {
       this.cardsInDeck[newPos] = tempVar;
     }
     return this.cardsInDeck;
+  }
 
   addCard() {
     var newCard = new Card(15, "plants", 5, 2);
     this.cardsInDeck.push(newCard);
   }
-  }
-  addPlayer(name){
-    var newPlayer = new Player(name);
+
+  addPlayer(name){ // expects string
+  var newPlayer = new Player(name);
+
   }
 }
