@@ -72,7 +72,9 @@ class Game {
     }
   }
   dealCard(){
-
+    var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
+    this.playerList[this.currentPlayer].addCardtoHand(dealCard);
+    this.cardsInDeck.pop();
   }
   shuffleCards(){
     var newPos = 0;
@@ -84,13 +86,14 @@ class Game {
       this.cardsInDeck[newPos] = tempVar;
     }
     return this.cardsInDeck;
-
+  }
   addCard() {
     var newCard = new Card(15, "plants", 5, 2);
     this.cardsInDeck.push(newCard);
   }
-  }
-  addPlayer(name){
-    var newPlayer = new Player(name);
+
+  addPlayer(name){ // expects string
+  var newPlayer = new Player(name);
+  this.playerList.push(newPlayer);
   }
 }
