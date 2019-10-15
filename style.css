@@ -84,6 +84,10 @@
   background: #432e3e;
 }
 
+.legalmoves {
+  border: outset lime 2px;
+}
+
 .stats {
   position: absolute;
   width: 610px;
