@@ -91,7 +91,6 @@ class Game {
   }
   }
   addPlayer(name){
-  var newPlayer = new Player(name)k
-
+    var newPlayer = new Player(name);
   }
 }
