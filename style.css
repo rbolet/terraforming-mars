@@ -17,6 +17,55 @@
   top: 0px;
 }
 
+.terraformingRating {
+  position: absolute;
+  width: 96px;
+  height: 968px;
+  left: 423px;
+  top: 61px;
+  background: #12c0e7;
+}
+
+.oxygenSensor {
+  position: absolute;
+  width: 96px;
+  height: 968px;
+  left: 250px;
+  top: 61px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.oxygen {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 36px;
+  position: relative;
+  width: 96px;
+  height: 64.5px;
+}
+
+.black {
+  background: black;
+  color: white;
+}
+
+.white {
+  background: white;
+  color: black;
+}
+
+.temperatureSensor {
+  position: absolute;
+  width: 96px;
+  height: 968px;
+  left: 77px;
+  top: 61px;
+  background: linear-gradient(180deg, #ff001f 0%, #2b3abd 100%);
+}
+
 .cards {
   position: absolute;
   width: 700px;
@@ -41,4 +90,26 @@
   height: 1080px;
   left: 0;
   top: 0;
+}
+
+.player1,
+.player2,
+.player3,
+.player4 {
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  left: 55px;
+  top: 61px;
+  background: white;
+}
+
+.player2 {
+  top: 317px;
+}
+.player3 {
+  top: 573px;
+}
+.player4 {
+  top: 829px;
 }
