@@ -54,10 +54,10 @@ class Game {
   }
   changeResource(player , typeToChange, valuesToChange){ //expects number, string, object
     var playerToChange = this.playerList[player];
-    var resourceToChange = this.playerToChange.resource[typeToChange];
+    var resourceToChange = playerToChange.resources[typeToChange];
 
-    playerToChange.resourceToChange.currentValue += valuesToChange.currentValue;
-    playerToChange.resourceToChange += valuesToChange.rate;
+    resourceToChange.currentValue += valuesToChange.currentValue;
+    resourceToChange += valuesToChange.rate;
 
   }
   researchPhase(){
