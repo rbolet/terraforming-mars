@@ -75,6 +75,16 @@
   background: #2cd53d;
 }
 
+.card {
+  height: 260px;
+  width: 190px;
+  transition: transform 0.5s;
+}
+
+.card:hover {
+  transform: scale(2);
+}
+
 .board {
   position: absolute;
   width: 700px;

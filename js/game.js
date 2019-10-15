@@ -4,17 +4,19 @@ class Game {
     this.currentTemperature = -30;
     this.currentGeneration = 1;
     this.currentPhase = 0;
-    this.phaseList = ['Research','Action','Production'];
+
+    this.phaseList = ["Research", "Action", "Production"];
     this.currentPlayer = 0;
-    this.playerList =[];
+    this.playerList = [];
   }
-  get oxygen(){
+  get oxygen() {
     return this.currentOxygen;
   }
-  set oxygen(numToAdvance){ // expects number
-    this.currentOxygen+=numToAdvance;
-    if(this.currentOxygen>14){
-      this.currentOxygen=14;
+  set oxygen(numToAdvance) {
+    // expects number
+    this.currentOxygen += numToAdvance;
+    if (this.currentOxygen > 14) {
+      this.currentOxygen = 14;
       return false;
     }
     return true;
@@ -30,6 +32,7 @@ class Game {
     }
     return true;
   }
+
   get generation(){
     return this.currentGeneration
   }
@@ -90,5 +93,10 @@ class Game {
   addPlayer(name){ // expects string
   var newPlayer = new Player(name);
   this.playerList.push(newPlayer);
+  }
+
+  addPlayer(name) {
+    // expects string
+    var newPlayer = new Player(name);
   }
 }
