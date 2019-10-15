@@ -1,16 +1,17 @@
 class Tile {
-  constructor( tileType, tileOwner ){ // expects string "greenery" or "city" , player object
+  constructor(tileType, tileOwner, position) {
+    // expects string "greenery" or "city" , player object
     this.type = tileType;
     this.owner = tileOwner;
-    this.tileElement = {}; // jQuery object
+    this.tileElement = null; // jQuery object
+    this.positon = {}; //row# and cell#
   }
 
-  render(){
-    var newTile = $("<div>")
-    newTile.addClass("tile " + this.type);
+  render() {
+    var newTile = $("<div>");
+    newTile.addClass("tile " + this.type).addClass("cell");
 
     this.tileElement = newTile;
     return this.tileElement;
-    }
-
+  }
 }
