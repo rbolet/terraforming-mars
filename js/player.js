@@ -11,6 +11,7 @@ class Player {
     };
     this.victoryPoints = 0;
     this.cardsInHand = [];
+    this.terraformRating = 20;
   }
 
   playCard(cardToPlay) {

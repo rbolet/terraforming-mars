@@ -67,6 +67,24 @@ class Game {
 
   }
   productionPhase(){
+    var currentPlayer = {};
+    for (var playerIndex of this.playerList){
+      currentPlayer = playerIndex; // the player currently in the loop
+
+      // convert energy to heat (add energy to heat, remove all energy)
+      currentPlayer.resources.heat.currentValue += currentPlayer.resources.energy.currentValue;
+      currentPlayer.resources.energy.currentValue = 0;
+
+      //add money equal to player's Terraform Rating
+      currentPlayer.resources.money.currentValue += currentPlayer.terraformRating;
+
+      // add each resources rate to current value
+      for (var typeKey in currentPlayer){
+        currentPlayer.resources[typeKey].currentValue += currentPlayer.resources[typeKey].rate;
+      }
+    }
+
+    return true;
 
   }
   advanceTurn(){
