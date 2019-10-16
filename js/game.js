@@ -94,9 +94,4 @@ class Game {
   var newPlayer = new Player(name);
   this.playerList.push(newPlayer);
   }
-
-  addPlayer(name) {
-    // expects string
-    var newPlayer = new Player(name);
-  }
 }
