@@ -8,7 +8,8 @@ function initializeApp(){
   cardDeck = new CardDeck;
   board = new Board()
 
-  game.addPlayer('player1');
-  game.addPlayer('player2');
-  game.addPlayer('player3');
+  game.addPlayer('Roger');
+  game.addPlayer('Rapha');
+  game.addPlayer('Pzo');
+  game.addPlayer('Mystery Ghost');
 }
