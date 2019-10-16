@@ -5,6 +5,7 @@ class Player {
     this.name = playerName;
     this.passedTurn = false;
     this.playCard = this.playCard.bind(this);
+    this.actionNum = 0;
     this.resources = {
       money: { currentValue: 42, rate: 1 },
       plants: { currentValue: 0, rate: 1 },
@@ -49,8 +50,6 @@ class Player {
       }
     }
     }
-
-  }
 
   getResource(resourceType) {
     // expects string

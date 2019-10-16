@@ -110,6 +110,7 @@ class Game {
     resourceToChange.currentValue += valuesToChange.currentValue;
     resourceToChange += valuesToChange.rate;
     this.updatePlayerDisplays();
+    this.updateActionModalStats();
   }
   newGame() {
     this.addPlayer("Roger");
@@ -218,6 +219,7 @@ class Game {
   }
 
   advanceTurn() {
+    this.hideActionModal();
     var playersPassed = 0;
     this.currentPlayer++;
     if (this.currentPlayer === this.playerList.length) {
@@ -327,6 +329,7 @@ class Game {
   }
 
   showActionModal() {
+    this.appendCardstoActionModal();
     this.updateActionModalStats();
     $(".action-modal").removeClass("hidden");
   }
