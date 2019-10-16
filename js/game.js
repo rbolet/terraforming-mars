@@ -120,5 +120,4 @@ class Game {
   var newPlayer = new Player(name);
   this.playerList.push(newPlayer);
   }
-
 }
