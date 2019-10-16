@@ -1,6 +1,7 @@
 class Player {
   constructor(playerName) {
     //expects String
+    this.incrementVP = this.incrementVP.bind(this);
     this.name = playerName;
     this.passedTurn = false;
     this.playCard = this.playCard.bind(this);
@@ -13,6 +14,10 @@ class Player {
     this.victoryPoints = 0;
     this.cardsInHand = [];
     this.terraformRating = 20;
+  }
+
+  incrementVP() {
+    this.victoryPoints += 1;
   }
 
   playCard(cardToPlay) {
@@ -75,7 +80,8 @@ class Player {
   set passed(input){
     this.passedTurn = false;
   }
-  placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
-    var newTile = new Tile(tileType, this)
+  placeTile(tileType) {
+    //Called by a card that knows what kind of tile to place. City or Greenery
+    var newTile = new Tile(tileType, this);
   }
 }
