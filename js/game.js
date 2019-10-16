@@ -22,10 +22,10 @@ class Game {
       //Not Done!!!
       transform: "translatey(-51px)"
     });
-    let currentLevel = 16 - this.currentOxygen;
-    let previousLevel = currentLevel - 1;
-    $(".oxygen:nth-child(" + currentLevel + ")").removeClass("current-oxygen");
-    $(".oxygen:nth-child(" + previousLevel + ")").addClass("current-oxygen");
+    let currentLevel = 15 - this.currentOxygen;
+    let previousLevel = currentLevel + 1;
+    $(".oxygen:nth-child(" + previousLevel + ")").removeClass("current-oxygen");
+    $(".oxygen:nth-child(" + currentLevel + ")").addClass("current-oxygen");
     //Temp Range (-30,8) 19 stages
     //Oxygen Range (0,14) 15 stages
     //Animate indicators based on location (968px to traverse)
