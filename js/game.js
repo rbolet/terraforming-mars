@@ -2,6 +2,8 @@ class Game {
   constructor() {
     this.advancePhase = this.advancePhase.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
+    this.showActionModal = this.showActionModal.bind(this);
+    this.playerClickedPass = this.playerClickedPass.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -35,6 +37,8 @@ class Game {
     $(".production-modal-button").on("click", this.advancePhase);
     $("#pass-button").on("click", this.playerClickedPass);
     $("#view-board").on("click", this.hideActionModal);
+    $('body').on('click', '.action-button', this.showActionModal)
+    $('body').on('click','.pass-button',this.playerClickedPass);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -138,7 +142,7 @@ class Game {
     this.advancePhase();
   }
   actionPhase() {
-    this.playerList[currentPlayer];
+    this.playerList[this.currentPlayer];
   }
   productionPhase() {
     var currentPlayer;
@@ -186,10 +190,7 @@ class Game {
     for (var player = 0; player < this.playerList.length; player++) {
       if (this.playerList[player].passed) {
         playersPassed++;
-      } else if (
-        player === this.playerList.length - 1 &&
-        playersPassed === this.playerList.length - 1
-      ) {
+      } else if (player === this.playerList.length - 1 && playersPassed === this.playerList.length - 1) {
         for (var player2 = 0; player2 < this.playerList.length; player2++) {
           this.playerList[player2].passed = false;
         }
@@ -198,9 +199,6 @@ class Game {
     }
     if (this.currentPlayer === this.playerList.length) {
       this.currentPlayer = 0;
-    }
-    if (this.playerList[this.currentPlayer].passed) {
-      this.advanceTurn();
     }
     for (var player = 1; player <= 4; player++) {
       $(".player" + player + " button").remove();
@@ -271,7 +269,8 @@ class Game {
   }
 
   playerClickedPass() {
-    this.playerList[currentPlayer].passTurn();
+    this.hideActionModal();
+    this.playerList[this.currentPlayer].passTurn();
   }
 
   showActionModal() {
