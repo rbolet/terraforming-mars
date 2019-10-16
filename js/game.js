@@ -4,6 +4,7 @@ class Game {
     this.addPlayer = this.addPlayer.bind(this);
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -17,8 +18,8 @@ class Game {
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
-  handleCardClick() {
-    console.log(this);
+  handleCardClick(cardObject) {
+    this.playerList[this.currentPlayer].playCard(cardObject);
   }
   updateState() {
     $(".temperatureText").text(this.currentTemperature);

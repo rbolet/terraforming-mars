@@ -24,24 +24,29 @@ class Player {
     this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
   }
 
-  playCard(event) {
-    console.log(event); //get card object from event?
-    // expects an event
-    var cardToPlay = $(event.currentTarget);
-    console.log(cardToPlay);
-
-    if (this.canPlay(cardToPlay)) {
-      this.resources.money -= cardToPlay.cost;
-      // if (cardToPlay.getTiletoPlace() === "city") {
-      //   board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-      // } else if (cardToPlay.getTileToplace() === "forest") {
-      //   board.findValidForestTiles();
-      // }
-      cardToPlay.causeEffect(this);
-      this.removeCardFromHand(cardToPlay);
-      //Playboard highlights, close modal, click handler on legal moves
+  playCard(cardToPlay) {
+    //get card object from event?
+    // expects a Card Object
+    if (this.actionNum === 2) {
+      for (var player = 1; player <= 4; player++) {
+        $(".player" + player + " button").remove();
+      }
+      this.actionNum = 0;
+      game.advanceTurn();
     } else {
-      return false;
+      if (this.canPlay(cardToPlay)) {
+        this.resources.money.currentValue -= cardToPlay.cost;
+        // if (cardToPlay.getTiletoPlace() === "city") {
+        //   board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+        // } else if (cardToPlay.getTileToplace() === "forest") {
+        //   board.findValidForestTiles();
+        // }
+        cardToPlay.causeEffect();
+        this.removeCardFromHand(cardToPlay);
+        this.actionNum++;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -81,6 +86,7 @@ class Player {
   }
   passTurn() {
     this.passedTurn = true;
+    this.actionNum = 0;
     game.advanceTurn();
   }
   get passed() {
