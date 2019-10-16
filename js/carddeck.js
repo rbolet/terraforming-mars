@@ -1,5 +1,5 @@
-class CardDeck{
-  constructor(){
+class CardDeck {
+  constructor() {
     this.cardsInDeck = [];
     this.addCard();
     this.addCard();
@@ -23,17 +23,21 @@ class CardDeck{
     this.addCard();
   }
 
-  dealCard() {//deals 1 card to the current player. add argrument to give x cards to all players
-    if (arguments.length>0 && this.cardsInDeck.length>arguments[0]*game.playerList.length){
-      for (var round = 1;round<=arguments[0];round++){
-        for (var player = 0; player<game.playerList.length;player++){
+  dealCard() {
+    //deals 1 card to the current player. add argrument to give x cards to all players
+    if (
+      arguments.length > 0 &&
+      this.cardsInDeck.length > arguments[0] * game.playerList.length
+    ) {
+      for (var round = 1; round <= arguments[0]; round++) {
+        for (var player = 0; player < game.playerList.length; player++) {
           var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
           game.playerList[player].addCardtoHand(dealCard);
           this.cardsInDeck.pop();
         }
       }
     }
-/*     else{
+    /*     else{
       var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
       game.playerList[game.currentPlayer].addCardtoHand(dealCard);
       this.cardsInDeck.pop();
@@ -42,7 +46,11 @@ class CardDeck{
   shuffleCards() {
     var newPos = 0;
     var tempVar = 0;
-    for (var position = this.cardsInDeck.length - 1; position >= 0; position--) {
+    for (
+      var position = this.cardsInDeck.length - 1;
+      position >= 0;
+      position--
+    ) {
       newPos = Math.floor(Math.random() * (position + 1));
       tempVar = this.cardsInDeck[position];
       this.cardsInDeck[position] = this.cardsInDeck[newPos];
@@ -51,7 +59,7 @@ class CardDeck{
     return this.cardsInDeck;
   }
   addCard() {
-    var newCard = new Card(15, "plants", 5, 2);
+    var newCard = new Card(15, "plants", 1, 1, null, game.handleCardClick);
     this.cardsInDeck.push(newCard);
-      }
+  }
 }
