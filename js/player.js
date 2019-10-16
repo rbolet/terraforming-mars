@@ -1,13 +1,13 @@
 class Player {
-
-  constructor( playerName ){ //expects String
+  constructor(playerName) {
+    //expects String
     this.name = playerName;
     this.passedTurn = false;
     this.resources = {
-      money: {currentValue : 42, rate : 1} ,
-      plants: {currentValue : 0, rate : 1} ,
-      energy: {currentValue: 0, rate: 1},
-      heat: {currentValue: 0, rate: 1}
+      money: { currentValue: 42, rate: 1 },
+      plants: { currentValue: 0, rate: 1 },
+      energy: { currentValue: 0, rate: 1 },
+      heat: { currentValue: 0, rate: 1 }
     };
     this.victoryPoints = 0;
     this.cardsInHand = [];
@@ -18,6 +18,7 @@ class Player {
     // expects a Card object
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
+      //Check Game Board location
     } else {
       return false;
     }
@@ -30,6 +31,9 @@ class Player {
 
   addCardtoHand(cardtoAdd) {
     // expects a Card object
+    this.cardsInHand.push(cardtoAdd);
+    cardtoAdd.render();
+    //going to append
   }
 
   canPlay(cardToPlay) {
@@ -39,10 +43,23 @@ class Player {
       return true;
     }
   }
-
-
-  passTurn(){
-
+  updateStats() {
+    var currentPlayerClass = "." + this.name + ".resources";
+    $(currentPlayerClass + " .money").text(
+      "Mega Credits: " + this.resources.money.currentValue
+    );
+    $(currentPlayerClass + " .plants").text(
+      "Plants: " + this.resources.plants.currentValue
+    );
+    $(currentPlayerClass + " .energy").text(
+      "Energy: " + this.resources.energy.currentValue
+    );
+    $(currentPlayerClass + " .heat").text(
+      "Heat: " + this.resources.heat.currentValue
+    );
   }
-
+  passTurn() {}
+  placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
+    var newTile = new Tile(tileType, this)
+  }
 }
