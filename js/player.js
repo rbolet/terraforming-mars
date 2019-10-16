@@ -67,6 +67,13 @@ class Player {
   }
   passTurn() {
     this.passedTurn = true;
+    game.advanceTurn();
+  }
+  get passed(){
+    return this.passedTurn;
+  }
+  set passed(input){
+    this.passedTurn = false;
   }
   placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
     var newTile = new Tile(tileType, this)
