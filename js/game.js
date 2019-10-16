@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.advancePhase = this.advancePhase.bind(this);
-    this.addPlayer= this.addPlayer.bind(this);
+    this.addPlayer = this.addPlayer.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -11,10 +11,27 @@ class Game {
     this.currentPlayer = 0;
     this.playerList = [];
     this.applyModalClickHandlers();
+    this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
-  applyModalClickHandlers(){
-    $('.production-modal-button').on('click',this.advancePhase)
+
+  updateState() {
+    $(".temperatureText").text(this.currentTemperature);
+    $(".temperatureIndicator").css({
+      //Not Done!!!
+      transform: "translatey(-51px)"
+    });
+    let currentLevel = 16 - this.currentOxygen;
+    let previousLevel = currentLevel - 1;
+    $(".oxygen:nth-child(" + currentLevel + ")").removeClass("current-oxygen");
+    $(".oxygen:nth-child(" + previousLevel + ")").addClass("current-oxygen");
+    //Temp Range (-30,8) 19 stages
+    //Oxygen Range (0,14) 15 stages
+    //Animate indicators based on location (968px to traverse)
+  }
+
+  applyModalClickHandlers() {
+    $(".production-modal-button").on("click", this.advancePhase);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -27,6 +44,7 @@ class Game {
       return false;
     }
     this.playerList[this.currentPlayer].incrementVP();
+    this.updateState();
     return true;
   }
   get temperature() {
@@ -40,6 +58,7 @@ class Game {
       return false;
     }
     this.playerList[this.currentPlayer].incrementVP();
+    this.updateState();
     return true;
   }
 
@@ -75,21 +94,19 @@ class Game {
     resourceToChange.currentValue += valuesToChange.currentValue;
     resourceToChange += valuesToChange.rate;
   }
-  newGame(){
-    this.addPlayer('Roger');
-    this.addPlayer('Rapha');
-    this.addPlayer('Pzo');
-    this.addPlayer('Mystery Ghost');
+  newGame() {
+    this.addPlayer("Roger");
+    this.addPlayer("Rapha");
+    this.addPlayer("Pzo");
+    this.addPlayer("Mystery Ghost");
     cardDeck.dealCard(3);
   }
-  researchPhase(){
+  researchPhase() {
     cardDeck.dealCard(2);
     this.advancePhase();
   }
-  actionPhase(){
-
-  }
-  productionPhase(){
+  actionPhase() {}
+  productionPhase() {
     var currentPlayer;
     var currentEnergy;
     for (
