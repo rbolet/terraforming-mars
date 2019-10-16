@@ -3,6 +3,7 @@ class Player {
     //expects String
     this.name = playerName;
     this.passedTurn = false;
+    this.playCard = this.playCard.bind(this);
     this.resources = {
       money: { currentValue: 42, rate: 1 },
       plants: { currentValue: 0, rate: 1 },
@@ -18,13 +19,19 @@ class Player {
     // expects a Card object
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
-      //Check Game Board location
+      if (cardToPlay.getTiletoPlace() === "city") {
+        board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+      } else if (cardToPlay.getTileToplace() === "forest") {
+        board.findValidForestTiles();
+      }
+      cardToPlay.causeEffect(this);
+      //Playboard highlights, close modal, click handler on legal moves
     } else {
       return false;
     }
   }
 
-  getResource( resourceType ) {
+  getResource(resourceType) {
     // expects string
     return this.resources[resourceType];
   }
@@ -59,7 +66,8 @@ class Player {
     );
   }
   passTurn() {}
-  placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
-    var newTile = new Tile(tileType, this)
+  placeTile(tileType) {
+    //Called by a card that knows what kind of tile to place. City or Greenery
+    var newTile = new Tile(tileType, this);
   }
 }
