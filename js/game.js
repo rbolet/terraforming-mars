@@ -103,12 +103,13 @@ class Game {
   }
 
   changeResource(typeToChange, valuesToChange) {
+    debugger;
     //expects number, string, object
     var playerToChange = this.playerList[this.currentPlayer];
     var resourceToChange = playerToChange.resources[typeToChange];
 
-    resourceToChange.currentValue += valuesToChange.currentValue;
-    resourceToChange += valuesToChange.rate;
+    resourceToChange.currentValue += valuesToChange.changeVal;
+    resourceToChange.rate += valuesToChange.changeRate;
     this.updatePlayerDisplays();
   }
   newGame() {
