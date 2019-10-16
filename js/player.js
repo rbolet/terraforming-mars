@@ -3,6 +3,7 @@ class Player {
     //expects String
     this.name = playerName;
     this.passedTurn = false;
+    this.playCard = this.playCard.bind(this);
     this.resources = {
       money: { currentValue: 42, rate: 1 },
       plants: { currentValue: 0, rate: 1 },
@@ -19,10 +20,11 @@ class Player {
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
       if (cardToPlay.getTiletoPlace() === "city") {
-        board.findValidCityTiles();
+        board.findValidCityTiles(); // Shouldn't do this, pass in a call back
       } else if (cardToPlay.getTileToplace() === "forest") {
         board.findValidForestTiles();
       }
+      cardToPlay.causeEffect(this);
       //Playboard highlights, close modal, click handler on legal moves
     } else {
       return false;

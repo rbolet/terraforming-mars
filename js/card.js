@@ -19,7 +19,7 @@ class Card {
   }
 
   causeEffect(player) {
-    game.changeResource(player, this.type, this.valuesToChange);
+    game.changeResource(player, this.type, this.valuesToChange); //Should be from callbacks
   }
 
   render() {
