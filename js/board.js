@@ -121,8 +121,8 @@ class Board {
     tileObject.markLegalMove();
   }
   addClickHandler() {
-    $(".board").on("click", ".cell", function(event) {
-      $(event.currentTarget).toggleClass("legalmove");
+    $(".board").on("click", ".legalmove", function(event) {
+      console.log("You clicked a valid space!");
     });
   }
 
