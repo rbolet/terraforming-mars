@@ -22,18 +22,21 @@ class Player {
 
   playCard(cardToPlay) {
     // expects a Card object
-    if (this.canPlay(cardToPlay)) {
-      this.resources.money -= cardToPlay.cost;
+      if (this.canPlay(cardToPlay)) {
+        this.resources.money -= cardToPlay.cost;
       if (cardToPlay.getTiletoPlace() === "city") {
         board.findValidCityTiles(); // Shouldn't do this, pass in a call back
       } else if (cardToPlay.getTileToplace() === "forest") {
         board.findValidForestTiles();
       }
       cardToPlay.causeEffect(this);
+      this.actionNum++;
       //Playboard highlights, close modal, click handler on legal moves
     } else {
       return false;
     }
+    }
+
   }
 
   getResource(resourceType) {

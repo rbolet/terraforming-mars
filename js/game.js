@@ -223,17 +223,16 @@ class Game {
     for (var player = 0; player < this.playerList.length; player++) {
       if (this.playerList[player].passed) {
         playersPassed++;
-      } else if (player === this.playerList.length - 1 && playersPassed === this.playerList.length) {
+      }
+      if (player === this.playerList.length - 1 && playersPassed === this.playerList.length) {
         for (var player2 = 0; player2 < this.playerList.length; player2++) {
           this.playerList[player2].passed = false;
         }
         this.advancePhase();
       }
     }
-    for (var player = 1; player <= 4; player++) {
-      $(".player" + player + " button").remove();
-    }
     for (var player = 0; player < this.playerList.length-1; player++) {
+
       if (!this.playerList[this.currentPlayer].passed) {
         var actionButton = $("<button>")
           .addClass("action-button")
@@ -241,7 +240,6 @@ class Game {
         var passButton = $("<button>")
           .addClass("pass-button")
           .text("Pass Turn");
-        console.log(this.currentPlayer)
         $(".player" + (this.currentPlayer + 1)).append(actionButton, passButton);
         break;
       }
@@ -249,7 +247,8 @@ class Game {
       this.currentPlayer++;
         if (this.currentPlayer === this.playerList.length) {
           this.currentPlayer = 0;
-        }}
+        }
+      }
     }
 
   }
@@ -311,6 +310,9 @@ class Game {
   }
 
   playerClickedPass() {
+    for (var player = 1; player <= 4; player++) {
+      $(".player" + player + " button").remove();
+    }
     this.hideActionModal();
     this.playerList[this.currentPlayer].passTurn();
   }
