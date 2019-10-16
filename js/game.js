@@ -12,8 +12,13 @@ class Game {
     this.playerList = [];
     this.applyModalClickHandlers();
   }
+
+
+
   applyModalClickHandlers(){
-    $('.production-modal-button').on('click',this.advancePhase)
+    $('.production-modal-button').on('click',this.advancePhase);
+    $('#pass-button').on('click', this.playerClickedPass);
+    $('#view-board').on('click', this.hideActionModal);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -228,5 +233,27 @@ class Game {
     var generation = $("<div>").text("Generation: " + game.currentGeneration);
     $(".modal-stats").append(statsTitle, temperature, oxygen, generation);
     $(".production-modal").css("display", "flex");
+  }
+
+  playerClickedPass(){
+    this.playerList[currentPlayer].passTurn();
+  }
+
+  showActionModal(){
+    $(".action-modal").removeClass("hidden");
+  }
+
+  hideActionModal(){
+    $(".action-modal").addClass("hidden");
+  }
+
+  updateActionModalStats(){
+    $("#generation > p").text(this.generation);
+    $("#temperature > p").text(this.temperature);
+    $("#oxygen > p").text(this.oxygen);
+  }
+
+  appendCardstoActionModal(){
+
   }
 }
