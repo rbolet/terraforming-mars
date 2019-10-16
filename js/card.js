@@ -1,12 +1,22 @@
 class Card {
-  constructor(cost, type, changeRate, changeVal, tileToPlace) {
+  constructor(
+    cost,
+    type,
+    changeRate,
+    changeVal,
+    tileToPlace,
+    gameClickHandler
+  ) {
     //Accepts cost as number, type as string, changeRate as number, and changeVal as number
     this.causeEffect = this.causeEffect.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     //this.playCard = this.playCard.bind(this);
+    this.element = null; //jQuery object of the div
     this.cost = cost;
     this.type = type;
     this.permanent = false;
     this.tileToPlace = tileToPlace;
+    this.iWasClicked = gameClickHandler;
     this.valuesToChange = {
       changeRate: changeRate,
       changeVal: changeVal
@@ -17,13 +27,17 @@ class Card {
   getTileToPlace() {
     return this.tileToPlace;
   }
-
-  causeEffect(player) {
-    game.changeResource(player, this.type, this.valuesToChange); //Should be from callbacks
+  handleClick() {
+    this.iWasClicked(this);
+  }
+  causeEffect() {
+    game.changeResource(this.type, this.valuesToChange); //Should be from callbacks
   }
 
   render() {
-    var newDiv = $("<div>").addClass("card");
+    var newDiv = $("<div>")
+      .addClass("card")
+      .click(this.handleClick);
     var cost = $("<div>")
       .addClass("cost")
       .text(this.cost);

@@ -2,13 +2,10 @@ $(document).ready(initializeApp);
 var game;
 var cardDeck;
 var player1;
-
-function initializeApp(){
-
+function initializeApp() {
   game = new Game();
-  cardDeck = new CardDeck;
+  cardDeck = new CardDeck();
   board = new Board();
-
 
   game.newGame();
 }

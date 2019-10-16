@@ -20,16 +20,25 @@ class Player {
     this.victoryPoints += 1;
   }
 
-  playCard(cardToPlay) {
-    // expects a Card object
+  removeCardFromHand(card) {
+    this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
+  }
+
+  playCard(event) {
+    console.log(event); //get card object from event?
+    // expects an event
+    var cardToPlay = $(event.currentTarget);
+    console.log(cardToPlay);
+
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
-      if (cardToPlay.getTiletoPlace() === "city") {
-        board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-      } else if (cardToPlay.getTileToplace() === "forest") {
-        board.findValidForestTiles();
-      }
+      // if (cardToPlay.getTiletoPlace() === "city") {
+      //   board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+      // } else if (cardToPlay.getTileToplace() === "forest") {
+      //   board.findValidForestTiles();
+      // }
       cardToPlay.causeEffect(this);
+      this.removeCardFromHand(cardToPlay);
       //Playboard highlights, close modal, click handler on legal moves
     } else {
       return false;
@@ -44,7 +53,7 @@ class Player {
   addCardtoHand(cardtoAdd) {
     // expects a Card object
     this.cardsInHand.push(cardtoAdd);
-    //cardtoAdd.render();
+    // cardtoAdd.render();
     //going to append
   }
 
@@ -74,10 +83,10 @@ class Player {
     this.passedTurn = true;
     game.advanceTurn();
   }
-  get passed(){
+  get passed() {
     return this.passedTurn;
   }
-  set passed(input){
+  set passed(input) {
     this.passedTurn = false;
   }
   placeTile(tileType) {
