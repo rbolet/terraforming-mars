@@ -85,10 +85,10 @@
 }
 .board {
   position: absolute;
-  width: 700px;
-  height: 700px;
-  left: 610px;
-  top: 61px;
+  width: 875px;
+  height: 875px;
+  left: 450px;
+  top: 102px;
   background-image: url(assets/SolisPlanum.jpg);
 }
 .row {
@@ -106,13 +106,21 @@
   box-sizing: border-box;
 }
 
-.legalmove {
-  border: outset lime 5px;
+.legalMove {
+  border: outset lime 8px;
+}
+.forest {
+  background-image: url(assets/forest.png);
+  background-size: cover;
 }
 
+.city {
+  background-image: url(assets/city.png);
+  background-size: cover;
+}
 .stats {
   position: absolute;
-  width: 610px;
+  width: 378px;
   height: 1080px;
   left: 0;
   top: 0;
@@ -123,7 +131,7 @@
 .player3,
 .player4 {
   position: absolute;
-  width: 500px;
+  width: 323px;
   height: 200px;
   left: 55px;
   top: 61px;
@@ -139,7 +147,7 @@
 .player4 {
   top: 829px;
 }
-.production-modal{
+.production-modal {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.482);
   width: 100%;
@@ -148,39 +156,39 @@
   justify-content: center;
   align-items: center;
 }
-.modal-body{
+.modal-body {
   width: 90%;
   height: 90%;
   background-color: rgb(255, 255, 255);
 }
-.modal-title{
-background-color: rgb(88, 79, 255);
-text-align: center;
+.modal-title {
+  background-color: rgb(88, 79, 255);
+  text-align: center;
 }
-.modal-player{
-width: 300px;
-height: 400px;
-background-color: rgb(92, 92, 92);
-margin-top: 20px;
-}
-.modal-stats{
+.modal-player {
+  width: 300px;
+  height: 400px;
+  background-color: rgb(92, 92, 92);
   margin-top: 20px;
-width: 300px;
-height: 820px;
-background-color: rgb(92, 92, 92);
 }
-.modal-contents{
-    display: flex;
+.modal-stats {
+  margin-top: 20px;
+  width: 300px;
+  height: 820px;
+  background-color: rgb(92, 92, 92);
+}
+.modal-contents {
+  display: flex;
   justify-content: space-evenly;
   /* align-items: center; */
 }
-.modal-button{
+.modal-button {
   position: absolute;
   width: 200px;
   height: 80px;
   left: 1580px;
   top: 940px;
-  background: #C4C4C4;
+  background: #c4c4c4;
   text-align: center;
   font-size: 2em;
 }
