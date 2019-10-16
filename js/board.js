@@ -12,6 +12,18 @@ class Board {
     this.populateArray();
     // this.addClickHandler();
   }
+
+  gameOver() {
+    for (var row = 0; row < 5; row++) {
+      for (var cell = 0; cell < 5; cell++) {
+        var currentTile = this.boardArray[row][cell];
+        var tileOwner = currentTile.owner;
+        if (tileOwner) {
+          tileOwner.incrementVP();
+        }
+      }
+    }
+  }
   populateArray() {
     for (var row = 0; row < 5; row++) {
       var currentRow = $("<div>").addClass("row");

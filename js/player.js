@@ -24,7 +24,7 @@ class Player {
     }
   }
 
-  getResource( resourceType ) {
+  getResource(resourceType) {
     // expects string
     return this.resources[resourceType];
   }
@@ -59,7 +59,11 @@ class Player {
     );
   }
   passTurn() {}
-  placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
-    var newTile = new Tile(tileType, this)
+  placeTile(tileType) {
+    //Called by a card that knows what kind of tile to place. City or Greenery
+    var newTile = new Tile(tileType, this);
+  }
+  incrementVP() {
+    this.victoryPoints += 1;
   }
 }
