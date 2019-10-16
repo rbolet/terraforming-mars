@@ -24,8 +24,8 @@ class Board {
     }
   }
   addClickHandler() {
-    $(".board").on("click", $(".cell"), function() {
-      console.log("A cell was clicked");
+    $(".board").on("click", ".cell", function(event) {
+      $(event.currentTarget).toggleClass("legalmove");
     });
   }
 
