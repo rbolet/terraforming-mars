@@ -216,31 +216,43 @@ class Game {
   }
 
   advanceTurn() {
-    this.currentPlayer++;
     var playersPassed = 0;
+    this.currentPlayer++;
+    if (this.currentPlayer === this.playerList.length) {
+      this.currentPlayer = 0;
+    }
     for (var player = 0; player < this.playerList.length; player++) {
       if (this.playerList[player].passed) {
         playersPassed++;
-      } else if (player === this.playerList.length - 1 && playersPassed === this.playerList.length - 1) {
+      } else if (player === this.playerList.length - 1 && playersPassed === this.playerList.length) {
         for (var player2 = 0; player2 < this.playerList.length; player2++) {
           this.playerList[player2].passed = false;
         }
         this.advancePhase();
       }
     }
-    if (this.currentPlayer === this.playerList.length) {
-      this.currentPlayer = 0;
-    }
     for (var player = 1; player <= 4; player++) {
       $(".player" + player + " button").remove();
     }
-    var actionButton = $("<button>")
-      .addClass("action-button")
-      .text("Take Action");
-    var passButton = $("<button>")
-      .addClass("pass-button")
-      .text("Pass Turn");
-    $(".player" + (this.currentPlayer + 1)).append(actionButton, passButton);
+    for (var player = 0; player < this.playerList.length-1; player++) {
+      if (!this.playerList[this.currentPlayer].passed) {
+        var actionButton = $("<button>")
+          .addClass("action-button")
+          .text("Take Action");
+        var passButton = $("<button>")
+          .addClass("pass-button")
+          .text("Pass Turn");
+        console.log(this.currentPlayer)
+        $(".player" + (this.currentPlayer + 1)).append(actionButton, passButton);
+        break;
+      }
+      else {
+      this.currentPlayer++;
+        if (this.currentPlayer === this.playerList.length) {
+          this.currentPlayer = 0;
+        }}
+    }
+
   }
   shuffleCards() {
     var newPos = 0;
