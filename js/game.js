@@ -55,7 +55,8 @@ class Game {
       this.currentPhase++;
     }
   }
-  changeResource(player , typeToChange, valuesToChange){ //expects number, string, object
+
+  changeResource( player , typeToChange, valuesToChange){ //expects number, string, object
     var playerToChange = this.playerList[player];
     var resourceToChange = playerToChange.resources[typeToChange];
 
@@ -70,8 +71,33 @@ class Game {
 
   }
   productionPhase(){
+    var currentPlayer;
+    var currentEnergy;
+    debugger;
+    for (var playerIndex = 0; playerIndex < this.playerList.length; ++playerIndex){
+
+      currentPlayer = this.playerList[playerIndex];
+      currentEnergy = currentPlayer.getResource( "energy").currentValue;
+
+      //add energy to heat
+      this.changeResource(playerIndex, "heat", {currentValue : currentEnergy, rate : 0});
+      // remove all current energy
+      this.changeResource( playerIndex , "energy", {currentValue : -currentEnergy, rate : 0});
+
+      // add money per terraform rating
+      this.changeResource( playerIndex, "money", {currentValue : currentPlayer.terraformRating, rate: 0});
+
+      // add rating to current value of each resource
+      for (var typeKey in currentPlayer.resources){
+        this.changeResource( playerIndex, typeKey, {currentValue : currentPlayer.resources[typeKey].rate, rate : 0})
+      }
+
+    }
+
+    return true;
 
   }
+
   advanceTurn(){
     this.currentPlayer++;
     if (this.currentPlayer===this.playerList.length){

@@ -11,7 +11,7 @@ class Player {
     };
     this.victoryPoints = 0;
     this.cardsInHand = [];
-    //this.updateStats();
+    this.terraformRating = 20;
   }
 
   playCard(cardToPlay) {
@@ -24,12 +24,9 @@ class Player {
     }
   }
 
-  getResource(resourceType, resourceAmount) {
-    // expects string, number
-  }
-
-  setResource(resourceType, resourceAmount) {
-    // expects string, number
+  getResource( resourceType ) {
+    // expects string
+    return this.resources[resourceType];
   }
 
   addCardtoHand(cardtoAdd) {
