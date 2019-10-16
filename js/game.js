@@ -46,8 +46,10 @@ class Game {
   set oxygen(numToAdvance) {
     // expects number
     this.currentOxygen += numToAdvance;
+    this.updateProductionModal();
     if (this.currentOxygen > 14) {
       this.currentOxygen = 14;
+      this.updateProductionModal();
       return false;
     }
     this.playerList[this.currentPlayer].incrementVP();
@@ -60,8 +62,10 @@ class Game {
   set temperature(numToAdvance) {
     //expects number
     this.currentTemperature += numToAdvance;
+    this.updateProductionModal();
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
+      this.updateProductionModal();
       return false;
     }
     this.playerList[this.currentPlayer].incrementVP();
@@ -75,8 +79,10 @@ class Game {
   set generation(numToAdvance) {
     //expects number
     this.currentGeneration += numToAdvance;
+    this.updateProductionModal();
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
+      this.updateProductionModal();
       return false;
     }
     return true;
@@ -100,6 +106,7 @@ class Game {
 
     resourceToChange.currentValue += valuesToChange.currentValue;
     resourceToChange += valuesToChange.rate;
+    this.updatePlayerDisplays();
   }
   newGame() {
     this.addPlayer("Roger");
@@ -107,7 +114,7 @@ class Game {
     this.addPlayer("Pzo");
     this.addPlayer("Mystery Ghost");
     cardDeck.dealCard(3);
-    this.updatePlayerDisplays();
+    this.updatePlayerDisplays('start');
     var actionButton = $("<button>")
       .addClass("action-button")
       .text("Take Action");
@@ -118,24 +125,47 @@ class Game {
     this.hideActionModal();
   }
   updatePlayerDisplays() {
-    for (var player = 0; player < this.playerList.length; player++) {
-      var curPlayer = ".player" + (player + 1);
-      $(curPlayer + " div").remove();
-      var pName = $("<div>").text("Name: " + this.playerList[player].name);
-      var pMoney = $("<div>").text(
-        "Money: " + this.playerList[player].resources.money.currentValue
-      );
-      var pPlants = $("<div>").text(
-        "Plants: " + this.playerList[player].resources.plants.currentValue
-      );
-      var pEnergy = $("<div>").text(
-        "Energy: " + this.playerList[player].resources.energy.currentValue
-      );
-      var pHeat = $("<div>").text(
-        "Heat: " + this.playerList[player].resources.heat.currentValue
-      );
-      $(curPlayer).append(pName, pMoney, pPlants, pEnergy, pHeat);
+    if (arguments.length > 0) {
+      for (var player = 0; player < this.playerList.length; player++) {
+            var curPlayer = ".player" + (player + 1);
+            $(curPlayer + " div").remove();
+            var pName = $("<div>").text("Name: " + this.playerList[player].name);
+            var pMoney = $("<div>").text(
+              "Money: " + this.playerList[player].resources.money.currentValue
+            )
+            .addClass('money'+player);
+            var pPlants = $("<div>").text(
+              "Plants: " + this.playerList[player].resources.plants.currentValue
+            )
+              .addClass('plants' + player);
+            var pEnergy = $("<div>").text(
+              "Energy: " + this.playerList[player].resources.energy.currentValue
+            )
+              .addClass('energy' + player);
+            var pHeat = $("<div>").text(
+              "Heat: " + this.playerList[player].resources.heat.currentValue
+            )
+              .addClass('heat' + player);
+            $(curPlayer).append(pName, pMoney, pPlants, pEnergy, pHeat);
+      }
     }
+    else{
+      for (var player = 0; player < this.playerList.length; player++) {
+        $('.money' + player).text(
+          "Money: " + this.playerList[player].resources.money.currentValue
+        )
+        $('.plants' + player).text(
+          "Plants: " + this.playerList[player].resources.plants.currentValue
+        )
+        $('.energy' + player).text(
+          "Energy: " + this.playerList[player].resources.energy.currentValue
+        )
+        $('.heat' + player).text(
+          "Heat: " + this.playerList[player].resources.heat.currentValue
+        )
+      }
+    }
+
   }
   researchPhase() {
     cardDeck.dealCard(2);
@@ -274,6 +304,7 @@ class Game {
   }
 
   showActionModal() {
+    this.updateActionModalStats()
     $(".action-modal").removeClass("hidden");
   }
 
@@ -285,6 +316,15 @@ class Game {
     $("#generation > p").text(this.generation);
     $("#temperature > p").text(this.temperature);
     $("#oxygen > p").text(this.oxygen);
+
+    $(".currentDisplayMoney").text(this.playerList[this.currentPlayer].resources.money.currentValue);
+    $(".rateDisplayMoney").text(this.playerList[this.currentPlayer].resources.money.rate);
+    $(".currentDisplayPlants").text(this.playerList[this.currentPlayer].resources.plants.currentValue);
+    $(".rateDisplayPlants").text(this.playerList[this.currentPlayer].resources.plants.rate);
+    $(".currentDisplayEnergy").text(this.playerList[this.currentPlayer].resources.energy.currentValue);
+    $(".rateDisplayEnergy").text(this.playerList[this.currentPlayer].resources.energy.rate);
+    $(".currentDisplayHeat").text(this.playerList[this.currentPlayer].resources.heat.currentValue);
+    $(".rateDisplayHeat").text(this.playerList[this.currentPlayer].resources.heat.rate);
   }
 
   appendCardstoActionModal() {}
