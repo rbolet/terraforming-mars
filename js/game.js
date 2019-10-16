@@ -372,4 +372,12 @@ class Game {
       $(".card-display").append(currentCardDomElement);
     }
   }
+
+  removeCardDivfromModal( cardDivToRemove ){
+    if (typeof cardDivToRemove !== 'object'){
+      return false;
+    }else{
+      cardDivToRemove.remove();
+    }
+  }
 }

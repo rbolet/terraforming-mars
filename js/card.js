@@ -5,7 +5,8 @@ class Card {
     changeRate,
     changeVal,
     tileToPlace,
-    gameClickHandler
+    gameClickHandler,
+    gameRemoveDiv
   ) {
     //Accepts cost as number, type as string, changeRate as number, and changeVal as number
     this.causeEffect = this.causeEffect.bind(this);
