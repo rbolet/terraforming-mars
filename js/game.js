@@ -16,6 +16,7 @@ class Game {
 
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
+
   }
 
   updateState() {
@@ -327,5 +328,15 @@ class Game {
     $(".rateDisplayHeat").text(this.playerList[this.currentPlayer].resources.heat.rate);
   }
 
-  appendCardstoActionModal() {}
+  appendCardstoActionModal() {
+    var currentCardDomElement = null;
+
+    var currentPlayerHand = this.playerList[this.currentPlayer].cardsInHand
+    for (var cardtoAppend of currentPlayerHand){
+
+      currentCardDomElement = cardtoAppend.render();
+      $(".card-display").append(currentCardDomElement);
+
+    }
+  }
 }
