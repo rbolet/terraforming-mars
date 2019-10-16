@@ -8,6 +8,12 @@ class Game {
     this.phaseList = ["Research", "Action", "Production"];
     this.currentPlayer = 0;
     this.playerList = [];
+    this.applyModalClickHandlers();
+  }
+  applyModalClickHandlers(){
+    $('.production-modal-button').on('click',function(){
+      game.advancePhase();
+    })
   }
   get oxygen() {
     return this.currentOxygen;
@@ -54,6 +60,7 @@ class Game {
     else{
       this.currentPhase++;
     }
+    $('.production-modal').css('display', '');
   }
 
   changeResource( player , typeToChange, valuesToChange){ //expects number, string, object
@@ -73,7 +80,6 @@ class Game {
   productionPhase(){
     var currentPlayer;
     var currentEnergy;
-    debugger;
     for (var playerIndex = 0; playerIndex < this.playerList.length; ++playerIndex){
 
       currentPlayer = this.playerList[playerIndex];
@@ -91,9 +97,8 @@ class Game {
       for (var typeKey in currentPlayer.resources){
         this.changeResource( playerIndex, typeKey, {currentValue : currentPlayer.resources[typeKey].rate, rate : 0})
       }
-
     }
-
+    this.updateProductionModal();
     return true;
 
   }
@@ -120,4 +125,24 @@ class Game {
   var newPlayer = new Player(name);
   this.playerList.push(newPlayer);
   }
+  updateProductionModal(){
+    for (var player = 0; player < 4; player++) {
+      var playerDiv = '.p' + (player + 1);
+      $(playerDiv+" div").remove();
+      var playerName = $('<div>').text("Name: " + game.playerList[player].name).addClass('name' + (player + 1));
+      var money = $('<div>').text("Money: " + game.playerList[player].resources.money.currentValue).addClass('money' + (player+1));
+      var plants = $('<div>').text("Plants: " + game.playerList[player].resources.plants.currentValue).addClass('plants' + (player + 1));
+      var energy = $('<div>').text("Energy: " + game.playerList[player].resources.energy.currentValue).addClass('energy' + (player + 1));
+      var heat = $('<div>').text("Heat: " + game.playerList[player].resources.heat.currentValue).addClass('heat' + (player + 1));
+      $(playerDiv).append(playerName, money, plants, energy, heat);
+    }
+    $(".modal-stats div").remove();
+    var statsTitle = $('<div>').text('Global Stats');
+    var temperature = $('<div>').text('Temperatrure: '+game.currentTemperature+"ºC");
+    var oxygen = $('<div>').text('Oxygen: ' + game.currentOxygen+"%");
+    var generation = $('<div>').text('Generation: ' + game.currentGeneration);
+    $('.modal-stats').append(statsTitle,temperature,oxygen,generation);
+    $('.production-modal').css('display', 'flex');
+  }
+
 }
