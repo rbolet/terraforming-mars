@@ -107,8 +107,8 @@ class Game {
     var playerToChange = this.playerList[this.currentPlayer];
     var resourceToChange = playerToChange.resources[typeToChange];
 
-    resourceToChange.currentValue += valuesToChange.currentValue;
-    resourceToChange += valuesToChange.rate;
+    resourceToChange.currentValue += valuesToChange.changeVal;
+    resourceToChange.rate += valuesToChange.changeRate;
     this.updatePlayerDisplays();
     this.updateActionModalStats();
   }
@@ -190,18 +190,18 @@ class Game {
       currentEnergy = currentPlayer.getResource("energy").currentValue;
 
       //add energy to heat
-      this.changeResource(playerIndex, "heat", {
+      this.changeResource("heat", {
         currentValue: currentEnergy,
         rate: 0
       });
       // remove all current energy
-      this.changeResource(playerIndex, "energy", {
+      this.changeResource("energy", {
         currentValue: -currentEnergy,
         rate: 0
       });
 
       // add money per terraform rating
-      this.changeResource(playerIndex, "money", {
+      this.changeResource("money", {
         currentValue: currentPlayer.terraformRating,
         rate: 0
       });
