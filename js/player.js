@@ -18,13 +18,18 @@ class Player {
     // expects a Card object
     if (this.canPlay(cardToPlay)) {
       this.resources.money -= cardToPlay.cost;
-      //Check Game Board location
+      if (cardToPlay.getTiletoPlace() === "city") {
+        board.findValidCityTiles();
+      } else if (cardToPlay.getTileToplace() === "forest") {
+        board.findValidForestTiles();
+      }
+      //Playboard highlights, close modal, click handler on legal moves
     } else {
       return false;
     }
   }
 
-  getResource( resourceType ) {
+  getResource(resourceType) {
     // expects string
     return this.resources[resourceType];
   }
@@ -59,7 +64,8 @@ class Player {
     );
   }
   passTurn() {}
-  placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
-    var newTile = new Tile(tileType, this)
+  placeTile(tileType) {
+    //Called by a card that knows what kind of tile to place. City or Greenery
+    var newTile = new Tile(tileType, this);
   }
 }
