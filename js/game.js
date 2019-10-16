@@ -1,19 +1,20 @@
 class Game {
   constructor() {
+    this.advancePhase = this.advancePhase.bind(this);
+    this.addPlayer= this.addPlayer.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
-    this.currentPhase = 0;
+    this.currentPhase = 1;
 
     this.phaseList = ["Research", "Action", "Production"];
     this.currentPlayer = 0;
     this.playerList = [];
     this.applyModalClickHandlers();
+    this.phasePlayerWhoCanPlay = this.playerList.length;
   }
   applyModalClickHandlers(){
-    $('.production-modal-button').on('click',function(){
-      game.advancePhase();
-    })
+    $('.production-modal-button').on('click',this.advancePhase)
   }
   get oxygen() {
     return this.currentOxygen;
@@ -25,24 +26,28 @@ class Game {
       this.currentOxygen = 14;
       return false;
     }
+    this.playerList[this.currentPlayer].incrementVP();
     return true;
   }
-  get temperature(){
+  get temperature() {
     return this.currentTemperature;
   }
-  set temperature(numToAdvance){ //expects number
+  set temperature(numToAdvance) {
+    //expects number
     this.currentTemperature += numToAdvance;
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
       return false;
     }
+    this.playerList[this.currentPlayer].incrementVP();
     return true;
   }
 
-  get generation(){
-    return this.currentGeneration
+  get generation() {
+    return this.currentGeneration;
   }
-  set generation(numToAdvance){ //expects number
+  set generation(numToAdvance) {
+    //expects number
     this.currentGeneration += numToAdvance;
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
@@ -50,29 +55,36 @@ class Game {
     }
     return true;
   }
-  get phase(){
+  get phase() {
     return this.currentPhase;
   }
-  advancePhase(){
-    if (this.currentPhase===2){
-      this.currentPhase=0
-    }
-    else{
+  advancePhase() {
+    if (this.currentPhase === 2) {
+      this.currentPhase = 0;
+    } else {
       this.currentPhase++;
     }
-    $('.production-modal').css('display', '');
+    $(".production-modal").css("display", "");
   }
 
-  changeResource( player , typeToChange, valuesToChange){ //expects number, string, object
+  changeResource(player, typeToChange, valuesToChange) {
+    //expects number, string, object
     var playerToChange = this.playerList[player];
     var resourceToChange = playerToChange.resources[typeToChange];
 
     resourceToChange.currentValue += valuesToChange.currentValue;
     resourceToChange += valuesToChange.rate;
-
+  }
+  newGame(){
+    this.addPlayer('Roger');
+    this.addPlayer('Rapha');
+    this.addPlayer('Pzo');
+    this.addPlayer('Mystery Ghost');
+    cardDeck.dealCard(3);
   }
   researchPhase(){
-
+    cardDeck.dealCard(2);
+    this.advancePhase();
   }
   actionPhase(){
 
@@ -80,39 +92,58 @@ class Game {
   productionPhase(){
     var currentPlayer;
     var currentEnergy;
-    for (var playerIndex = 0; playerIndex < this.playerList.length; ++playerIndex){
-
+    for (
+      var playerIndex = 0;
+      playerIndex < this.playerList.length;
+      ++playerIndex
+    ) {
       currentPlayer = this.playerList[playerIndex];
-      currentEnergy = currentPlayer.getResource( "energy").currentValue;
+      currentEnergy = currentPlayer.getResource("energy").currentValue;
 
       //add energy to heat
-      this.changeResource(playerIndex, "heat", {currentValue : currentEnergy, rate : 0});
+      this.changeResource(playerIndex, "heat", {
+        currentValue: currentEnergy,
+        rate: 0
+      });
       // remove all current energy
-      this.changeResource( playerIndex , "energy", {currentValue : -currentEnergy, rate : 0});
+      this.changeResource(playerIndex, "energy", {
+        currentValue: -currentEnergy,
+        rate: 0
+      });
 
       // add money per terraform rating
-      this.changeResource( playerIndex, "money", {currentValue : currentPlayer.terraformRating, rate: 0});
+      this.changeResource(playerIndex, "money", {
+        currentValue: currentPlayer.terraformRating,
+        rate: 0
+      });
 
       // add rating to current value of each resource
-      for (var typeKey in currentPlayer.resources){
-        this.changeResource( playerIndex, typeKey, {currentValue : currentPlayer.resources[typeKey].rate, rate : 0})
+      for (var typeKey in currentPlayer.resources) {
+        this.changeResource(playerIndex, typeKey, {
+          currentValue: currentPlayer.resources[typeKey].rate,
+          rate: 0
+        });
       }
     }
     this.updateProductionModal();
     return true;
-
   }
 
-  advanceTurn(){
+  advanceTurn() {
     this.currentPlayer++;
-    if (this.currentPlayer===this.playerList.length){
-      this.currentPlayer=0;
+    if (this.currentPlayer === this.playerList.length) {
+      this.currentPlayer = 0;
     }
+    /* if() */
   }
-  shuffleCards(){
+  shuffleCards() {
     var newPos = 0;
     var tempVar = 0;
-    for (var position = this.cardsInDeck.length - 1; position >= 0; position--) {
+    for (
+      var position = this.cardsInDeck.length - 1;
+      position >= 0;
+      position--
+    ) {
       newPos = Math.floor(Math.random() * (position + 1));
       tempVar = this.cardsInDeck[position];
       this.cardsInDeck[position] = this.cardsInDeck[newPos];
@@ -121,28 +152,44 @@ class Game {
     return this.cardsInDeck;
   }
 
-  addPlayer(name){ // expects string
-  var newPlayer = new Player(name);
-  this.playerList.push(newPlayer);
+  addPlayer(name) {
+    // expects string
+    var newPlayer = new Player(name);
+    this.playerList.push(newPlayer);
   }
-  updateProductionModal(){
+  updateProductionModal() {
     for (var player = 0; player < 4; player++) {
-      var playerDiv = '.p' + (player + 1);
-      $(playerDiv+" div").remove();
-      var playerName = $('<div>').text("Name: " + game.playerList[player].name).addClass('name' + (player + 1));
-      var money = $('<div>').text("Money: " + game.playerList[player].resources.money.currentValue).addClass('money' + (player+1));
-      var plants = $('<div>').text("Plants: " + game.playerList[player].resources.plants.currentValue).addClass('plants' + (player + 1));
-      var energy = $('<div>').text("Energy: " + game.playerList[player].resources.energy.currentValue).addClass('energy' + (player + 1));
-      var heat = $('<div>').text("Heat: " + game.playerList[player].resources.heat.currentValue).addClass('heat' + (player + 1));
+      var playerDiv = ".p" + (player + 1);
+      $(playerDiv + " div").remove();
+      var playerName = $("<div>")
+        .text("Name: " + game.playerList[player].name)
+        .addClass("name" + (player + 1));
+      var money = $("<div>")
+        .text("Money: " + game.playerList[player].resources.money.currentValue)
+        .addClass("money" + (player + 1));
+      var plants = $("<div>")
+        .text(
+          "Plants: " + game.playerList[player].resources.plants.currentValue
+        )
+        .addClass("plants" + (player + 1));
+      var energy = $("<div>")
+        .text(
+          "Energy: " + game.playerList[player].resources.energy.currentValue
+        )
+        .addClass("energy" + (player + 1));
+      var heat = $("<div>")
+        .text("Heat: " + game.playerList[player].resources.heat.currentValue)
+        .addClass("heat" + (player + 1));
       $(playerDiv).append(playerName, money, plants, energy, heat);
     }
     $(".modal-stats div").remove();
-    var statsTitle = $('<div>').text('Global Stats');
-    var temperature = $('<div>').text('Temperatrure: '+game.currentTemperature+"ºC");
-    var oxygen = $('<div>').text('Oxygen: ' + game.currentOxygen+"%");
-    var generation = $('<div>').text('Generation: ' + game.currentGeneration);
-    $('.modal-stats').append(statsTitle,temperature,oxygen,generation);
-    $('.production-modal').css('display', 'flex');
+    var statsTitle = $("<div>").text("Global Stats");
+    var temperature = $("<div>").text(
+      "Temperatrure: " + game.currentTemperature + "ºC"
+    );
+    var oxygen = $("<div>").text("Oxygen: " + game.currentOxygen + "%");
+    var generation = $("<div>").text("Generation: " + game.currentGeneration);
+    $(".modal-stats").append(statsTitle, temperature, oxygen, generation);
+    $(".production-modal").css("display", "flex");
   }
-
 }

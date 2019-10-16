@@ -12,6 +12,18 @@ class Board {
     this.populateArray();
     // this.addClickHandler();
   }
+
+  gameOver() {
+    for (var row = 0; row < 5; row++) {
+      for (var cell = 0; cell < 5; cell++) {
+        var currentTile = this.boardArray[row][cell];
+        var tileOwner = currentTile.owner;
+        if (tileOwner) {
+          tileOwner.incrementVP();
+        }
+      }
+    }
+  }
   populateArray() {
     for (var row = 0; row < 5; row++) {
       var currentRow = $("<div>").addClass("row");
@@ -38,7 +50,6 @@ class Board {
     }
     return false;
   }
-  callFunctionOnEveryTile(targetFunction) {}
   markAllBoardAsLegal() {
     for (var row = 0; row < this.boardArray.length; row++) {
       for (var col = 0; col < this.boardArray[0].length; col++) {
@@ -117,7 +128,8 @@ class Board {
     }
   }
   handleTileClick(tileObject) {
-    console.log("tle was clicked", tileObject);
+    //Should place tile
+    console.log("tile was clicked", tileObject);
     tileObject.markLegalMove();
   }
   addClickHandler() {
@@ -125,12 +137,6 @@ class Board {
       console.log("You clicked a valid space!");
     });
   }
-
-  checkForTile(positionToCheck) {
-    // expects a position <- TBD how to store/pass positions
-  }
-
-  //Add class of legal moves to legal spots. Add click delegator for the gameboard that looks for a legal moved to be clicked
 
   placeTile(tiletoPlace, positionToPlace) {
     // expects Tile object, position <-TBD how to store/pass positions
