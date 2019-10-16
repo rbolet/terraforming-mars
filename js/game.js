@@ -4,6 +4,7 @@ class Game {
     this.addPlayer = this.addPlayer.bind(this);
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -17,7 +18,9 @@ class Game {
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
-
+  handleCardClick(cardObject) {
+    this.playerList[this.currentPlayer].playCard(cardObject);
+  }
   updateState() {
     $(".temperatureText").text(this.currentTemperature);
     $(".temperatureIndicator").css({
@@ -37,8 +40,8 @@ class Game {
     $(".production-modal-button").on("click", this.advancePhase);
     $("#pass-button").on("click", this.playerClickedPass);
     $("#view-board").on("click", this.hideActionModal);
-    $('body').on('click', '.action-button', this.showActionModal)
-    $('body').on('click','.pass-button',this.playerClickedPass);
+    $("body").on("click", ".action-button", this.showActionModal);
+    $("body").on("click", ".pass-button", this.playerClickedPass);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -99,9 +102,9 @@ class Game {
     $(".production-modal").css("display", "");
   }
 
-  changeResource(player, typeToChange, valuesToChange) {
+  changeResource(typeToChange, valuesToChange) {
     //expects number, string, object
-    var playerToChange = this.playerList[player];
+    var playerToChange = this.playerList[this.currentPlayer];
     var resourceToChange = playerToChange.resources[typeToChange];
 
     resourceToChange.currentValue += valuesToChange.currentValue;
@@ -114,7 +117,7 @@ class Game {
     this.addPlayer("Pzo");
     this.addPlayer("Mystery Ghost");
     cardDeck.dealCard(3);
-    this.updatePlayerDisplays('start');
+    this.updatePlayerDisplays("start");
     var actionButton = $("<button>")
       .addClass("action-button")
       .text("Take Action");
@@ -127,45 +130,45 @@ class Game {
   updatePlayerDisplays() {
     if (arguments.length > 0) {
       for (var player = 0; player < this.playerList.length; player++) {
-            var curPlayer = ".player" + (player + 1);
-            $(curPlayer + " div").remove();
-            var pName = $("<div>").text("Name: " + this.playerList[player].name);
-            var pMoney = $("<div>").text(
-              "Money: " + this.playerList[player].resources.money.currentValue
-            )
-            .addClass('money'+player);
-            var pPlants = $("<div>").text(
-              "Plants: " + this.playerList[player].resources.plants.currentValue
-            )
-              .addClass('plants' + player);
-            var pEnergy = $("<div>").text(
-              "Energy: " + this.playerList[player].resources.energy.currentValue
-            )
-              .addClass('energy' + player);
-            var pHeat = $("<div>").text(
-              "Heat: " + this.playerList[player].resources.heat.currentValue
-            )
-              .addClass('heat' + player);
-            $(curPlayer).append(pName, pMoney, pPlants, pEnergy, pHeat);
+        var curPlayer = ".player" + (player + 1);
+        $(curPlayer + " div").remove();
+        var pName = $("<div>").text("Name: " + this.playerList[player].name);
+        var pMoney = $("<div>")
+          .text(
+            "Money: " + this.playerList[player].resources.money.currentValue
+          )
+          .addClass("money" + player);
+        var pPlants = $("<div>")
+          .text(
+            "Plants: " + this.playerList[player].resources.plants.currentValue
+          )
+          .addClass("plants" + player);
+        var pEnergy = $("<div>")
+          .text(
+            "Energy: " + this.playerList[player].resources.energy.currentValue
+          )
+          .addClass("energy" + player);
+        var pHeat = $("<div>")
+          .text("Heat: " + this.playerList[player].resources.heat.currentValue)
+          .addClass("heat" + player);
+        $(curPlayer).append(pName, pMoney, pPlants, pEnergy, pHeat);
       }
-    }
-    else{
+    } else {
       for (var player = 0; player < this.playerList.length; player++) {
-        $('.money' + player).text(
+        $(".money" + player).text(
           "Money: " + this.playerList[player].resources.money.currentValue
-        )
-        $('.plants' + player).text(
+        );
+        $(".plants" + player).text(
           "Plants: " + this.playerList[player].resources.plants.currentValue
-        )
-        $('.energy' + player).text(
+        );
+        $(".energy" + player).text(
           "Energy: " + this.playerList[player].resources.energy.currentValue
-        )
-        $('.heat' + player).text(
+        );
+        $(".heat" + player).text(
           "Heat: " + this.playerList[player].resources.heat.currentValue
-        )
+        );
       }
     }
-
   }
   researchPhase() {
     cardDeck.dealCard(2);
@@ -223,16 +226,20 @@ class Game {
     for (var player = 0; player < this.playerList.length; player++) {
       if (this.playerList[player].passed) {
         playersPassed++;
-      }
-      if (player === this.playerList.length - 1 && playersPassed === this.playerList.length) {
+      } else if (
+        player === this.playerList.length - 1 &&
+        playersPassed === this.playerList.length - 1
+      ) {
         for (var player2 = 0; player2 < this.playerList.length; player2++) {
           this.playerList[player2].passed = false;
         }
         this.advancePhase();
       }
     }
-    for (var player = 0; player < this.playerList.length-1; player++) {
-
+    for (var player = 1; player <= 4; player++) {
+      $(".player" + player + " button").remove();
+    }
+    for (var player = 0; player < this.playerList.length - 1; player++) {
       if (!this.playerList[this.currentPlayer].passed) {
         var actionButton = $("<button>")
           .addClass("action-button")
@@ -240,17 +247,19 @@ class Game {
         var passButton = $("<button>")
           .addClass("pass-button")
           .text("Pass Turn");
-        $(".player" + (this.currentPlayer + 1)).append(actionButton, passButton);
+        console.log(this.currentPlayer);
+        $(".player" + (this.currentPlayer + 1)).append(
+          actionButton,
+          passButton
+        );
         break;
-      }
-      else {
-      this.currentPlayer++;
+      } else {
+        this.currentPlayer++;
         if (this.currentPlayer === this.playerList.length) {
           this.currentPlayer = 0;
         }
       }
     }
-
   }
   shuffleCards() {
     var newPos = 0;
@@ -318,7 +327,7 @@ class Game {
   }
 
   showActionModal() {
-    this.updateActionModalStats()
+    this.updateActionModalStats();
     $(".action-modal").removeClass("hidden");
   }
 
@@ -331,15 +340,39 @@ class Game {
     $("#temperature > p").text(this.temperature);
     $("#oxygen > p").text(this.oxygen);
 
-    $(".currentDisplayMoney").text(this.playerList[this.currentPlayer].resources.money.currentValue);
-    $(".rateDisplayMoney").text(this.playerList[this.currentPlayer].resources.money.rate);
-    $(".currentDisplayPlants").text(this.playerList[this.currentPlayer].resources.plants.currentValue);
-    $(".rateDisplayPlants").text(this.playerList[this.currentPlayer].resources.plants.rate);
-    $(".currentDisplayEnergy").text(this.playerList[this.currentPlayer].resources.energy.currentValue);
-    $(".rateDisplayEnergy").text(this.playerList[this.currentPlayer].resources.energy.rate);
-    $(".currentDisplayHeat").text(this.playerList[this.currentPlayer].resources.heat.currentValue);
-    $(".rateDisplayHeat").text(this.playerList[this.currentPlayer].resources.heat.rate);
+    $(".currentDisplayMoney").text(
+      this.playerList[this.currentPlayer].resources.money.currentValue
+    );
+    $(".rateDisplayMoney").text(
+      this.playerList[this.currentPlayer].resources.money.rate
+    );
+    $(".currentDisplayPlants").text(
+      this.playerList[this.currentPlayer].resources.plants.currentValue
+    );
+    $(".rateDisplayPlants").text(
+      this.playerList[this.currentPlayer].resources.plants.rate
+    );
+    $(".currentDisplayEnergy").text(
+      this.playerList[this.currentPlayer].resources.energy.currentValue
+    );
+    $(".rateDisplayEnergy").text(
+      this.playerList[this.currentPlayer].resources.energy.rate
+    );
+    $(".currentDisplayHeat").text(
+      this.playerList[this.currentPlayer].resources.heat.currentValue
+    );
+    $(".rateDisplayHeat").text(
+      this.playerList[this.currentPlayer].resources.heat.rate
+    );
   }
 
-  appendCardstoActionModal() {}
+  appendCardstoActionModal() {
+    var currentCardDomElement = null;
+
+    var currentPlayerHand = this.playerList[this.currentPlayer].cardsInHand;
+    for (var cardtoAppend of currentPlayerHand) {
+      currentCardDomElement = cardtoAppend.render();
+      $(".card-display").append(currentCardDomElement);
+    }
+  }
 }
