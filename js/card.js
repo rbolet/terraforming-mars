@@ -37,7 +37,7 @@ class Card {
       $("<div>").text(valueChangeText)
     );
     newDiv.append(cost, effect);
-    newDiv.on("click", tryToPlace);
+    // newDiv.on("click", tryToPlace);
     this.element = newDiv;
     return newDiv;
   }

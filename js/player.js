@@ -58,7 +58,9 @@ class Player {
       "Heat: " + this.resources.heat.currentValue
     );
   }
-  passTurn() {}
+  passTurn() {
+    this.passedTurn = true;
+  }
   placeTile(tileType){ //Called by a card that knows what kind of tile to place. City or Greenery
     var newTile = new Tile(tileType, this)
   }

@@ -1,19 +1,20 @@
 class Game {
   constructor() {
+    this.advancePhase = this.advancePhase.bind(this);
+    this.addPlayer= this.addPlayer.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
-    this.currentPhase = 0;
+    this.currentPhase = 1;
 
     this.phaseList = ["Research", "Action", "Production"];
     this.currentPlayer = 0;
     this.playerList = [];
     this.applyModalClickHandlers();
+    this.phasePlayerWhoCanPlay = this.playerList.length;
   }
   applyModalClickHandlers(){
-    $('.production-modal-button').on('click',function(){
-      game.advancePhase();
-    })
+    $('.production-modal-button').on('click',this.advancePhase)
   }
   get oxygen() {
     return this.currentOxygen;
@@ -71,8 +72,16 @@ class Game {
     resourceToChange += valuesToChange.rate;
 
   }
+  newGame(){
+    this.addPlayer('Roger');
+    this.addPlayer('Rapha');
+    this.addPlayer('Pzo');
+    this.addPlayer('Mystery Ghost');
+    cardDeck.dealCard(3);
+  }
   researchPhase(){
-
+    cardDeck.dealCard(2);
+    this.advancePhase();
   }
   actionPhase(){
 
@@ -108,6 +117,7 @@ class Game {
     if (this.currentPlayer===this.playerList.length){
       this.currentPlayer=0;
     }
+    /* if() */
   }
   shuffleCards(){
     var newPos = 0;

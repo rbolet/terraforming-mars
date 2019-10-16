@@ -11,9 +11,20 @@ class CardDeck{
     this.addCard();
     this.addCard();
     this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
+    this.addCard();
   }
 
   dealCard() {//deals 1 card to the current player. add argrument to give x cards to all players
+    debugger;
     if (arguments.length>0 && this.cardsInDeck.length>arguments[0]*game.playerList.length){
       for (var round = 1;round<=arguments[0];round++){
         for (var player = 0; player<game.playerList.length;player++){
@@ -23,11 +34,11 @@ class CardDeck{
         }
       }
     }
-    else{
+/*     else{
       var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
       game.playerList[game.currentPlayer].addCardtoHand(dealCard);
       this.cardsInDeck.pop();
-    }
+    } */
   }
   shuffleCards() {
     var newPos = 0;
