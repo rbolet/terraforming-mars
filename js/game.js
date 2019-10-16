@@ -319,6 +319,9 @@ class Game {
   }
 
   playerClickedPass() {
+    for (var player = 1; player <= 4; player++) {
+      $(".player" + player + " button").remove();
+    }
     this.hideActionModal();
     this.playerList[this.currentPlayer].passTurn();
   }

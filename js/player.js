@@ -48,6 +48,8 @@ class Player {
         return false;
       }
     }
+    }
+
   }
 
   getResource(resourceType) {
