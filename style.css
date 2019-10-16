@@ -184,7 +184,7 @@
 }
 
 .action-modal {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -323,7 +323,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   position: relative;
-  height: 15%;
+  height: 12%;
   width: 80%;
   background-color: darkslategray;
   text-align: center;
@@ -331,9 +331,17 @@
 }
 
 .global > p {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+}
+
+#view-board {
+  background-color: #12c0e7;
 }
 
 #pass-button {
   background-color: red;
+}
+
+.hidden {
+  display: none;
 }
