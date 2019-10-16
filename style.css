@@ -161,68 +161,89 @@
 }
 
 .action-modal{
-  display: flex;
+  display: none;
   justify-content: center;
-  align-items: center;
+  align-items: center ;
   margin: auto;
 }
 
-.current-player-stats, .card-display {
+.current-player-stats {
   position: absolute;
-  background-color: lime;
+  background-color: grey;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 80%;
   height: 10%;
-  margin: 20px;
+
 }
 
 .card-display {
   display: flex;
-  height: 45%;
+  position: absolute;
+  height: 60%;
   top: 20%;
-  left: 10%;
-  width: 60% ;
-  background-color: orange;
-  padding: 5%;
+  width: 65% ;
+  top: 270px;
+  left: 190px;
+  background-color: grey;
+  padding: 10px;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
 .card{
-  height: 270px;
-  width: 200px;
+  height: 205px;
+  width: 150px;
   background-color: white;
   border: 1px solid black;
-  margin: 5px;
+  margin: 2px;
 }
 
 .resource-display {
-
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end ;
   height: 90%;
   width: 24.25%;
-  background-color: fuchsia;
   margin: 2px;
 
+}
+
+.resource-name {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 1.75rem;
 }
 
 
 
 .current, .rate {
   display: flex;
+  position: relative;
   height: 70%;
   width: 48%;
   margin: .25%;
-  background-color: blue;
+  justify-content: center ;
+  align-items: flex-end ;
+  font-size: 2.5rem;
+}
+
+.resource-number-header{
+  background-color: none;
+  display: flex;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   justify-content: center;
-  align-items: center;
-  font-size: 3rem;
+  align-items: flex-start;
+  font-size: 1.5rem;
 }
 
 .modal-body{
@@ -259,5 +280,40 @@
   top: 940px;
   background: #c4c4c4;
   text-align: center;
-  font-size: 2em;
+  font-size: 2rem;
+}
+
+.global-stats {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60%;
+  width: 7.5%;
+  margin: 2px;
+  top: 270px;
+  left: 1600px;
+  background-color: gray;
+  padding: 10px
+}
+
+.global {
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+position: relative;
+height: 15%;
+width: 80%;
+background-color:darkslategray;
+text-align: center;
+font-size: 1rem;
+}
+
+.global > p{
+font-size: 1.5rem;
+}
+
+#pass-button {
+  background-color: red;
 }
