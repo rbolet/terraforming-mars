@@ -110,6 +110,7 @@ class Game {
     resourceToChange.currentValue += valuesToChange.changeVal;
     resourceToChange.rate += valuesToChange.changeRate;
     this.updatePlayerDisplays();
+    this.updateActionModalStats();
   }
   newGame() {
     this.addPlayer("Roger");

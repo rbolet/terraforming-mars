@@ -21,7 +21,8 @@ class Player {
   }
 
   removeCardFromHand(card) {
-    this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
+    if (!card.permanent)
+      this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
   }
 
   playCard(cardToPlay) {
@@ -36,11 +37,13 @@ class Player {
     } else {
       if (this.canPlay(cardToPlay)) {
         this.resources.money.currentValue -= cardToPlay.cost;
-        // if (cardToPlay.getTiletoPlace() === "city") {
-        //   board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-        // } else if (cardToPlay.getTileToplace() === "forest") {
-        //   board.findValidForestTiles();
-        // }
+        if (cardToPlay.getTiletoPlace() === "city") {
+          game.hideActionModal();
+          board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+        } else if (cardToPlay.getTileToplace() === "forest") {
+          game.hideActionModal();
+          board.findValidForestTiles();
+        }
         cardToPlay.causeEffect();
         this.removeCardFromHand(cardToPlay);
         this.actionNum++;
