@@ -94,21 +94,31 @@ class Game {
     return this.currentPhase;
   }
   advancePhase() {
-    if (this.currentPhase === 2) {
-      this.currentPhase = 0;
-    } else {
-      this.currentPhase++;
+    this.currentPhase++;
+    switch (this.currentPhase){
+      case 0:
+        this.researchPhase();
+        break;
+      case 1:
+        this.actionPhase();
+        break;
+      case 2:
+        this.productionPhase();
+        break;
+      case 3:
+        this.currentPhase = 0;
+        break;
     }
     $(".production-modal").css("display", "");
   }
 
-  changeResource(typeToChange, valuesToChange) {
+  changeResource(typeToChange, valuesToChange,player) {
     //expects number, string, object
-    var playerToChange = this.playerList[this.currentPlayer];
+    var playerToChange = this.playerList[player];
     var resourceToChange = playerToChange.resources[typeToChange];
 
-    resourceToChange.currentValue += valuesToChange.changeVal;
-    resourceToChange.rate += valuesToChange.changeRate;
+    resourceToChange.currentValue += resourceToChange.currentValue;
+    resourceToChange.rate += resourceToChange.rate;
     this.updatePlayerDisplays();
     this.updateActionModalStats();
   }
@@ -183,7 +193,7 @@ class Game {
     this.advancePhase();
   }
   actionPhase() {
-    this.playerList[this.currentPlayer];
+
   }
   productionPhase() {
     var currentPlayer;
@@ -195,30 +205,29 @@ class Game {
     ) {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
-
       //add energy to heat
       this.changeResource("heat", {
         currentValue: currentEnergy,
         rate: 0
-      });
+      },playerIndex);
       // remove all current energy
       this.changeResource("energy", {
         currentValue: -currentEnergy,
         rate: 0
-      });
+      }, playerIndex);
 
       // add money per terraform rating
       this.changeResource("money", {
         currentValue: currentPlayer.terraformRating,
         rate: 0
-      });
+      }, playerIndex);
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
-        this.changeResource(playerIndex, typeKey, {
+        this.changeResource(typeKey, {
           currentValue: currentPlayer.resources[typeKey].rate,
           rate: 0
-        });
+        },playerIndex);
       }
     }
     this.updateProductionModal();
@@ -226,6 +235,7 @@ class Game {
   }
 
   advanceTurn() {
+    this.hideActionModal();
     var playersPassed = 0;
     this.currentPlayer++;
     if (this.currentPlayer === this.playerList.length) {
@@ -234,9 +244,10 @@ class Game {
     for (var player = 0; player < this.playerList.length; player++) {
       if (this.playerList[player].passed) {
         playersPassed++;
+        console.log("players passed "+playersPassed)
       } else if (
         player === this.playerList.length - 1 &&
-        playersPassed === this.playerList.length - 1
+        playersPassed === 4
       ) {
         for (var player2 = 0; player2 < this.playerList.length; player2++) {
           this.playerList[player2].passed = false;
@@ -335,6 +346,7 @@ class Game {
   }
 
   showActionModal() {
+    this.appendCardstoActionModal();
     this.updateActionModalStats();
     $(".action-modal").removeClass("hidden");
   }
@@ -376,7 +388,7 @@ class Game {
 
   appendCardstoActionModal() {
     var currentCardDomElement = null;
-
+    $('.card').remove();
     var currentPlayerHand = this.playerList[this.currentPlayer].cardsInHand;
     for (var cardtoAppend of currentPlayerHand) {
       currentCardDomElement = cardtoAppend.render();
