@@ -1,5 +1,5 @@
 class Game {
-  constructor() {
+  constructor(cardListFromMain) {
     this.advancePhase = this.advancePhase.bind(this);
     this.addPlayer = this.addPlayer.bind(this);
     this.showActionModal = this.showActionModal.bind(this);
@@ -9,7 +9,7 @@ class Game {
     this.currentTemperature = -30;
     this.currentGeneration = 1;
     this.currentPhase = 1;
-
+    this.cardList = cardListFromMain;
     this.phaseList = ["Research", "Action", "Production"];
     this.currentPlayer = 0;
     this.playerList = [];
@@ -112,11 +112,14 @@ class Game {
     this.updatePlayerDisplays();
   }
   newGame() {
+    var board = new Board();
+    var cardDeck = new CardDeck(this.cardList, this.handleCardClick, this.removeCardDivfromModal);
+
     this.addPlayer("Roger");
     this.addPlayer("Rapha");
     this.addPlayer("Pzo");
     this.addPlayer("Mystery Ghost");
-    cardDeck.dealCard(3);
+    // cardDeck.dealCard(3);
     this.updatePlayerDisplays("start");
     var actionButton = $("<button>")
       .addClass("action-button")
