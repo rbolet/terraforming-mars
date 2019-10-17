@@ -27,10 +27,8 @@ class Card {
     this.iWasClicked(this);
   }
   causeEffect() {
-    game.changeResource(
-      this.typeObj.type,
-      this.typeObj.effects.resourcesvaluesToChange
-    ); //Should be from callbacks
+    for (var effect of this.typeObj)
+      game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks
   }
 
   render() {

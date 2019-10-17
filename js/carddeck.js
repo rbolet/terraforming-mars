@@ -15,6 +15,7 @@ class CardDeck {
         this.cardClickCallback,
         this.removeDivCallback
       );
+      this.cardsInDeck[deckIndex] = card;
     }
   }
   dealCard() {
