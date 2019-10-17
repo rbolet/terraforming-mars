@@ -5,9 +5,8 @@ class CardDeck {
     this.createCards();
     this.dealCard(3);
   }
-  createCards(){
-    for (var deckIndex = 0; deckIndex < this.cardsInDeck.length; deckIndex++){
-
+  createCards() {
+    for (var deckIndex = 0; deckIndex < this.cardsInDeck.length; deckIndex++) {
       var card = new Card(
         this.cardsInDeck[deckIndex][0],
         this.cardsInDeck[deckIndex][1],
@@ -15,7 +14,7 @@ class CardDeck {
         this.cardsInDeck[deckIndex][3],
         this.cardClickCallback,
         this.removeDivCallback
-        )
+      );
     }
   }
   dealCard() {

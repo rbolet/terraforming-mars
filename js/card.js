@@ -2,8 +2,6 @@ class Card {
   constructor(
     cost,
     type,
-    changeRate,
-    changeVal,
     tileToPlace,
     permanentBool,
     gameClickHandler,
@@ -19,10 +17,6 @@ class Card {
     this.permanent = permanentBool;
     this.tileToPlace = tileToPlace;
     this.iWasClicked = gameClickHandler;
-    this.valuesToChange = {
-      changeRate: changeRate,
-      changeVal: changeVal
-    };
   }
 
   //Card needs to cll board to show valid placements
@@ -33,7 +27,10 @@ class Card {
     this.iWasClicked(this);
   }
   causeEffect() {
-    game.changeResource(this.type, this.valuesToChange); //Should be from callbacks
+    game.changeResource(
+      this.typeObj.type,
+      this.typeObj.effects.resourcesvaluesToChange
+    ); //Should be from callbacks
   }
 
   render() {
@@ -59,8 +56,5 @@ class Card {
     // newDiv.on("click", tryToPlace);
     this.element = newDiv;
     return newDiv;
-  }
-  getTileToPlace() {
-    return this.tileToPlace;
   }
 }
