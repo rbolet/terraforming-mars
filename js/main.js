@@ -1,12 +1,19 @@
 $(document).ready(initializeApp);
 var game;
-function initializeApp() {
-  game = new Game(cardList);
-  game.newGame();
-}
+var cardList;
 
-var cardList = [ // cost == #, array of effects {type: 'String', changes: {currentValue: #, rate, #}}, tileToPlace == 'string', permanent T/F gameClick, gameRemove
-  [9, [{type: "plants", effects: {resources : { currentValue: 0,rate: 1}}}] , null , false],
+function initializeApp() {
+// cost == #, array of effects {type: 'String', changes: {currentValue: #, rate, #}}, tileToPlace == 'string', permanent T/F gameClick, gameRemove
+cardList = [
+  [9, [{
+    type: "plants",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 1
+      }
+    }
+  }], null, false],
   [11, [{
     type: "energy",
     effects: {
@@ -98,3 +105,8 @@ var cardList = [ // cost == #, array of effects {type: 'String', changes: {curre
     }
   }], null, false]
 ]
+
+  cardList.concat(cardList).concat(cardList).concat(cardList);
+  game = new Game(cardList);
+  game.newGame();
+}

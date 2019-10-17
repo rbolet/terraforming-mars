@@ -1,9 +1,9 @@
 class CardDeck {
-  constructor(cardList, cardClickCallback, removeDivCallback) {
+  constructor(cardList, gameClickCallback, gameDivCallback) {
     this.cardsInDeck = cardList;
-
+    this.cardClickCallback = gameClickCallback;
+    this.removeDivCallback = gameDivCallback;
     this.createCards();
-    this.dealCard(3);
   }
   createCards() {
     for (var deckIndex = 0; deckIndex < this.cardsInDeck.length; deckIndex++) {
@@ -20,8 +20,8 @@ class CardDeck {
   dealCard() {
     //deals 1 card to the current player. add argrument to give x cards to all players
     if (
-      arguments.length > 0 &&
-      this.cardsInDeck.length > arguments[0] * game.playerList.length
+      arguments.length > 0 //&&
+      //this.cardsInDeck.length > arguments[0] * game.playerList.length
     ) {
       for (var round = 1; round <= arguments[0]; round++) {
         for (var player = 0; player < game.playerList.length; player++) {
