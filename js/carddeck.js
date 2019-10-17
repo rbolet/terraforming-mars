@@ -1,28 +1,23 @@
 class CardDeck {
-  constructor() {
-    this.cardsInDeck = [];
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-    this.addCard();
-  }
+  constructor(cardList, cardClickCallback, removeDivCallback) {
+    this.cardsInDeck = cardList;
 
+    this.createCards();
+    this.dealCard(3);
+  }
+  createCards(){
+    for (var deckIndex = 0; deckIndex < this.cardsInDeck.length; deckIndex++){
+
+      var card = new Card(
+        this.cardsInDeck[deckIndex][0],
+        this.cardsInDeck[deckIndex][1],
+        this.cardsInDeck[deckIndex][2],
+        this.cardsInDeck[deckIndex][3],
+        this.cardClickCallback,
+        this.removeDivCallback
+        )
+    }
+  }
   dealCard() {
     //deals 1 card to the current player. add argrument to give x cards to all players
     if (

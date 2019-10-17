@@ -1,11 +1,100 @@
 $(document).ready(initializeApp);
 var game;
-var cardDeck;
-var board;
 function initializeApp() {
-  game = new Game();
-  cardDeck = new CardDeck();
-  board = new Board();
-
+  game = new Game(cardList);
   game.newGame();
 }
+
+var cardList = [ // cost == #, array of effects {type: 'String', changes: {currentValue: #, rate, #}}, tileToPlace == 'string', permanent T/F gameClick, gameRemove
+  [9, [{type: "plants", effects: {resources : { currentValue: 0,rate: 1}}}] , null , false],
+  [11, [{
+    type: "energy",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 2
+      }
+    }
+  }], null, false],
+  [4, [{
+    type: "energy",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 1
+      }
+    }
+  }], null, false],
+  [3, [{
+    type: "heat",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 1
+      }
+    }
+  }], null, false],
+  [11, [{
+    type: "energy",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 1
+      }
+    }
+  }], null, false],
+  [21, [{
+    type: "money",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 5
+      }
+    }
+  }], null, false],
+  [35, [{
+    type: "heat",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 7
+      }
+    }
+  }], null, false],
+  [9, [{
+    type: "heat",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 2
+      }
+    }
+  }], null, false],
+  [17, [{
+    type: "energy",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 3
+      }
+    }
+  }], null, false],
+  [14, [{
+    type: "energy",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 3
+      }
+    }
+  }], null, false],
+  [7, [{
+    type: "heat",
+    effects: {
+      resources: {
+        currentValue: 0,
+        rate: 1
+      }
+    }
+  }], null, false]
+]
