@@ -116,11 +116,11 @@ class Game {
     var board = new Board();
     var cardDeck = new CardDeck(this.cardList, this.handleCardClick, this.removeCardDivfromModal);
 
-    this.addPlayer("Roger");
-    this.addPlayer("Rapha");
-    this.addPlayer("Pzo");
-    this.addPlayer("Mystery Ghost");
-    // cardDeck.dealCard(3);
+    this.addPlayer("Roger", this.handleCardClick);
+    this.addPlayer("Rapha", this.handleCardClick);
+    this.addPlayer("Pzo", this.handleCardClick);
+    this.addPlayer("Mystery Ghost", this.handleCardClick);
+    cardDeck.dealCard(3);
     this.updatePlayerDisplays("start");
     var actionButton = $("<button>")
       .addClass("action-button")
@@ -379,7 +379,6 @@ class Game {
       $(".card-display").append(currentCardDomElement);
     }
   }
-
   removeCardDivfromModal( cardDivToRemove ){
     if (typeof cardDivToRemove !== 'object'){
       return false;

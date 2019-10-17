@@ -1,9 +1,10 @@
 class Player {
-  constructor(playerName) {
+  constructor(playerName, cardClickedCallBack) {
     //expects String
     this.incrementVP = this.incrementVP.bind(this);
     this.name = playerName;
     this.passedTurn = false;
+    this.handleCardClick = cardClickedCallBack;
     this.playCard = this.playCard.bind(this);
     this.resources = {
       money: { currentValue: 42, rate: 1 },
@@ -12,7 +13,62 @@ class Player {
       heat: { currentValue: 0, rate: 1 }
     };
     this.victoryPoints = 0;
-    this.cardsInHand = [];
+    this.cardsInHand = [
+      new Card(11, [
+        {
+          type: "energy",
+          effects: { resources: { currentValue: 0, rate: 1 } }
+        },
+        true,
+        null,
+        this.handleCardClick
+      ]),
+      new Card(14, [
+        {
+          type: "heat",
+          effects: { resources: { currentValue: 0, rate: 0 } }
+        },
+        true,
+        null,
+        this.handleCardClick
+      ]),
+      new Card(23, [
+        {
+          type: "plants",
+          effects: { resources: { currentValue: 0, rate: 0 } }
+        },
+        true,
+        "forest",
+        this.handleCardClick
+      ]),
+      new Card(25, [
+        {
+          type: "money",
+          effects: { resources: { currentValue: 0, rate: 1 } }
+        },
+        true,
+        "city",
+        this.handleCardClick
+      ]),
+      new Card(0, [
+        {
+          type: "plants",
+          effects: { resources: { currentValue: -8, rate: 0 } }
+        },
+        true,
+        "forest",
+        this.handleCardClick
+      ]),
+      new Card(0, [
+        {
+          type: "heat",
+          effects: { resources: { currentValue: -8, rate: 0 } }
+        },
+        true,
+        "heat",
+        this.handleCardClick
+      ])
+    ];
     this.terraformRating = 20;
   }
 
@@ -43,6 +99,9 @@ class Player {
         } else if (cardToPlay.getTileToplace() === "forest") {
           game.hideActionModal();
           board.findValidForestTiles();
+          game.oxygen = 1;
+        } else if (cardToPlay.getTileToPlace() === "heat") {
+          game.tempurature = 2;
         }
         cardToPlay.causeEffect();
         this.removeCardFromHand(cardToPlay);
