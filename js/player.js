@@ -114,7 +114,7 @@ class Player {
         if (cardToPlay.getTileToPlace() === "city") {
           game.hideActionModal();
           board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-        } else if (cardToPlay.getTileToplace() === "forest") {
+        } else if (cardToPlay.getTileToPlace() === "forest") {
           game.hideActionModal();
           board.findValidForestTiles();
           game.oxygen = 1;
