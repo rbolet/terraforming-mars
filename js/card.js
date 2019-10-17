@@ -5,16 +5,18 @@ class Card {
     changeRate,
     changeVal,
     tileToPlace,
-    gameClickHandler
+    permanentBool,
+    gameClickHandler,
+    gameRemoveDiv
   ) {
-    //Accepts cost as number, type as string, changeRate as number, and changeVal as number
+    //Accepts cost as number, type as string,
     this.causeEffect = this.causeEffect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     //this.playCard = this.playCard.bind(this);
     this.element = null; //jQuery object of the div
     this.cost = cost;
     this.type = type;
-    this.permanent = false;
+    this.permanent = permanentBool;
     this.tileToPlace = tileToPlace;
     this.iWasClicked = gameClickHandler;
     this.valuesToChange = {
