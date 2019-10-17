@@ -123,6 +123,10 @@ class Game {
     this.updateActionModalStats();
   }
   newGame() {
+<<<<<<< HEAD
+
+=======
+>>>>>>> d7af32b030472f1710316bc3fc4340045d6895f7
     var board = new Board();
     var cardDeck = new CardDeck(
       this.cardList,
