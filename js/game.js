@@ -113,7 +113,7 @@ class Game {
     this.updateActionModalStats();
   }
   newGame() {
-    debugger;
+
     var board = new Board();
     var cardDeck = new CardDeck(
       this.cardList,

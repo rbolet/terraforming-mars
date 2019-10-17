@@ -13,7 +13,7 @@ class Card {
     //this.playCard = this.playCard.bind(this);
     this.element = null; //jQuery object of the div
     this.cost = cost;
-    this.type = type;
+    this.typeObj = type;
     this.permanent = permanentBool;
     this.tileToPlace = tileToPlace;
     this.iWasClicked = gameClickHandler;
