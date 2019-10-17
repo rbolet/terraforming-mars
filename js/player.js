@@ -6,6 +6,7 @@ class Player {
     this.passedTurn = false;
     this.handleCardClick = cardClickedCallBack;
     this.playCard = this.playCard.bind(this);
+    this.actionNum = 0;
     this.resources = {
       money: { currentValue: 42, rate: 1 },
       plants: { currentValue: 0, rate: 1 },
@@ -107,14 +108,13 @@ class Player {
         $(".player" + player + " button").remove();
       }
       this.actionNum = 0;
-      game.advanceTurn();
     } else {
       if (this.canPlay(cardToPlay)) {
         this.resources.money.currentValue -= cardToPlay.cost;
         if (cardToPlay.getTileToPlace() === "city") {
           game.hideActionModal();
           board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-        } else if (cardToPlay.getTileToplace() === "forest") {
+        } else if (cardToPlay.getTileToPlace() === "forest") {
           game.hideActionModal();
           board.findValidForestTiles();
           game.oxygen = 1;
@@ -124,6 +124,9 @@ class Player {
         cardToPlay.causeEffect();
         this.removeCardFromHand(cardToPlay);
         this.actionNum++;
+        if (this.actionNum === 2){
+          game.advanceTurn();
+        }
       } else {
         return false;
       }
