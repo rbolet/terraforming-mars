@@ -94,10 +94,20 @@ class Game {
     return this.currentPhase;
   }
   advancePhase() {
-    if (this.currentPhase === 2) {
-      this.currentPhase = 0;
-    } else {
-      this.currentPhase++;
+    this.currentPhase++;
+    switch (this.currentPhase){
+      case 0:
+        this.researchPhase();
+        break;
+      case 1:
+        this.actionPhase();
+        break;
+      case 2:
+        this.productionPhase();
+        break;
+      case 3:
+        this.currentPhase = 0;
+        break;
     }
     $(".production-modal").css("display", "");
   }
@@ -107,8 +117,8 @@ class Game {
     var playerToChange = this.playerList[this.currentPlayer];
     var resourceToChange = playerToChange.resources[typeToChange];
 
-    resourceToChange.currentValue += valuesToChange.changeVal;
-    resourceToChange.rate += valuesToChange.changeRate;
+    resourceToChange.currentValue += valuesToChange.currentValue;
+    resourceToChange.rate += valuesToChange.rate;
     this.updatePlayerDisplays();
     this.updateActionModalStats();
   }
@@ -176,7 +186,7 @@ class Game {
     this.advancePhase();
   }
   actionPhase() {
-    this.playerList[this.currentPlayer];
+
   }
   productionPhase() {
     var currentPlayer;
@@ -188,7 +198,7 @@ class Game {
     ) {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
-
+      debugger;
       //add energy to heat
       this.changeResource("heat", {
         currentValue: currentEnergy,
@@ -371,7 +381,7 @@ class Game {
 
   appendCardstoActionModal() {
     var currentCardDomElement = null;
-
+    $('.card').remove();
     var currentPlayerHand = this.playerList[this.currentPlayer].cardsInHand;
     for (var cardtoAppend of currentPlayerHand) {
       currentCardDomElement = cardtoAppend.render();

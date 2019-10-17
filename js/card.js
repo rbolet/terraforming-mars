@@ -58,7 +58,4 @@ class Card {
     this.element = newDiv;
     return newDiv;
   }
-  getTileToPlace() {
-    return this.tileToPlace;
-  }
 }
