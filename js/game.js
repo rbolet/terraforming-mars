@@ -113,8 +113,13 @@ class Game {
     this.updateActionModalStats();
   }
   newGame() {
+    debugger;
     var board = new Board();
-    var cardDeck = new CardDeck(this.cardList, this.handleCardClick, this.removeCardDivfromModal);
+    var cardDeck = new CardDeck(
+      this.cardList,
+      this.handleCardClick,
+      this.removeCardDivfromModal
+    );
 
     this.addPlayer("Roger", this.handleCardClick);
     this.addPlayer("Rapha", this.handleCardClick);
@@ -281,9 +286,9 @@ class Game {
     return this.cardsInDeck;
   }
 
-  addPlayer(name) {
+  addPlayer(name, callback) {
     // expects string
-    var newPlayer = new Player(name);
+    var newPlayer = new Player(name, callback);
     this.playerList.push(newPlayer);
   }
   updateProductionModal() {
@@ -379,10 +384,10 @@ class Game {
       $(".card-display").append(currentCardDomElement);
     }
   }
-  removeCardDivfromModal( cardDivToRemove ){
-    if (typeof cardDivToRemove !== 'object'){
+  removeCardDivfromModal(cardDivToRemove) {
+    if (typeof cardDivToRemove !== "object") {
       return false;
-    }else{
+    } else {
       cardDivToRemove.remove();
     }
   }

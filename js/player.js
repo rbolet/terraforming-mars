@@ -14,60 +14,78 @@ class Player {
     };
     this.victoryPoints = 0;
     this.cardsInHand = [
-      new Card(11, [
-        {
-          type: "energy",
-          effects: { resources: { currentValue: 0, rate: 1 } }
-        },
-        true,
+      new Card(
+        11,
+        [
+          {
+            type: "energy",
+            effects: { resources: { currentValue: 0, rate: 1 } }
+          }
+        ],
         null,
-        this.handleCardClick
-      ]),
-      new Card(14, [
-        {
-          type: "heat",
-          effects: { resources: { currentValue: 0, rate: 0 } }
-        },
         true,
+        this.handleCardClick
+      ),
+      new Card(
+        14,
+        [
+          {
+            type: "heat",
+            effects: { resources: { currentValue: 0, rate: 0 } }
+          }
+        ],
         null,
-        this.handleCardClick
-      ]),
-      new Card(23, [
-        {
-          type: "plants",
-          effects: { resources: { currentValue: 0, rate: 0 } }
-        },
         true,
+        this.handleCardClick
+      ),
+      new Card(
+        23,
+        [
+          {
+            type: "plants",
+            effects: { resources: { currentValue: 0, rate: 0 } }
+          }
+        ],
         "forest",
-        this.handleCardClick
-      ]),
-      new Card(25, [
-        {
-          type: "money",
-          effects: { resources: { currentValue: 0, rate: 1 } }
-        },
         true,
+        this.handleCardClick
+      ),
+      new Card(
+        25,
+        [
+          {
+            type: "money",
+            effects: { resources: { currentValue: 0, rate: 1 } }
+          }
+        ],
         "city",
-        this.handleCardClick
-      ]),
-      new Card(0, [
-        {
-          type: "plants",
-          effects: { resources: { currentValue: -8, rate: 0 } }
-        },
         true,
+        this.handleCardClick
+      ),
+      new Card(
+        0,
+        [
+          {
+            type: "plants",
+            effects: { resources: { currentValue: -8, rate: 0 } }
+          }
+        ],
         "forest",
-        this.handleCardClick
-      ]),
-      new Card(0, [
-        {
-          type: "heat",
-          effects: { resources: { currentValue: -8, rate: 0 } }
-        },
         true,
-        "heat",
         this.handleCardClick
-      ])
+      ),
+      new Card(
+        0,
+        [
+          {
+            type: "heat",
+            effects: { resources: { currentValue: -8, rate: 0 } }
+          }
+        ],
+        "heat",
+        true,
+        this.handleCardClick
+      )
     ];
     this.terraformRating = 20;
   }
@@ -93,7 +111,7 @@ class Player {
     } else {
       if (this.canPlay(cardToPlay)) {
         this.resources.money.currentValue -= cardToPlay.cost;
-        if (cardToPlay.getTiletoPlace() === "city") {
+        if (cardToPlay.getTileToPlace() === "city") {
           game.hideActionModal();
           board.findValidCityTiles(); // Shouldn't do this, pass in a call back
         } else if (cardToPlay.getTileToplace() === "forest") {

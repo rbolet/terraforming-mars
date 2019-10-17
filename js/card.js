@@ -2,8 +2,6 @@ class Card {
   constructor(
     cost,
     type,
-    changeRate,
-    changeVal,
     tileToPlace,
     permanentBool,
     gameClickHandler,
