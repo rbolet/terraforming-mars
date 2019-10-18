@@ -183,7 +183,9 @@ function initializeApp() {
     ]
   ];
 
-  cardList
+  cardList = cardList
+    .concat(cardList)
+    .concat(cardList)
     .concat(cardList)
     .concat(cardList)
     .concat(cardList);

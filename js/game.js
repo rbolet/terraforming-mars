@@ -11,15 +11,15 @@ class Game {
     this.currentPhase = 1;
     this.cardList = cardListFromMain;
     this.phaseList = ["Research", "Action", "Production"];
-    this.currentPlayer = 0;
     this.playerList = [];
+    this.whoCanPlayArray= [0,1,2,3];
     this.applyModalClickHandlers();
 
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
   handleCardClick(cardObject) {
-    this.playerList[this.currentPlayer].playCard(cardObject);
+    this.playerList[this.whoCanPlayArray[0]].playCard(cardObject);
   }
   updateState() {
     $(".temperatureText").text(this.currentTemperature);
@@ -55,7 +55,7 @@ class Game {
       this.updateProductionModal();
       return false;
     }
-    this.playerList[this.currentPlayer].incrementVP();
+    this.playerList[this.whoCanPlayArray[0]].incrementVP();
     this.updateState();
     return true;
   }
@@ -71,7 +71,7 @@ class Game {
       this.updateProductionModal();
       return false;
     }
-    this.playerList[this.currentPlayer].incrementVP();
+    this.playerList[this.whoCanPlayArray[0]].incrementVP();
     this.updateState();
     return true;
   }
@@ -94,6 +94,9 @@ class Game {
     return this.currentPhase;
   }
   advancePhase() {
+    for (var i = 0; i < this.playerList.length; i++) {
+      this.whoCanPlayArray.push(i);
+    }
     this.currentPhase++;
     switch (this.currentPhase) {
       case 0:
@@ -114,7 +117,7 @@ class Game {
 
   changeResource(typeToChange, valuesToChange, player) {
     //expects number, string, object
-    var playerToChange = this.playerList[this.currentPlayer];
+    var playerToChange = this.playerList[this.whoCanPlayArray[0]];
     var resourceToChange = playerToChange.resources[typeToChange];
 
     resourceToChange.currentValue += resourceToChange.currentValue;
@@ -144,6 +147,7 @@ class Game {
       .text("Pass Turn");
     $(".player1").append(actionButton, passButton);
     this.hideActionModal();
+
   }
   updatePlayerDisplays() {
     if (arguments.length > 0) {
@@ -250,46 +254,10 @@ class Game {
 
   advanceTurn() {
     this.hideActionModal();
-    var playersPassed = 0;
-    this.currentPlayer++;
-    if (this.currentPlayer === this.playerList.length) {
-      this.currentPlayer = 0;
+    if(this.whoCanPlayArray.length===0){
+      this.advancePhase();
     }
-    for (var player = 0; player < this.playerList.length; player++) {
-      if (this.playerList[player].passed) {
-        playersPassed++;
-        console.log("players passed " + playersPassed);
-      } else if (player === this.playerList.length - 1 && playersPassed === 4) {
-        for (var player2 = 0; player2 < this.playerList.length; player2++) {
-          this.playerList[player2].passed = false;
-        }
-        this.advancePhase();
-      }
-    }
-    for (var player = 1; player <= 4; player++) {
-      $(".player" + player + " button").remove();
-    }
-    for (var player = 0; player < this.playerList.length - 1; player++) {
-      if (!this.playerList[this.currentPlayer].passed) {
-        var actionButton = $("<button>")
-          .addClass("action-button")
-          .text("Take Action");
-        var passButton = $("<button>")
-          .addClass("pass-button")
-          .text("Pass Turn");
-        console.log(this.currentPlayer);
-        $(".player" + (this.currentPlayer + 1)).append(
-          actionButton,
-          passButton
-        );
-        break;
-      } else {
-        this.currentPlayer++;
-        if (this.currentPlayer === this.playerList.length) {
-          this.currentPlayer = 0;
-        }
-      }
-    }
+    this.setButtonLocaton();
   }
   shuffleCards() {
     var newPos = 0;
@@ -309,7 +277,7 @@ class Game {
 
   addPlayer(name, callback) {
     // expects string
-    var newPlayer = new Player(name, callback);
+    var newPlayer = new Player(name, callback, this.whoCanPlayArray);
     this.playerList.push(newPlayer);
   }
   updateProductionModal() {
@@ -347,13 +315,31 @@ class Game {
     $(".modal-stats").append(statsTitle, temperature, oxygen, generation);
     $(".production-modal").css("display", "flex");
   }
-
+  setButtonLocaton(){
+    for (var player = 1; player <= 4; player++) {
+      $(".player" + player + " button").remove();
+    }
+    var actionButton = $("<button>")
+      .addClass("action-button")
+      .text("Take Action");
+    var passButton = $("<button>")
+      .addClass("pass-button")
+      .text("Pass Turn");
+    $(".player" + (this.whoCanPlayArray[0]+1)).append(
+      actionButton,
+      passButton
+    );
+  }
   playerClickedPass() {
+    // debugger;
+    var playerWhoPassed = this.whoCanPlayArray[0];
+    // this.whoCanPlayArray.push(temp);
+    this.whoCanPlayArray.shift();
     for (var player = 1; player <= 4; player++) {
       $(".player" + player + " button").remove();
     }
     this.hideActionModal();
-    this.playerList[this.currentPlayer].passTurn();
+    this.playerList[playerWhoPassed].passTurn();
   }
 
   showActionModal() {
@@ -372,35 +358,35 @@ class Game {
     $("#oxygen > p").text(this.oxygen);
 
     $(".currentDisplayMoney").text(
-      this.playerList[this.currentPlayer].resources.money.currentValue
+      this.playerList[this.whoCanPlayArray[0]].resources.money.currentValue
     );
     $(".rateDisplayMoney").text(
-      this.playerList[this.currentPlayer].resources.money.rate
+      this.playerList[this.whoCanPlayArray[0]].resources.money.rate
     );
     $(".currentDisplayPlants").text(
-      this.playerList[this.currentPlayer].resources.plants.currentValue
+      this.playerList[this.whoCanPlayArray[0]].resources.plants.currentValue
     );
     $(".rateDisplayPlants").text(
-      this.playerList[this.currentPlayer].resources.plants.rate
+      this.playerList[this.whoCanPlayArray[0]].resources.plants.rate
     );
     $(".currentDisplayEnergy").text(
-      this.playerList[this.currentPlayer].resources.energy.currentValue
+      this.playerList[this.whoCanPlayArray[0]].resources.energy.currentValue
     );
     $(".rateDisplayEnergy").text(
-      this.playerList[this.currentPlayer].resources.energy.rate
+      this.playerList[this.whoCanPlayArray[0]].resources.energy.rate
     );
     $(".currentDisplayHeat").text(
-      this.playerList[this.currentPlayer].resources.heat.currentValue
+      this.playerList[this.whoCanPlayArray[0]].resources.heat.currentValue
     );
     $(".rateDisplayHeat").text(
-      this.playerList[this.currentPlayer].resources.heat.rate
+      this.playerList[this.whoCanPlayArray[0]].resources.heat.rate
     );
   }
 
   appendCardstoActionModal() {
     var currentCardDomElement = null;
     $(".card").remove();
-    var currentPlayerHand = this.playerList[this.currentPlayer].cardsInHand;
+    var currentPlayerHand = this.playerList[this.whoCanPlayArray[0]].cardsInHand;
     for (var cardtoAppend of currentPlayerHand) {
       currentCardDomElement = cardtoAppend.render();
       $(".card-display").append(currentCardDomElement);

@@ -1,5 +1,5 @@
 class Player {
-  constructor(playerName, cardClickedCallBack) {
+  constructor(playerName, cardClickedCallBack, ArrayOfWhoCanPlay) {
     //expects String
     this.incrementVP = this.incrementVP.bind(this);
     this.name = playerName;
@@ -14,6 +14,7 @@ class Player {
       heat: { currentValue: 0, rate: 1 }
     };
     this.victoryPoints = 0;
+    this.playerArray = ArrayOfWhoCanPlay;
     this.cardsInHand = [
       new Card(
         11,
@@ -103,12 +104,6 @@ class Player {
   playCard(cardToPlay) {
     //get card object from event?
     // expects a Card Object
-    if (this.actionNum === 2) {
-      for (var player = 1; player <= 4; player++) {
-        $(".player" + player + " button").remove();
-      }
-      this.actionNum = 0;
-    } else {
       if (this.canPlay(cardToPlay)) {
         this.resources.money.currentValue -= cardToPlay.cost;
         if (cardToPlay.getTileToPlace() === "city") {
@@ -125,12 +120,17 @@ class Player {
         this.removeCardFromHand(cardToPlay);
         this.actionNum++;
         if (this.actionNum === 2){
+
+          var temp = this.playerArray[0];
+          this.playerArray.push(temp);
+          this.playerArray.shift();
+          this.actionNum = 0;
           game.advanceTurn();
         }
       } else {
         return false;
       }
-    }
+
   }
 
   getResource(resourceType) {
