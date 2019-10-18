@@ -5,6 +5,7 @@ class Game {
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
     this.handleCardClick = this.handleCardClick.bind(this);
+    // this.removeCardDivfromModal = this.removeCardDivfromModal.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -42,6 +43,7 @@ class Game {
     $("#view-board").on("click", this.hideActionModal);
     $("body").on("click", ".action-button", this.showActionModal);
     $("body").on("click", ".pass-button", this.playerClickedPass);
+    $(".card-display").on("click", ".card", this.removeCardDivfromModal);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -127,11 +129,8 @@ class Game {
   }
   newGame() {
     var board = new Board();
-    var cardDeck = new CardDeck(
-      this.cardList,
-      this.handleCardClick,
-      this.removeCardDivfromModal
-    );
+    var cardDeck = new CardDeck(this.cardList, this.handleCardClick,
+      this.removeCardDivfromModal);
 
     this.addPlayer("Roger", this.handleCardClick);
     this.addPlayer("Rapha", this.handleCardClick);
@@ -200,52 +199,35 @@ class Game {
   productionPhase() {
     var currentPlayer;
     var currentEnergy;
-    for (
-      var playerIndex = 0;
-      playerIndex < this.playerList.length;
-      ++playerIndex
-    ) {
+    for (var playerIndex = 0;playerIndex < this.playerList.length;
+      ++playerIndex) {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
+
       //add energy to heat
-      this.changeResource(
-        "heat",
-        {
-          currentValue: currentEnergy,
-          rate: 0
-        },
-        playerIndex
-      );
+      this.changeResource( "heat",{
+        currentValue: currentEnergy,rate: 0
+      },playerIndex);
+
       // remove all current energy
-      this.changeResource(
-        "energy",
-        {
-          currentValue: -currentEnergy,
-          rate: 0
-        },
-        playerIndex
-      );
+      this.changeResource("energy",{
+        currentValue: -currentEnergy,rate: 0
+      },playerIndex);
 
       // add money per terraform rating
-      this.changeResource(
-        "money",
-        {
+      this.changeResource("money",{
           currentValue: currentPlayer.terraformRating,
           rate: 0
         },
-        playerIndex
-      );
+        playerIndex);
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
         this.changeResource(
           typeKey,
-          {
-            currentValue: currentPlayer.resources[typeKey].rate,
+          {currentValue: currentPlayer.resources[typeKey].rate,
             rate: 0
-          },
-          playerIndex
-        );
+          },playerIndex);
       }
     }
     this.updateProductionModal();
@@ -392,11 +374,9 @@ class Game {
       $(".card-display").append(currentCardDomElement);
     }
   }
+
   removeCardDivfromModal(cardDivToRemove) {
-    if (typeof cardDivToRemove !== "object") {
-      return false;
-    } else {
       cardDivToRemove.remove();
-    }
+
   }
 }

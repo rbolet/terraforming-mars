@@ -1,15 +1,10 @@
 class Card {
-  constructor(
-    cost,
-    type,
-    tileToPlace,
-    permanentBool,
-    gameClickHandler,
-    gameRemoveDiv
-  ) {
+  constructor(cost, type, tileToPlace, permanentBool, gameClickHandler, gameRemoveDivCallback) {
     //Accepts cost as number, type as string,
     this.causeEffect = this.causeEffect.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.removeCardfromDiv = this.removeCardfromDiv.bind(this);
+
     //this.playCard = this.playCard.bind(this);
     this.element = null; //jQuery object of the div
     this.cost = cost;
@@ -17,15 +12,25 @@ class Card {
     this.permanent = permanentBool;
     this.tileToPlace = tileToPlace;
     this.iWasClicked = gameClickHandler;
+    this.removeMe = gameRemoveDivCallback;
   }
 
   //Card needs to cll board to show valid placements
   getTileToPlace() {
     return this.tileToPlace;
   }
+
   handleClick() {
     this.iWasClicked(this);
+    this.removeCardfromDiv();
   }
+
+  removeCardfromDiv(){
+   if(this.permanent) return false;
+
+   this.removeMe(this.element);
+  }
+
   causeEffect() {
     for (var effect of this.typeObj)
       game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks
