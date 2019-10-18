@@ -4,7 +4,8 @@ class Game {
     this.addPlayer = this.addPlayer.bind(this);
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
-    this.handleCardClick = this.handleCardClick.bind(this);
+    // this.handleCardClick = this.handleCardClick.bind(this);
+    // this.removeCardDivfromModal = this.removeCardDivfromModal.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -42,6 +43,7 @@ class Game {
     $("#view-board").on("click", this.hideActionModal);
     $("body").on("click", ".action-button", this.showActionModal);
     $("body").on("click", ".pass-button", this.playerClickedPass);
+    $(".card-display").on("click", ".card", this.removeCardDivfromModal);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -389,7 +391,8 @@ class Game {
       $(".card-display").append(currentCardDomElement);
     }
   }
+
   removeCardDivfromModal(cardDivToRemove) {
       cardDivToRemove.remove();
-    }
+
   }

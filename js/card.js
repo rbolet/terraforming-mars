@@ -34,6 +34,12 @@ class Card {
       game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks
   }
 
+  // removeMe(){
+  //   if(!this.permanent) return false;
+
+  //   this.iNeedtoBeRemoved(this.element);
+  // }
+
   render() {
     var newDiv = $("<div>")
       .addClass("card")
