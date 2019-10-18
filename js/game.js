@@ -127,11 +127,8 @@ class Game {
   }
   newGame() {
     var board = new Board();
-    var cardDeck = new CardDeck(
-      this.cardList,
-      this.handleCardClick,
-      this.removeCardDivfromModal
-    );
+    var cardDeck = new CardDeck(this.cardList, this.handleCardClick,
+      this.removeCardDivfromModal);
 
     this.addPlayer("Roger", this.handleCardClick);
     this.addPlayer("Rapha", this.handleCardClick);
@@ -393,10 +390,6 @@ class Game {
     }
   }
   removeCardDivfromModal(cardDivToRemove) {
-    if (typeof cardDivToRemove !== "object") {
-      return false;
-    } else {
       cardDivToRemove.remove();
     }
   }
-}

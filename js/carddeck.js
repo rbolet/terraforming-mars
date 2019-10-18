@@ -7,6 +7,7 @@ class CardDeck {
   }
   createCards() {
     for (var deckIndex = 0; deckIndex < this.cardsInDeck.length; deckIndex++) {
+
       var card = new Card(
         this.cardsInDeck[deckIndex][0],
         this.cardsInDeck[deckIndex][1],

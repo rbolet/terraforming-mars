@@ -108,10 +108,10 @@ class Player {
         this.resources.money.currentValue -= cardToPlay.cost;
         if (cardToPlay.getTileToPlace() === "city") {
           game.hideActionModal();
-          board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+          // board.findValidCityTiles(); // Shouldn't do this, pass in a call back
         } else if (cardToPlay.getTileToPlace() === "forest") {
           game.hideActionModal();
-          board.findValidForestTiles();
+          // board.findValidForestTiles();
           game.oxygen = 1;
         } else if (cardToPlay.getTileToPlace() === "heat") {
           game.tempurature = 2;
