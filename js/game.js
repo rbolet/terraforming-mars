@@ -20,7 +20,6 @@ class Game {
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
   handleCardClick(cardObject) {
-    debugger;
     this.playerList[this.whoCanPlayArray[0]].playCard(cardObject);
   }
   updateState() {
