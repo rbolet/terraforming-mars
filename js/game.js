@@ -4,7 +4,7 @@ class Game {
     this.addPlayer = this.addPlayer.bind(this);
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
-    // this.handleCardClick = this.handleCardClick.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
     // this.removeCardDivfromModal = this.removeCardDivfromModal.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
@@ -20,6 +20,7 @@ class Game {
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
   handleCardClick(cardObject) {
+    debugger;
     this.playerList[this.whoCanPlayArray[0]].playCard(cardObject);
   }
   updateState() {
@@ -199,52 +200,35 @@ class Game {
   productionPhase() {
     var currentPlayer;
     var currentEnergy;
-    for (
-      var playerIndex = 0;
-      playerIndex < this.playerList.length;
-      ++playerIndex
-    ) {
+    for (var playerIndex = 0;playerIndex < this.playerList.length;
+      ++playerIndex) {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
+
       //add energy to heat
-      this.changeResource(
-        "heat",
-        {
-          currentValue: currentEnergy,
-          rate: 0
-        },
-        playerIndex
-      );
+      this.changeResource( "heat",{
+        currentValue: currentEnergy,rate: 0
+      },playerIndex);
+
       // remove all current energy
-      this.changeResource(
-        "energy",
-        {
-          currentValue: -currentEnergy,
-          rate: 0
-        },
-        playerIndex
-      );
+      this.changeResource("energy",{
+        currentValue: -currentEnergy,rate: 0
+      },playerIndex);
 
       // add money per terraform rating
-      this.changeResource(
-        "money",
-        {
+      this.changeResource("money",{
           currentValue: currentPlayer.terraformRating,
           rate: 0
         },
-        playerIndex
-      );
+        playerIndex);
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
         this.changeResource(
           typeKey,
-          {
-            currentValue: currentPlayer.resources[typeKey].rate,
+          {currentValue: currentPlayer.resources[typeKey].rate,
             rate: 0
-          },
-          playerIndex
-        );
+          },playerIndex);
       }
     }
     this.updateProductionModal();
@@ -396,3 +380,4 @@ class Game {
       cardDivToRemove.remove();
 
   }
+}

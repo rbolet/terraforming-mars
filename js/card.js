@@ -26,19 +26,15 @@ class Card {
   }
 
   removeCardfromDiv(){
-    this.removeMe(this.element);
+   if(this.permanent) return false;
+
+   this.removeMe(this.element);
   }
 
   causeEffect() {
     for (var effect of this.typeObj)
       game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks
   }
-
-  // removeMe(){
-  //   if(!this.permanent) return false;
-
-  //   this.iNeedtoBeRemoved(this.element);
-  // }
 
   render() {
     var newDiv = $("<div>")
