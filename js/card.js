@@ -1,5 +1,12 @@
 class Card {
-  constructor(cost, type, tileToPlace, permanentBool, gameClickHandler, gameRemoveDivCallback) {
+  constructor(
+    cost,
+    type,
+    tileToPlace,
+    permanentBool,
+    gameClickHandler,
+    gameRemoveDivCallback
+  ) {
     //Accepts cost as number, type as string,
     this.causeEffect = this.causeEffect.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -25,15 +32,15 @@ class Card {
     this.removeCardfromDiv();
   }
 
-  removeCardfromDiv(){
-   if(this.permanent) return false;
+  removeCardfromDiv() {
+    if (this.permanent) return false;
 
-   this.removeMe(this.element);
+    this.removeMe(this.element);
   }
 
   causeEffect() {
     for (var effect of this.typeObj)
-      game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks
+      game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks but fine for now
   }
 
   render() {
@@ -43,7 +50,24 @@ class Card {
     var cost = $("<div>")
       .addClass("cost")
       .text(this.cost);
+    var typeText = $('<div>').text(this.typeObj.type)
     var effect = $("<div>").addClass("effects");
+    var typeToChangeText = this.typeObj.type
+    console.log(this.typeObj)
+    for (var effectObject of this.typeObj) {
+      var typeText = $('<div>').text(effectObject.type.toUpperCase())
+      let rateEffectDiv = $('<div>').text('Rate: ' + effectObject.effects.resources.rate)
+      let valueEffectDiv = $('<div>').text('Amount: ' + effectObject.effects.resources.currentValue)
+      effect.append(typeText, rateEffectDiv, valueEffectDiv)
+    }
+    if (this.permanent) {
+      var permanentText = $('<div>').text('PERMANENT').addClass('permanent')
+      newDiv.append(permanentText)
+    }
+    if (this.tileToPlace) {
+      var tileDiv = $('<div>').text(this.tileToPlace).addClass('to-place')
+      newDiv.append(tileDiv)
+    }
     // var rateChangeText =
     //   this.type +
     //   " production will change by " +
@@ -55,7 +79,7 @@ class Card {
     //   $("<div>").text(rateChangeText),
     //   $("<div>").text(valueChangeText)
     // );
-    newDiv.append(cost, effect);
+    newDiv.append(cost, typeText, effect);
     // newDiv.on("click", tryToPlace);
     this.element = newDiv;
     return newDiv;
