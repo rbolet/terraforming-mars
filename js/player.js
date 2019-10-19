@@ -41,11 +41,11 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        23,
+        "23",
         [
           {
             type: "plants",
-            effects: { resources: { currentValue: 0, rate: 0 } }
+            effects: { resources: { currentValue: "Place a forest tile", rate: 0 } }
           }
         ],
         "forest",
@@ -53,11 +53,11 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        25,
+        "25",
         [
           {
             type: "money",
-            effects: { resources: { currentValue: 0, rate: 1 } }
+            effects: { resources: { currentValue: "Place a city tile", rate: 1 } }
           }
         ],
         "city",
@@ -65,11 +65,11 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        0,
+        "8 plants",
         [
           {
             type: "plants",
-            effects: { resources: { currentValue: -8, rate: 0 } }
+            effects: { resources: { currentValue: "Place a forest tile", rate: "-" } }
           }
         ],
         "forest",
@@ -77,14 +77,14 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        0,
+        "8 Heat",
         [
           {
-            type: "heat",
-            effects: { resources: { currentValue: -8, rate: 0 } }
+            type: "temperature",
+            effects: { resources: { currentValue: "Raise temperature 1 step", rate: "-" } }
           }
         ],
-        "heat",
+        null,
         true,
         this.handleCardClick
       )
