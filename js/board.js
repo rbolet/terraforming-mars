@@ -10,6 +10,7 @@ class Board {
       [null, null, null, null, null]
     ]; //4 // array of row arrays containing space arrays, containing tile objects
     this.populateArray();
+    this.nextTile = null;
     // this.addClickHandler();
   }
 
@@ -69,6 +70,7 @@ class Board {
     }
   }
   findValidCityTiles() {
+    this.nextTile = 'city';
     this.markAllBoardAsLegal();
     var vectors = [
       { x: -1, y: 0 },
@@ -99,6 +101,7 @@ class Board {
     }
   }
   findValidForestTiles() {
+    this.nextTile = 'forest';
     var vectors = [
       { x: -1, y: 0 },
       { x: 1, y: 0 },
@@ -128,14 +131,10 @@ class Board {
     }
   }
   handleTileClick(tileObject) {
-    //Should place tile
-    console.log("tile was clicked", tileObject);
-    tileObject.markLegalMove();
-  }
-  addClickHandler() {
-    $(".board").on("click", ".legalmove", function(event) {
-      console.log("You clicked a valid space!");
-    });
+    var tileLocation = tileObject.position;
+    var currentPlayer = game.playerList[game.whoCanPlayArray[0]]
+    this.boardArray[tileLocation.row][tileLocation.cell].setType(this.nextTile).setOwner(currentPlayer);
+    this.unMarkAllBoard();
   }
 
   placeTile(tiletoPlace, positionToPlace) {

@@ -53,7 +53,6 @@ class Card {
     var typeText = $('<div>').text(this.typeObj.type)
     var effect = $("<div>").addClass("effects");
     var typeToChangeText = this.typeObj.type
-    console.log(this.typeObj)
     for (var effectObject of this.typeObj) {
       var typeText = $('<div>').text(effectObject.type.toUpperCase())
       let rateEffectDiv = $('<div>').text('Rate: ' + effectObject.effects.resources.rate)
@@ -68,19 +67,7 @@ class Card {
       var tileDiv = $('<div>').text(this.tileToPlace).addClass('to-place')
       newDiv.append(tileDiv)
     }
-    // var rateChangeText =
-    //   this.type +
-    //   " production will change by " +
-    //   this.valuesToChange.changeRate +
-    //   " per generation";
-    // var valueChangeText =
-    //   "Your " + this.type + " will change by " + this.valuesToChange.changeVal;
-    // effect.append(
-    //   $("<div>").text(rateChangeText),
-    //   $("<div>").text(valueChangeText)
-    // );
     newDiv.append(cost, typeText, effect);
-    // newDiv.on("click", tryToPlace);
     this.element = newDiv;
     return newDiv;
   }

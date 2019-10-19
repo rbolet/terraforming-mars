@@ -13,8 +13,9 @@ class Game {
     this.cardList = cardListFromMain;
     this.phaseList = ["Research", "Action", "Production"];
     this.playerList = [];
-    this.whoCanPlayArray= [0,1,2,3];
+    this.whoCanPlayArray = [0, 1, 2, 3];
     this.applyModalClickHandlers();
+    this.board = null;
 
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
@@ -51,10 +52,10 @@ class Game {
   set oxygen(numToAdvance) {
     // expects number
     this.currentOxygen += numToAdvance;
-    this.updateProductionModal();
+    //this.updateProductionModal();
     if (this.currentOxygen > 14) {
       this.currentOxygen = 14;
-      this.updateProductionModal();
+      //this.updateProductionModal();
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
@@ -128,7 +129,7 @@ class Game {
     this.updateActionModalStats();
   }
   newGame() {
-    var board = new Board();
+    this.board = new Board();
     var cardDeck = new CardDeck(this.cardList, this.handleCardClick,
       this.removeCardDivfromModal);
 
@@ -195,39 +196,40 @@ class Game {
     cardDeck.dealCard(2);
     this.advancePhase();
   }
-  actionPhase() {}
+  actionPhase() { }
   productionPhase() {
     var currentPlayer;
     var currentEnergy;
-    for (var playerIndex = 0;playerIndex < this.playerList.length;
+    for (var playerIndex = 0; playerIndex < this.playerList.length;
       ++playerIndex) {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
 
       //add energy to heat
-      this.changeResource( "heat",{
-        currentValue: currentEnergy,rate: 0
-      },playerIndex);
+      this.changeResource("heat", {
+        currentValue: currentEnergy, rate: 0
+      }, playerIndex);
 
       // remove all current energy
-      this.changeResource("energy",{
-        currentValue: -currentEnergy,rate: 0
-      },playerIndex);
+      this.changeResource("energy", {
+        currentValue: -currentEnergy, rate: 0
+      }, playerIndex);
 
       // add money per terraform rating
-      this.changeResource("money",{
-          currentValue: currentPlayer.terraformRating,
-          rate: 0
-        },
+      this.changeResource("money", {
+        currentValue: currentPlayer.terraformRating,
+        rate: 0
+      },
         playerIndex);
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
         this.changeResource(
           typeKey,
-          {currentValue: currentPlayer.resources[typeKey].rate,
+          {
+            currentValue: currentPlayer.resources[typeKey].rate,
             rate: 0
-          },playerIndex);
+          }, playerIndex);
       }
     }
     this.updateProductionModal();
@@ -236,7 +238,7 @@ class Game {
 
   advanceTurn() {
     this.hideActionModal();
-    if(this.whoCanPlayArray.length===0){
+    if (this.whoCanPlayArray.length === 0) {
       this.advancePhase();
     }
     this.setButtonLocaton();
@@ -297,7 +299,7 @@ class Game {
     $(".modal-stats").append(statsTitle, temperature, oxygen, generation);
     $(".production-modal").css("display", "flex");
   }
-  setButtonLocaton(){
+  setButtonLocaton() {
     for (var player = 1; player <= 4; player++) {
       $(".player" + player + " button").remove();
     }
@@ -307,7 +309,7 @@ class Game {
     var passButton = $("<button>")
       .addClass("pass-button")
       .text("Pass Turn");
-    $(".player" + (this.whoCanPlayArray[0]+1)).append(
+    $(".player" + (this.whoCanPlayArray[0] + 1)).append(
       actionButton,
       passButton
     );
@@ -376,7 +378,7 @@ class Game {
   }
 
   removeCardDivfromModal(cardDivToRemove) {
-      cardDivToRemove.remove();
+    cardDivToRemove.remove();
 
   }
 }
