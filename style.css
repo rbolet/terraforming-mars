@@ -97,13 +97,27 @@
   background: #2cd53d;
 }
 .card {
+  position: relative;
   height: 260px;
   width: 190px;
   transition: transform 0.5s;
 }
+.permanent{
+  position: absolute;
+  top: 180px;
+  left: 30px;
+  text-align: center
+}
+.to-place{
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  text-align: center;
+}
 
 .card:hover {
   transform: scale(2);
+  z-index: 1;
 }
 .board {
   position: absolute;
