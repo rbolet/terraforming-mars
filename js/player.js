@@ -114,7 +114,7 @@ class Player {
           // board.findValidForestTiles();
           game.oxygen = 1;
         } else if (cardToPlay.getTileToPlace() === "heat") {
-          game.tempurature = 2;
+          game.temperature = 2;
         }
         cardToPlay.causeEffect();
         this.removeCardFromHand(cardToPlay);
