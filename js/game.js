@@ -197,7 +197,7 @@ class Game {
     }
   }
   researchPhase() {
-    alert("Research Phase");
+    alert("Research Phase - each player receives 2 new cards");
     this.cardDeck.dealCard(2);
     this.generation = 1;
     this.advancePhase();
@@ -213,7 +213,7 @@ class Game {
    }
 
   productionPhase() {
-    alert("Production Phase");
+    alert('Production Phase - all energy is converted into heat (science!). Receive amount of each resource according to production rate.');
 
     var currentPlayer;
     var currentEnergy;
@@ -249,7 +249,7 @@ class Game {
           }, playerIndex);
       }
     }
-    // this.updateProductionModal();
+    this.updatePlayerDisplays();
     this.advancePhase();
     return true;
   }
