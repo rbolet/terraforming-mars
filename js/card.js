@@ -29,18 +29,26 @@ class Card {
 
   handleClick() {
     this.iWasClicked(this);
-    this.removeCardfromDiv();
+    // this.removeCardfromDiv();
   }
 
   removeCardfromDiv() {
     if (this.permanent) return false;
     if (!this.removeMe) return false;
-    this.removeMe(this.element);
+    this.removeMe(this);
   }
 
   causeEffect() {
     for (var effect of this.typeObj)
-      game.changeResource(effect.type, effect.effects.resourcesvaluesToChange); //Should be from callbacks but fine for now
+      switch(effect.type){
+        default: return false;
+        case ("money"):
+        case ("plants"):
+        case ("energy"):
+        case ("heat"):
+          game.changeResource(effect.type, effect.effects.resourcesvaluesToChange);
+
+      }
   }
 
   render() {

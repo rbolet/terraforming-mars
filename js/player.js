@@ -29,11 +29,16 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        14,
+        "14",
         [
           {
-            type: "heat",
-            effects: { resources: { currentValue: 0, rate: 0 } }
+            type: "temperature",
+            effects: {
+              resources: {
+                currentValue: "Raise temperature 1 step",
+                rate: "-"
+              }
+            }
           }
         ],
         null,
@@ -41,10 +46,10 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        "23",
+        23,
         [
           {
-            type: "plants",
+            type: "-",
             effects: { resources: { currentValue: "Place a forest tile", rate: 0 } }
           }
         ],
@@ -53,10 +58,10 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        "25",
+        25,
         [
           {
-            type: "money",
+            type: "Plants",
             effects: { resources: { currentValue: "Place a city tile", rate: 1 } }
           }
         ],
@@ -65,7 +70,7 @@ class Player {
         this.handleCardClick
       ),
       new Card(
-        "8 plants",
+        "8 Plants",
         [
           {
             type: "plants",
@@ -92,46 +97,90 @@ class Player {
     this.terraformRating = 20;
   }
 
+  incrementTerraformRating(){
+    this.terraformRating += 1;
+  }
+
   incrementVP() {
     this.victoryPoints += 1;
   }
 
   removeCardFromHand(card) {
-    if (!card.permanent)
-      this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
+    if (card.permanent) return false;
+
+    this.cardsInHand.splice(this.cardsInHand.indexOf(card), 1);
+    card.removeCardfromDiv();
   }
 
   playCard(cardToPlay) {
-    //get card object from event?
-    // expects a Card Object
-    if (this.canPlay(cardToPlay)) {
-      this.resources.money.currentValue -= cardToPlay.cost;
-      if (cardToPlay.getTileToPlace() === "city") {
-        game.hideActionModal();
-        game.board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-      } else if (cardToPlay.getTileToPlace() === "forest") {
+    if ( typeof cardToPlay.cost === "string"){
+      this.playSpecialCard(cardToPlay);
+      return "Special Card";
+    }
+
+    if (!this.canPlay(cardToPlay)) return false;
+
+    this.resources.money.currentValue -= cardToPlay.cost;
+    if (cardToPlay.getTileToPlace() === "city") {
+      game.hideActionModal();
+      game.board.findValidCityTiles();
+
+    } else if (cardToPlay.getTileToPlace() === "forest") {
+      game.hideActionModal();
+      game.board.findValidForestTiles();
+      game.oxygen = 1;
+
+    } else if (cardToPlay.getTileToPlace() === "heat") {
+      game.temperature = 2;
+    }
+
+    cardToPlay.causeEffect();
+    this.removeCardFromHand(cardToPlay);
+    this.incrementAction();
+
+  }
+
+  playSpecialCard( specialCard ){
+    switch (specialCard.cost){
+      case ("8 Plants") :
+        if (this.resources["plants"].currentValue < 8) return false;
+        this.resources["plants"].currentValue -= 8;
         game.hideActionModal();
         game.board.findValidForestTiles();
         game.oxygen = 1;
-      } else if (cardToPlay.getTileToPlace() === "heat") {
+        this.incrementAction();
+        break;
+      case ( "8 Heat" ) :
+        if (this.resources["heat"].currentValue < 8) return false;
+        this.resources["heat"].currentValue -= 8;
         game.temperature = 2;
-      }
-      cardToPlay.causeEffect();
-      this.removeCardFromHand(cardToPlay);
-      this.actionNum++;
-      if (this.actionNum === 2) {
-
-        var temp = this.playerArray[0];
-        this.playerArray.push(temp);
-        this.playerArray.shift();
-        this.actionNum = 0;
-        game.advanceTurn();
-      }
-    } else {
-      return false;
+        game.updateActionModalStats();
+        this.incrementAction();
+        break;
+      case ("14") :
+        if (this.resources["money"].currentValue < 14) return false;
+        this.resources["money"].currentValue -= 14;
+        game.temperature = 2;
+        specialCard.causeEffect();
+        this.incrementAction();
+        break;
+      default : return false;
     }
-
   }
+
+
+  incrementAction(){
+    this.actionNum++;
+
+    if (this.actionNum === 2) {
+      var temp = this.playerArray[0];
+      this.playerArray.push(temp);
+      this.playerArray.shift();
+      this.actionNum = 0;
+      game.advanceTurn();
+    }
+  }
+
 
   getResource(resourceType) {
     // expects string
