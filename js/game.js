@@ -406,7 +406,7 @@ class Game {
   }
 
   removeCardDivfromModal(cardDivToRemove) {
-    if (!cardDivToRemove.removeMe) return false;
+    if (!cardDivToRemove) return false;
     cardDivToRemove.remove();
 
   }
