@@ -45,6 +45,7 @@ class Tile {
     return this
   }
   setOwner(owner) {
+    console.log(owner)
     this.owner = owner
     return this
   }

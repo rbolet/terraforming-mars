@@ -11,6 +11,7 @@ class Board {
     ]; //4 // array of row arrays containing space arrays, containing tile objects
     this.populateArray();
     this.nextTile = null;
+    this.currentPlayer = null;
     // this.addClickHandler();
   }
 
@@ -70,6 +71,7 @@ class Board {
     }
   }
   findValidCityTiles() {
+    this.currentPlayer = game.playerList[game.whoCanPlayArray[0]]
     this.nextTile = 'city';
     this.markAllBoardAsLegal();
     var vectors = [
@@ -101,6 +103,7 @@ class Board {
     }
   }
   findValidForestTiles() {
+    this.currentPlayer = game.playerList[game.whoCanPlayArray[0]]
     this.nextTile = 'forest';
     var vectors = [
       { x: -1, y: 0 },
@@ -130,20 +133,9 @@ class Board {
       }
     }
   }
-  handleTileClick(tileObject) {
+  handleTileClick(tileObject, whoPlacedMe) {
     var tileLocation = tileObject.position;
-    var currentPlayer = game.playerList[game.whoCanPlayArray[0]]
-    this.boardArray[tileLocation.row][tileLocation.cell].setType(this.nextTile).setOwner(currentPlayer);
+    this.boardArray[tileLocation.row][tileLocation.cell].setType(this.nextTile).setOwner(this.currentPlayer);
     this.unMarkAllBoard();
-  }
-
-  placeTile(tiletoPlace, positionToPlace) {
-    // expects Tile object, position <-TBD how to store/pass positions
-    if (this.boardArray[positionToPlace.row][positionToPlace.column] !== null) {
-      //can place there
-      return true;
-    } else {
-      return false;
-    }
   }
 }
