@@ -133,7 +133,7 @@ class Board {
       }
     }
   }
-  handleTileClick(tileObject, whoPlacedMe) {
+  handleTileClick(tileObject) {
     var tileLocation = tileObject.position;
     this.boardArray[tileLocation.row][tileLocation.cell].setType(this.nextTile).setOwner(this.currentPlayer);
     this.unMarkAllBoard();
