@@ -16,7 +16,7 @@ class Game {
     this.whoCanPlayArray = [0, 1, 2, 3];
     this.applyModalClickHandlers();
     this.board = null;
-
+    this.cardDeck = null;
     this.updateState();
     this.phasePlayerWhoCanPlay = this.playerList.length;
   }
@@ -68,10 +68,10 @@ class Game {
   set temperature(numToAdvance) {
     //expects number
     this.currentTemperature += numToAdvance;
-    this.updateProductionModal();
+    // this.updateProductionModal();
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
-      this.updateProductionModal();
+      // this.updateProductionModal();
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
@@ -85,10 +85,10 @@ class Game {
   set generation(numToAdvance) {
     //expects number
     this.currentGeneration += numToAdvance;
-    this.updateProductionModal();
+    // this.updateProductionModal();
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
-      this.updateProductionModal();
+      // this.updateProductionModal();
       return false;
     }
     return true;
@@ -96,15 +96,10 @@ class Game {
   get phase() {
     return this.currentPhase;
   }
+
   advancePhase() {
-    for (var i = 0; i < this.playerList.length; i++) {
-      this.whoCanPlayArray.push(i);
-    }
     this.currentPhase++;
     switch (this.currentPhase) {
-      case 0:
-        this.researchPhase();
-        break;
       case 1:
         this.actionPhase();
         break;
@@ -113,9 +108,11 @@ class Game {
         break;
       case 3:
         this.currentPhase = 0;
-        break;
+      case 0:
+        this.researchPhase();
+      break;
     }
-    $(".production-modal").css("display", "");
+
   }
 
   changeResource(typeToChange, valuesToChange, player) {
@@ -130,15 +127,20 @@ class Game {
   }
   newGame() {
     this.board = new Board();
-    var cardDeck = new CardDeck(this.cardList, this.handleCardClick,
+    this.cardDeck = new CardDeck(this.cardList, this.handleCardClick,
       this.removeCardDivfromModal);
 
     this.addPlayer("Roger", this.handleCardClick);
     this.addPlayer("Rapha", this.handleCardClick);
     this.addPlayer("Pzo", this.handleCardClick);
     this.addPlayer("Mystery Ghost", this.handleCardClick);
-    cardDeck.dealCard(3);
+    this.cardDeck.dealCard(3);
     this.updatePlayerDisplays("start");
+    this.newRound();
+
+  }
+
+  newRound(){
     var actionButton = $("<button>")
       .addClass("action-button")
       .text("Take Action");
@@ -147,8 +149,8 @@ class Game {
       .text("Pass Turn");
     $(".player1").append(actionButton, passButton);
     this.hideActionModal();
-
   }
+
   updatePlayerDisplays() {
     if (arguments.length > 0) {
       for (var player = 0; player < this.playerList.length; player++) {
@@ -193,11 +195,24 @@ class Game {
     }
   }
   researchPhase() {
-    cardDeck.dealCard(2);
+    alert("Research Phase");
+    this.cardDeck.dealCard(2);
+    this.generation = 1;
     this.advancePhase();
   }
-  actionPhase() { }
+  actionPhase() {
+
+    for (var i = 0; i < this.playerList.length; i++) {
+      this.whoCanPlayArray.push(i);
+    }
+    alert("Action phase - generation " + this.generation);
+    this.updateActionModalStats();
+    this.newRound();
+   }
+
   productionPhase() {
+    alert("Production Phase");
+
     var currentPlayer;
     var currentEnergy;
     for (var playerIndex = 0; playerIndex < this.playerList.length;
@@ -206,17 +221,17 @@ class Game {
       currentEnergy = currentPlayer.getResource("energy").currentValue;
 
       //add energy to heat
-      this.changeResource("heat", {
+      this.productionPhaseChangeResources("heat", {
         currentValue: currentEnergy, rate: 0
       }, playerIndex);
 
       // remove all current energy
-      this.changeResource("energy", {
+      this.productionPhaseChangeResources("energy", {
         currentValue: -currentEnergy, rate: 0
       }, playerIndex);
 
       // add money per terraform rating
-      this.changeResource("money", {
+      this.productionPhaseChangeResources("money", {
         currentValue: currentPlayer.terraformRating,
         rate: 0
       },
@@ -224,7 +239,7 @@ class Game {
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
-        this.changeResource(
+        this.productionPhaseChangeResources(
           typeKey,
           {
             currentValue: currentPlayer.resources[typeKey].rate,
@@ -232,17 +247,30 @@ class Game {
           }, playerIndex);
       }
     }
-    this.updateProductionModal();
+    // this.updateProductionModal();
+    this.advancePhase();
     return true;
+  }
+
+  productionPhaseChangeResources( resourceType, valueRateObject, playerIndex){
+    var targetPlayerResources = this.playerList[playerIndex].resources[resourceType];
+
+    targetPlayerResources.currentValue += valueRateObject.currentValue;
+    targetPlayerResources.rate += valueRateObject.rate;
+
+    this.updatePlayerDisplays();
+
   }
 
   advanceTurn() {
     this.hideActionModal();
     if (this.whoCanPlayArray.length === 0) {
       this.advancePhase();
+      return;
     }
     this.setButtonLocaton();
   }
+
   shuffleCards() {
     var newPos = 0;
     var tempVar = 0;
@@ -378,7 +406,7 @@ class Game {
   }
 
   removeCardDivfromModal(cardDivToRemove) {
-    if (!cardDivToRemove.removeMe) return false;
+    if (!cardDivToRemove) return false;
     cardDivToRemove.remove();
 
   }

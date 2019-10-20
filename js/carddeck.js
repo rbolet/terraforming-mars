@@ -21,10 +21,7 @@ class CardDeck {
   }
   dealCard() {
     //deals 1 card to the current player. add argrument to give x cards to all players
-    if (
-      arguments.length > 0 //&&
-      //this.cardsInDeck.length > arguments[0] * game.playerList.length
-    ) {
+    if (arguments.length > 0) {
       for (var round = 1; round <= arguments[0]; round++) {
         for (var player = 0; player < game.playerList.length; player++) {
           var dealCard = this.cardsInDeck[this.cardsInDeck.length - 1];
@@ -53,9 +50,5 @@ class CardDeck {
       this.cardsInDeck[newPos] = tempVar;
     }
     return this.cardsInDeck;
-  }
-  addCard() {
-    var newCard = new Card(15, "plants", 1, 1, null, game.handleCardClick);
-    this.cardsInDeck.push(newCard);
   }
 }
