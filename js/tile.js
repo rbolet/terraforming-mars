@@ -6,7 +6,7 @@ class Tile {
     this.type = tileType;
     this.owner = tileOwner;
     this.tileElement = null; // jQuery object
-    this.positon = {}; //row# and cell#
+    this.position = position; //row# and cell#
     this.legalMove = false;
   }
   handleClick() {
@@ -42,5 +42,11 @@ class Tile {
     this.type = typeToSet;
     this.tileElement.addClass(typeToSet);
     this.unmarkLegalMove();
+    return this
+  }
+  setOwner(owner) {
+    console.log(owner)
+    this.owner = owner
+    return this
   }
 }

@@ -104,32 +104,32 @@ class Player {
   playCard(cardToPlay) {
     //get card object from event?
     // expects a Card Object
-      if (this.canPlay(cardToPlay)) {
-        this.resources.money.currentValue -= cardToPlay.cost;
-        if (cardToPlay.getTileToPlace() === "city") {
-          game.hideActionModal();
-          // board.findValidCityTiles(); // Shouldn't do this, pass in a call back
-        } else if (cardToPlay.getTileToPlace() === "forest") {
-          game.hideActionModal();
-          // board.findValidForestTiles();
-          game.oxygen = 1;
-        } else if (cardToPlay.getTileToPlace() === "heat") {
-          game.tempurature = 2;
-        }
-        cardToPlay.causeEffect();
-        this.removeCardFromHand(cardToPlay);
-        this.actionNum++;
-        if (this.actionNum === 2){
-
-          var temp = this.playerArray[0];
-          this.playerArray.push(temp);
-          this.playerArray.shift();
-          this.actionNum = 0;
-          game.advanceTurn();
-        }
-      } else {
-        return false;
+    if (this.canPlay(cardToPlay)) {
+      this.resources.money.currentValue -= cardToPlay.cost;
+      if (cardToPlay.getTileToPlace() === "city") {
+        game.hideActionModal();
+        game.board.findValidCityTiles(); // Shouldn't do this, pass in a call back
+      } else if (cardToPlay.getTileToPlace() === "forest") {
+        game.hideActionModal();
+        game.board.findValidForestTiles();
+        game.oxygen = 1;
+      } else if (cardToPlay.getTileToPlace() === "heat") {
+        game.tempurature = 2;
       }
+      cardToPlay.causeEffect();
+      this.removeCardFromHand(cardToPlay);
+      this.actionNum++;
+      if (this.actionNum === 2) {
+
+        var temp = this.playerArray[0];
+        this.playerArray.push(temp);
+        this.playerArray.shift();
+        this.actionNum = 0;
+        game.advanceTurn();
+      }
+    } else {
+      return false;
+    }
 
   }
 
