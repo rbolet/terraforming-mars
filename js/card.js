@@ -34,7 +34,7 @@ class Card {
 
   removeCardfromDiv() {
     if (this.permanent) return false;
-
+    if (!this.removeMe) return false;
     this.removeMe(this.element);
   }
 
