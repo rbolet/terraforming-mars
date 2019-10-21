@@ -25,10 +25,7 @@ class Game {
   }
   updateState() {
     $(".temperatureText").text(this.currentTemperature);
-    $(".temperatureIndicator").css({
-      //Not Done!!!
-      transform: "translatey(-51px)"
-    });
+    this.updateIndicatorPosition(this.currentTemperature);
     let currentLevel = 15 - this.currentOxygen;
     let previousLevel = currentLevel + 1;
     $(".oxygen:nth-child(" + previousLevel + ")").removeClass("current-oxygen");
@@ -66,13 +63,12 @@ class Game {
   get temperature() {
     return this.currentTemperature;
   }
-  set temperature(numToAdvance) {
+  set temperature(newTemp) {
     //expects number
-    this.currentTemperature += numToAdvance;
-    // this.updateProductionModal();
+    this.currentTemperature=newTemp;
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
-      // this.updateProductionModal();
+      this.updateState();
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
@@ -169,6 +165,16 @@ class Game {
       .text("Pass Turn");
     $(".player1").append(actionButton, passButton);
     this.hideActionModal();
+    this.updateIndicatorPosition(-30);
+  }
+  updateIndicatorPosition(value){
+    $('.temperatureIndicator').css({
+      top: this.getIndicatorPosition(value)
+    });
+  }
+  getIndicatorPosition(value){
+    var maxHeight = $('.temperatureSensor').height() - $('.temperatureIndicator').height();
+    return maxHeight / (8 - (-30)) * (8 - value);
   }
 
   updatePlayerDisplays() {
