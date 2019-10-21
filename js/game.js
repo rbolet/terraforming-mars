@@ -206,17 +206,17 @@ class Game {
       currentEnergy = currentPlayer.getResource("energy").currentValue;
 
       //add energy to heat
-      this.changeResource("heat", {
+      this.productionPhaseChangeResources("heat", {
         currentValue: currentEnergy, rate: 0
       }, playerIndex);
 
       // remove all current energy
-      this.changeResource("energy", {
+      this.productionPhaseChangeResources("energy", {
         currentValue: -currentEnergy, rate: 0
       }, playerIndex);
 
       // add money per terraform rating
-      this.changeResource("money", {
+      this.productionPhaseChangeResources("money", {
         currentValue: currentPlayer.terraformRating,
         rate: 0
       },
@@ -224,7 +224,7 @@ class Game {
 
       // add rating to current value of each resource
       for (var typeKey in currentPlayer.resources) {
-        this.changeResource(
+        this.productionPhaseChangeResources(
           typeKey,
           {
             currentValue: currentPlayer.resources[typeKey].rate,
@@ -233,7 +233,18 @@ class Game {
       }
     }
     this.updateProductionModal();
+    this.advancePhase;
     return true;
+  }
+
+  productionPhaseChangeResources( resourceType, valueRateObject, playerIndex){
+    var targetPlayerResources = game.playerList[playerIndex].resources[resourceType];
+
+    targetPlayerResources.currentValue += valueRateObject.currentValue;
+    targetPlayerResources.rate += valueRateObject.rate;
+
+    this.updatePlayerDisplays();
+    this.updateActionModalStats();
   }
 
   advanceTurn() {
