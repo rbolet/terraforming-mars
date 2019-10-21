@@ -129,7 +129,7 @@ class Player {
       game.hideActionModal();
       game.board.findValidForestTiles();
       game.oxygen = 1;
-      game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
+      // game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
 
     } else if (cardToPlay.getTileToPlace() === "heat") {
       game.temperature = 2;
@@ -149,7 +149,7 @@ class Player {
         game.hideActionModal();
         game.board.findValidForestTiles();
         game.oxygen = 1;
-        game.oxygen = 1;
+        // game.oxygen = 1;
         this.incrementAction();
         break;
       case ("8 Heat"):

@@ -104,7 +104,7 @@ class Game {
   }
 
   endGame() {
-    board.gameOver();
+    this.board.gameOver();
     var winningPlayer = this.playerList[0];
     for (var player of this.playerList) {
       if (player.victoryPoints > winningPlayer.victoryPoints) {
@@ -116,7 +116,7 @@ class Game {
 
   advancePhase() {
     if (this.checkForGameOver()) {
-      alert(this.endGame() + ' has won!')
+      alert(this.endGame().name + ' has won!')
     } else {
       this.currentPhase++;
       switch (this.currentPhase) {
