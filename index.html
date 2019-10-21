@@ -1,175 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="style.css" />
-    <script src="js/tile.js"></script>
-    <script src="js/card.js"></script>
-    <script src="js/carddeck.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/board.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/main.js"></script>
-    <title>Terraforming Mars</title>
-  </head>
-  <body>
-    <div class="game">
-      <div class="state">
-        <div class="terraformingRating"></div>
-        <div class="oxygenSensor">
-          <div class="oxygen black">14%</div>
-          <div class="oxygen white">13%</div>
-          <div class="oxygen black">12%</div>
-          <div class="oxygen white">11%</div>
-          <div class="oxygen black">10%</div>
-          <div class="oxygen white">9%</div>
-          <div class="oxygen black">8%</div>
-          <div class="oxygen white">7%</div>
-          <div class="oxygen black">6%</div>
-          <div class="oxygen white">5%</div>
-          <div class="oxygen black">4%</div>
-          <div class="oxygen white">3%</div>
-          <div class="oxygen black">2%</div>
-          <div class="oxygen white">1%</div>
-          <div class="oxygen black">0%</div>
+
+<head>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="js/tile.js"></script>
+  <script src="js/card.js"></script>
+  <script src="js/carddeck.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+  <title>Terraforming Mars</title>
+</head>
+
+<body>
+  <div class="game">
+    <div class="stats">
+      <div class="player1">
+        <div class="rating"></div>
+        <div class="resources">
+          <div class="money">Test Money</div>
+          <div class="plants">Test Plants</div>
+          <div class="energy">Test Energy</div>
+          <div class="heat">Test Heat</div>
         </div>
-        <div class="temperatureSensor"></div>
+      </div>
+      <div class="player2">
+        <div class="rating"></div>
+        <div class="resources">
+          <div class="money"></div>
+          <div class="plants"></div>
+          <div class="energy"></div>
+          <div class="heat"></div>
+        </div>
+      </div>
+      <div class="player3">
+        <div class="rating"></div>
+        <div class="resources">
+          <div class="money"></div>
+          <div class="plants"></div>
+          <div class="energy"></div>
+          <div class="heat"></div>
+        </div>
+      </div>
+      <div class="player4">
+        <div class="rating"></div>
+        <div class="resources">
+          <div class="money"></div>
+          <div class="plants"></div>
+          <div class="energy"></div>
+          <div class="heat"></div>
+        </div>
+      </div>
+    </div>
+    <div class="board">
+    </div>
+    <div class="state">
+      <div class="oxygenSensor">
+        <div class="oxygen black">14%</div>
+        <div class="oxygen white">13%</div>
+        <div class="oxygen black">12%</div>
+        <div class="oxygen white">11%</div>
+        <div class="oxygen black">10%</div>
+        <div class="oxygen white">9%</div>
+        <div class="oxygen black">8%</div>
+        <div class="oxygen white">7%</div>
+        <div class="oxygen black">6%</div>
+        <div class="oxygen white">5%</div>
+        <div class="oxygen black">4%</div>
+        <div class="oxygen white">3%</div>
+        <div class="oxygen black">2%</div>
+        <div class="oxygen white">1%</div>
+        <div class="oxygen black">0%</div>
+      </div>
+      <div class="temperatureSensor">
         <div class="temperatureIndicator">
           <div class="temperatureText"></div>
         </div>
       </div>
-      <div class="board">
-      </div>
-      <div class="stats">
-        <div class="player1">
-          <div class="rating"></div>
-          <div class="resources">
-            <div class="money">Test Money</div>
-            <div class="plants">Test Plants</div>
-            <div class="energy">Test Energy</div>
-            <div class="heat">Test Heat</div>
+    </div>
+  </div>
+  </div>
+  <div class="action-modal">
+    <div class="modal-body">
+      <div class="modal-title">Action Phase</div>
+      <div class="modal-contents">
+        <div class="current-player-stats">
+          <div class="resource-display" id="money">
+            <div class="resource-name">Money</div>
+
+            <div class="current">
+              <div class="resource-number-header">current</div>
+              <div class="currentDisplayMoney">99</div>
+            </div>
+
+            <div class="rate">
+              <div class="resource-number-header">rate</div>
+              <div class="rateDisplayMoney">99</div>
+            </div>
+          </div>
+          <div class="resource-display" id="plants">
+            <div class="resource-name">Greenery</div>
+
+            <div class="current">
+              <div class="resource-number-header">current</div>
+              <div class="currentDisplayPlants">99</div>
+            </div>
+
+            <div class="rate">
+              <div class="resource-number-header">rate</div>
+              <div class="rateDisplayPlants">99</div>
+            </div>
+          </div>
+          <div class="resource-display" id="energy">
+            <div class="resource-name">Energy</div>
+
+            <div class="current">
+              <div class="resource-number-header">current</div>
+              <div class="currentDisplayEnergy">99</div>
+            </div>
+
+            <div class="rate">
+              <div class="resource-number-header">rate</div>
+              <div class="rateDisplayEnergy">99</div>
+            </div>
+          </div>
+          <div class="resource-display" id="heat">
+            <div class="resource-name">Heat</div>
+
+            <div class="current">
+              <div class="resource-number-header">current</div>
+              <div class="currentDisplayHeat">99</div>
+            </div>
+
+            <div class="rate">
+              <div class="resource-number-header">rate</div>
+              <div class="rateDisplayHeat">99</div>
+            </div>
           </div>
         </div>
-        <div class="player2">
-                <div class="rating"></div>
-                <div class="resources">
-                  <div class="money"></div>
-                  <div class="plants"></div>
-                  <div class="energy"></div>
-                  <div class="heat"></div>
+        <div class="card-display">
+
         </div>
+        <div class="global-stats">
+          <div class="global" id="generation">Generation<p>2</p>
+          </div>
+          <div class="global" id="temperature">Temp<p>-8</p>
+          </div>
+          <div class="global" id="oxygen">Oxygen<p>4</p>
+          </div>
+          <div class="global" id="view-board">
+            <p>View Board</p>
+          </div>
+          <div class="global" id="pass-button">
+            <p>Pass Turn</p>
+          </div>
+
+
         </div>
-        <div class="player3">
-                <div class="rating"></div>
-                <div class="resources">
-                  <div class="money"></div>
-                  <div class="plants"></div>
-                  <div class="energy"></div>
-                  <div class="heat"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="production-modal">
+    <div class="modal-body">
+      <div class="modal-title">Production Phase</div>
+      <div class="modal-contents">
+        <div class="p1p3">
+          <div class="modal-player p1">Player 1<br>
+            Money : $xx+x<br>
+            Plants: x +x<br>
+            Energy: x +x<br>
+            Heat: x +x
+          </div>
+          <div class="modal-player p3">Player 3<br>
+            Money : $xx+x<br>
+            Plants: x +x<br>
+            Energy: x +x<br>
+            Heat: x +x
+          </div>
         </div>
+        <div class="p2p4">
+          <div class="modal-player p2">Player 2<br>
+            Money : $xx+x<br>
+            Plants: x +x<br>
+            Energy: x +x<br>
+            Heat: x +x</div>
+
+          <div class="modal-player p4">Player 4<br>
+            Money : $xx+x<br>
+            Plants: x +x<br>
+            Energy: x +x<br>
+            Heat: x +x</div>
         </div>
-        <div class="player4">
-                <div class="rating"></div>
-                <div class="resources">
-                  <div class="money"></div>
-                  <div class="plants"></div>
-                  <div class="energy"></div>
-                  <div class="heat"></div>
-        </div>
+        <div class="modal-stats">Temperature<br>
+          oxygen<br>
+          generation</div>
       </div>
     </div>
-    <div class="action-modal">
-      <div class="modal-body">
-        <div class="modal-title">Action Phase</div>
-        <div class="modal-contents">
-          <div class="current-player-stats">
-            <div class="resource-display" id="money">
-              <div class="resource-name">Money</div>
-
-              <div class="current"><div class="resource-number-header">current</div><div class="currentDisplayMoney">99</div></div>
-
-              <div class="rate"><div class="resource-number-header">rate</div><div class="rateDisplayMoney">99</div></div>
-            </div>
-            <div class="resource-display" id="plants">
-              <div class="resource-name">Greenery</div>
-
-              <div class="current"><div class="resource-number-header">current</div><div class="currentDisplayPlants">99</div></div>
-
-              <div class="rate"><div class="resource-number-header">rate</div><div class="rateDisplayPlants">99</div></div>
-            </div>
-            <div class="resource-display" id="energy">
-              <div class="resource-name">Energy</div>
-
-              <div class="current"><div class="resource-number-header">current</div><div class="currentDisplayEnergy">99</div></div>
-
-              <div class="rate"><div class="resource-number-header">rate</div><div class="rateDisplayEnergy">99</div></div>
-            </div>
-            <div class="resource-display" id="heat">
-              <div class="resource-name">Heat</div>
-
-              <div class="current"><div class="resource-number-header">current</div><div class="currentDisplayHeat">99</div></div>
-
-              <div class="rate"><div class="resource-number-header">rate</div><div class="rateDisplayHeat">99</div></div>
-            </div>
-          </div>
-          <div class="card-display">
-
-          </div>
-          <div class="global-stats">
-            <div class="global" id="generation">Generation<p>2</p></div>
-            <div class="global" id="temperature">Temp<p>-8</p></div>
-            <div class="global" id="oxygen">Oxygen<p>4</p></div>
-            <div class="global" id="view-board"><p>View Board</p></div>
-            <div class="global" id="pass-button"><p>Pass Turn</p></div>
-
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="production-modal">
-      <div class="modal-body">
-        <div class="modal-title">Production Phase</div>
-        <div class="modal-contents">
-          <div class="p1p3">
-            <div class="modal-player p1">Player 1<br>
-              Money : $xx+x<br>
-              Plants: x +x<br>
-              Energy: x +x<br>
-              Heat: x +x
-            </div>
-            <div class="modal-player p3">Player 3<br>
-              Money : $xx+x<br>
-              Plants: x +x<br>
-              Energy: x +x<br>
-              Heat: x +x
-            </div>
-          </div>
-          <div class="p2p4">
-            <div class="modal-player p2">Player 2<br>
-              Money : $xx+x<br>
-              Plants: x +x<br>
-              Energy: x +x<br>
-              Heat: x +x</div>
-
-              <div class="modal-player p4">Player 4<br>
-              Money : $xx+x<br>
-              Plants: x +x<br>
-              Energy: x +x<br>
-              Heat: x +x</div>
-          </div>
-          <div class="modal-stats">Temperature<br>
-            oxygen<br>
-            generation</div>
-          </div>
-          </div>
-          <div class="production-modal-button">Next Phase</div>
-      </div>
-    </div>
-  </body>
+    <div class="production-modal-button">Next Phase</div>
+  </div>
+  </div>
+</body>
 </html>
