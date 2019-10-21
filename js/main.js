@@ -3,7 +3,6 @@ var game;
 var cardList;
 
 function initializeApp() {
-  // cost == #, array of effects {type: 'String', changes: {currentValue: #, rate, #}}, tileToPlace == 'string', permanent T/F gameClick, gameRemove
   cardList = [
     [
       9,

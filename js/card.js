@@ -7,13 +7,11 @@ class Card {
     gameClickHandler,
     gameRemoveDivCallback
   ) {
-    //Accepts cost as number, type as string,
     this.causeEffect = this.causeEffect.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.removeCardfromDiv = this.removeCardfromDiv.bind(this);
 
-    //this.playCard = this.playCard.bind(this);
-    this.element = null; //jQuery object of the div
+    this.element = null;
     this.cost = cost;
     this.typeObj = type;
     this.permanent = permanentBool;
@@ -22,14 +20,12 @@ class Card {
     this.removeMe = gameRemoveDivCallback;
   }
 
-  //Card needs to cll board to show valid placements
   getTileToPlace() {
     return this.tileToPlace;
   }
 
   handleClick() {
     this.iWasClicked(this);
-    // this.removeCardfromDiv();
   }
 
   removeCardfromDiv() {
