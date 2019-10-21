@@ -1,20 +1,32 @@
+:root{
+  --mars-light-color: #f0e7e7; /* var(--mars-light-color); */
+  --mars-dark-color: #451804; /* var(--mars-dark-color); */
+  --mars-mid-redish: #c1440e; /* var(--mars-mid-redish); */
+  --mars-mid-orange: #e77d11; /* var(--mars-mid-orange); */
+  --mars-light-orange: #fda600; /* var(--mars-light-orange); */
+  --mars-light-orange-2: #fda4003a; /* var(--mars-light-orange-2); */
+  --modal-bg-shadow: rgba(0, 0, 0, 0.482); /* var(--modal-bg-shadow); */
+}
+
+
+
 * {
   margin: 0;
 }
 
 .game {
-  position: relative;
-  width: 1920px;
-  height: 1080px;
-  background: #d1d523;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--mars-mid-redish);
+  display: flex;
+  justify-content: space-around;
+  background-image: url(assets/SolisPlanum.jpg);
 }
 
 .state {
-  position: absolute;
-  width: 610px;
-  height: 1080px;
-  left: 1310px;
-  top: 0px;
+display: flex;
+height: 75%;
+margin: auto 0;
 }
 
 .terraformingRating {
@@ -27,15 +39,10 @@
 }
 
 .oxygenSensor {
-  position: absolute;
-  width: 96px;
-  height: 968px;
-  left: 250px;
-  top: 61px;
-  background: white;
+
   display: flex;
   flex-direction: column;
-  margin: auto;
+  box-shadow: 1px 2px 20px var(--modal-bg-shadow);
 }
 
 .oxygen {
@@ -59,25 +66,22 @@
 }
 
 .temperatureSensor {
-  position: absolute;
   width: 96px;
-  height: 968px;
-  left: 77px;
-  top: 61px;
   background: linear-gradient(180deg, #ff001f 0%, #2b3abd 100%);
+  margin-left: 20px;
+  box-shadow: 1px 2px 20px var(--modal-bg-shadow);
 }
 
 .temperatureIndicator {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 96px;
   height: 96px;
-  left: 77px;
-  top: 984px;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.7);
+  position: relative;
+  top: 87%;
 }
 .temperatureText {
   color: white;
@@ -120,12 +124,11 @@
   z-index: 1;
 }
 .board {
-  position: absolute;
-  width: 875px;
-  height: 875px;
-  left: 450px;
-  top: 102px;
-  background-image: url(assets/SolisPlanum.jpg);
+  width: 700px;
+  height: 700px;
+  /* background-image: url(assets/SolisPlanum.jpg); */
+  margin: auto 0;
+  box-shadow: 1px 2px 40px var(--mars-dark-color);
 }
 .row {
   display: flex;
@@ -137,8 +140,8 @@
 .empty {
   width: 20%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0);
-  border: white solid 2px;
+  background-color: var(--mars-light-orange-2);
+  border: var(--mars-dark-color) solid 2px;
   box-sizing: border-box;
 }
 
@@ -155,23 +158,21 @@
   background-size: cover;
 }
 .stats {
-  position: absolute;
-  width: 378px;
-  height: 1080px;
-  left: 0;
-  top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .player1,
 .player2,
 .player3,
 .player4 {
-  position: absolute;
-  width: 323px;
-  height: 200px;
-  left: 55px;
-  top: 61px;
-  background: white;
+    width: 323px;
+    height: 150px;
+    background-color: var(--mars-mid-orange);
+    color: var(--mars-light-color);
+    text-shadow: 1px 1px var(--mars-dark-color);
+    box-shadow: 1px 1px 20px var(--modal-bg-shadow);
 }
 
 .player2 {
@@ -186,9 +187,11 @@
 .production-modal,
 .action-modal {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.482);
+  background-color: var(--modal-bg-shadow);
   width: 100%;
   height: 100%;
+  top:0;
+  left:0;
   justify-content: center;
   align-items: center;
 }
