@@ -129,11 +129,12 @@ class Player {
       game.hideActionModal();
       game.board.findValidForestTiles();
       game.oxygen = 1;
+    }
       // game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
 
-    } else if (cardToPlay.getTileToPlace() === "heat") {
-      game.temperature += 2;
-    }
+    // } else if (cardToPlay.getTileToPlace() === "heat") {
+    //   game.temperature += 2;
+    // }
 
     cardToPlay.causeEffect();
     this.removeCardFromHand(cardToPlay);
@@ -155,14 +156,14 @@ class Player {
       case ("8 Heat"):
         if (this.resources["heat"].currentValue < 8) return false;
         this.resources["heat"].currentValue -= 8;
-        game.temperature = 2;
+        game.temperature += 2;
         game.updateActionModalStats();
         this.incrementAction();
         break;
       case ("14"):
         if (this.resources["money"].currentValue < 14) return false;
         this.resources["money"].currentValue -= 14;
-        game.temperature = 2;
+        game.temperature += 2;
         specialCard.causeEffect();
         this.incrementAction();
         break;
