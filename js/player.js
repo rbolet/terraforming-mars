@@ -1,6 +1,5 @@
 class Player {
   constructor(playerName, cardClickedCallBack, ArrayOfWhoCanPlay) {
-    //expects String
     this.incrementVP = this.incrementVP.bind(this);
     this.name = playerName;
     this.passedTurn = false;
@@ -130,11 +129,6 @@ class Player {
       game.board.findValidForestTiles();
       game.oxygen = 1;
     }
-      // game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
-
-    // } else if (cardToPlay.getTileToPlace() === "heat") {
-    //   game.temperature += 2;
-    // }
 
     cardToPlay.causeEffect();
     this.removeCardFromHand(cardToPlay);
@@ -150,7 +144,6 @@ class Player {
         game.hideActionModal();
         game.board.findValidForestTiles();
         game.oxygen = 1;
-        // game.oxygen = 1;
         this.incrementAction();
         break;
       case ("8 Heat"):
@@ -186,15 +179,11 @@ class Player {
 
 
   getResource(resourceType) {
-    // expects string
     return this.resources[resourceType];
   }
 
   addCardtoHand(cardtoAdd) {
-    // expects a Card object
     this.cardsInHand.push(cardtoAdd);
-    // cardtoAdd.render();
-    //going to append
   }
 
   canPlay(cardToPlay) {
@@ -231,7 +220,6 @@ class Player {
     this.passedTurn = false;
   }
   placeTile(tileType) {
-    //Called by a card that knows what kind of tile to place. City or Greenery
     var newTile = new Tile(tileType, this);
   }
 }

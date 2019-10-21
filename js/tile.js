@@ -1,12 +1,11 @@
 class Tile {
   constructor(tileType, tileOwner, position, clickCallback) {
     this.handleClick = this.handleClick.bind(this);
-    // expects string "greenery" or "city" , player object
     this.clickCallback = clickCallback;
     this.type = tileType;
     this.owner = tileOwner;
-    this.tileElement = null; // jQuery object
-    this.position = position; //row# and cell#
+    this.tileElement = null;
+    this.position = position;
     this.legalMove = false;
   }
   handleClick() {

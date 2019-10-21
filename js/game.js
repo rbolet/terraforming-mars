@@ -5,7 +5,6 @@ class Game {
     this.showActionModal = this.showActionModal.bind(this);
     this.playerClickedPass = this.playerClickedPass.bind(this);
     this.handleCardClick = this.handleCardClick.bind(this);
-    // this.removeCardDivfromModal = this.removeCardDivfromModal.bind(this);
     this.currentOxygen = 0;
     this.currentTemperature = -30;
     this.currentGeneration = 1;
@@ -30,9 +29,6 @@ class Game {
     let previousLevel = currentLevel + 1;
     $(".oxygen:nth-child(" + previousLevel + ")").removeClass("current-oxygen");
     $(".oxygen:nth-child(" + currentLevel + ")").addClass("current-oxygen");
-    //Temp Range (-30,8) 19 stages
-    //Oxygen Range (0,14) 15 stages
-    //Animate indicators based on location (968px to traverse)
   }
 
   applyModalClickHandlers() {
@@ -41,18 +37,14 @@ class Game {
     $("#view-board").on("click", this.hideActionModal);
     $("body").on("click", ".action-button", this.showActionModal);
     $("body").on("click", ".pass-button", this.playerClickedPass);
-    // $(".card-display").on("click", ".card", this.removeCardDivfromModal);
   }
   get oxygen() {
     return this.currentOxygen;
   }
   set oxygen(numToAdvance) {
-    // expects number
     this.currentOxygen += numToAdvance;
-    //this.updateProductionModal();
     if (this.currentOxygen > 14) {
       this.currentOxygen = 14;
-      //this.updateProductionModal();
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
@@ -64,7 +56,6 @@ class Game {
     return this.currentTemperature;
   }
   set temperature(newTemp) {
-    //expects number
     this.currentTemperature=newTemp;
     if (this.currentTemperature > 8) {
       this.currentTemperature = 8;
@@ -81,12 +72,9 @@ class Game {
     return this.currentGeneration;
   }
   set generation(numToAdvance) {
-    //expects number
     this.currentGeneration += numToAdvance;
-    // this.updateProductionModal();
     if (this.currentGeneration > 100) {
       this.currentGeneration = 100;
-      // this.updateProductionModal();
       return false;
     }
     return true;
@@ -132,7 +120,6 @@ class Game {
   }
 
   changeResource(typeToChange, valuesToChange, player) {
-    //expects number, string, object
     var playerToChange = this.playerList[this.whoCanPlayArray[0]];
     var resourceToChange = playerToChange.resources[typeToChange];
 
@@ -246,24 +233,24 @@ class Game {
       currentPlayer = this.playerList[playerIndex];
       currentEnergy = currentPlayer.getResource("energy").currentValue;
 
-      //add energy to heat
+
       this.productionPhaseChangeResources("heat", {
         currentValue: currentEnergy, rate: 0
       }, playerIndex);
 
-      // remove all current energy
+
       this.productionPhaseChangeResources("energy", {
         currentValue: -currentEnergy, rate: 0
       }, playerIndex);
 
-      // add money per terraform rating
+
       this.productionPhaseChangeResources("money", {
         currentValue: currentPlayer.terraformRating,
         rate: 0
       },
         playerIndex);
 
-      // add rating to current value of each resource
+
       for (var typeKey in currentPlayer.resources) {
         this.productionPhaseChangeResources(
           typeKey,
@@ -314,7 +301,7 @@ class Game {
   }
 
   addPlayer(name, callback) {
-    // expects string
+
     var newPlayer = new Player(name, callback, this.whoCanPlayArray);
     this.playerList.push(newPlayer);
   }
@@ -369,9 +356,9 @@ class Game {
     );
   }
   playerClickedPass() {
-    // debugger;
+
     var playerWhoPassed = this.whoCanPlayArray[0];
-    // this.whoCanPlayArray.push(temp);
+
     this.whoCanPlayArray.shift();
     for (var player = 1; player <= 4; player++) {
       $(".player" + player + " button").remove();

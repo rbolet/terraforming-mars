@@ -8,7 +8,9 @@
   --modal-bg-shadow: rgba(0, 0, 0, 0.482); /* var(--modal-bg-shadow); */
 }
 
-
+body{
+  overflow: hidden;
+}
 
 * {
   margin: 0;
@@ -232,7 +234,6 @@ margin: auto 0;
   justify-content: space-evenly;
   align-items: center;
   box-shadow: 1px 2px 20px var(--mars-dark-color);
-  overflow: auto;
 }
 
 .card {

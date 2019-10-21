@@ -1,18 +1,17 @@
 class Board {
   constructor() {
     this.handleTileClick = this.handleTileClick.bind(this);
-    //        0     1     2     3     4
+
     this.boardArray = [
       [null, null, null, null, null], //0
       [null, null, null, null, null], //1
       [null, null, null, null, null], //2
       [null, null, null, null, null], //3
       [null, null, null, null, null]
-    ]; //4 // array of row arrays containing space arrays, containing tile objects
+    ];
     this.populateArray();
     this.nextTile = null;
     this.currentPlayer = null;
-    // this.addClickHandler();
   }
 
   gameOver() {
