@@ -44,7 +44,7 @@ class Game {
     $("#view-board").on("click", this.hideActionModal);
     $("body").on("click", ".action-button", this.showActionModal);
     $("body").on("click", ".pass-button", this.playerClickedPass);
-    $(".card-display").on("click", ".card", this.removeCardDivfromModal);
+    // $(".card-display").on("click", ".card", this.removeCardDivfromModal);
   }
   get oxygen() {
     return this.currentOxygen;
@@ -59,6 +59,7 @@ class Game {
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
+    this.playerList[this.whoCanPlayArray[0]].incrementTerraformRating();
     this.updateState();
     return true;
   }
@@ -75,6 +76,7 @@ class Game {
       return false;
     }
     this.playerList[this.whoCanPlayArray[0]].incrementVP();
+    this.playerList[this.whoCanPlayArray[0]].incrementTerraformRating();
     this.updateState();
     return true;
   }
@@ -195,7 +197,7 @@ class Game {
     }
   }
   researchPhase() {
-    alert("Research Phase");
+    alert("Research Phase - each player receives 2 new cards");
     this.cardDeck.dealCard(2);
     this.generation = 1;
     this.advancePhase();
@@ -211,7 +213,7 @@ class Game {
    }
 
   productionPhase() {
-    alert("Production Phase");
+    alert('Production Phase - all energy is converted into heat (science!). Receive amount of each resource according to production rate.');
 
     var currentPlayer;
     var currentEnergy;
@@ -247,7 +249,7 @@ class Game {
           }, playerIndex);
       }
     }
-    // this.updateProductionModal();
+    this.updatePlayerDisplays();
     this.advancePhase();
     return true;
   }
@@ -362,11 +364,12 @@ class Game {
 
   hideActionModal() {
     $(".action-modal").addClass("hidden");
+    game.updatePlayerDisplays();
   }
 
   updateActionModalStats() {
     $("#generation > p").text(this.generation);
-    $("#temperature > p").text(this.temperature);
+    $("#temperature > p").text(this.currentTemperature);
     $("#oxygen > p").text(this.oxygen);
 
     $(".currentDisplayMoney").text(
@@ -405,9 +408,9 @@ class Game {
     }
   }
 
-  removeCardDivfromModal(cardDivToRemove) {
-    if (!cardDivToRemove) return false;
-    cardDivToRemove.remove();
+  removeCardDivfromModal(clickedCard) {
+    if (clickedCard.permanent && !clickedCard) return false;
+    clickedCard.element.remove();
 
   }
 }
