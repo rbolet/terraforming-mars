@@ -99,22 +99,40 @@ class Game {
     return this.currentPhase;
   }
 
-  advancePhase() {
-    this.currentPhase++;
-    switch (this.currentPhase) {
-      case 1:
-        this.actionPhase();
-        break;
-      case 2:
-        this.productionPhase();
-        break;
-      case 3:
-        this.currentPhase = 0;
-      case 0:
-        this.researchPhase();
-      break;
-    }
+  checkForGameOver() {
+    return (this.currentOxygen === 14 && this.currentTemperature === 8)
+  }
 
+  endGame() {
+    board.gameOver();
+    var winningPlayer = this.playerList[0];
+    for (var player of this.playerList) {
+      if (player.victoryPoints > winningPlayer.victoryPoints) {
+        winningPlayer = player
+      }
+    }
+    return winningPlayer
+  }
+
+  advancePhase() {
+    if (this.checkForGameOver()) {
+      alert(this.endGame() + ' has won!')
+    } else {
+      this.currentPhase++;
+      switch (this.currentPhase) {
+        case 1:
+          this.actionPhase();
+          break;
+        case 2:
+          this.productionPhase();
+          break;
+        case 3:
+          this.currentPhase = 0;
+        case 0:
+          this.researchPhase();
+          break;
+      }
+    }
   }
 
   changeResource(typeToChange, valuesToChange, player) {
@@ -142,7 +160,7 @@ class Game {
 
   }
 
-  newRound(){
+  newRound() {
     var actionButton = $("<button>")
       .addClass("action-button")
       .text("Take Action");
@@ -210,7 +228,7 @@ class Game {
     alert("Action phase - generation " + this.generation);
     this.updateActionModalStats();
     this.newRound();
-   }
+  }
 
   productionPhase() {
     alert('Production Phase - all energy is converted into heat (science!). Receive amount of each resource according to production rate.');
@@ -254,7 +272,7 @@ class Game {
     return true;
   }
 
-  productionPhaseChangeResources( resourceType, valueRateObject, playerIndex){
+  productionPhaseChangeResources(resourceType, valueRateObject, playerIndex) {
     var targetPlayerResources = this.playerList[playerIndex].resources[resourceType];
 
     targetPlayerResources.currentValue += valueRateObject.currentValue;

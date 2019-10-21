@@ -61,7 +61,7 @@ class Player {
         25,
         [
           {
-            type: "Plants",
+            type: "Money",
             effects: { resources: { currentValue: "Place a city tile", rate: 1 } }
           }
         ],
@@ -97,7 +97,7 @@ class Player {
     this.terraformRating = 20;
   }
 
-  incrementTerraformRating(){
+  incrementTerraformRating() {
     this.terraformRating += 1;
   }
 
@@ -113,7 +113,7 @@ class Player {
   }
 
   playCard(cardToPlay) {
-    if ( typeof cardToPlay.cost === "string"){
+    if (typeof cardToPlay.cost === "string") {
       this.playSpecialCard(cardToPlay);
       return "Special Card";
     }
@@ -129,6 +129,7 @@ class Player {
       game.hideActionModal();
       game.board.findValidForestTiles();
       game.oxygen = 1;
+      game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
 
     } else if (cardToPlay.getTileToPlace() === "heat") {
       game.temperature = 2;
@@ -140,36 +141,37 @@ class Player {
 
   }
 
-  playSpecialCard( specialCard ){
-    switch (specialCard.cost){
-      case ("8 Plants") :
+  playSpecialCard(specialCard) {
+    switch (specialCard.cost) {
+      case ("8 Plants"):
         if (this.resources["plants"].currentValue < 8) return false;
         this.resources["plants"].currentValue -= 8;
         game.hideActionModal();
         game.board.findValidForestTiles();
         game.oxygen = 1;
+        game.oxygen = 1;
         this.incrementAction();
         break;
-      case ( "8 Heat" ) :
+      case ("8 Heat"):
         if (this.resources["heat"].currentValue < 8) return false;
         this.resources["heat"].currentValue -= 8;
         game.temperature = 2;
         game.updateActionModalStats();
         this.incrementAction();
         break;
-      case ("14") :
+      case ("14"):
         if (this.resources["money"].currentValue < 14) return false;
         this.resources["money"].currentValue -= 14;
         game.temperature = 2;
         specialCard.causeEffect();
         this.incrementAction();
         break;
-      default : return false;
+      default: return false;
     }
   }
 
 
-  incrementAction(){
+  incrementAction() {
     this.actionNum++;
 
     if (this.actionNum === 2) {
