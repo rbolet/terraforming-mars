@@ -132,7 +132,7 @@ class Player {
       game.oxygen = 1; // Calls the function twice. Calling it once with a different number messed with the display
 
     } else if (cardToPlay.getTileToPlace() === "heat") {
-      game.temperature = 2;
+      game.temperature += 2;
     }
 
     cardToPlay.causeEffect();
