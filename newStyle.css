@@ -1,0 +1,363 @@
+:root{
+  --mars-light-color: #f0e7e7; /* var(--mars-light-color); */
+  --mars-dark-color: #451804; /* var(--mars-dark-color); */
+  --mars-mid-redish: #c1440e; /* var(--mars-mid-redish); */
+  --mars-mid-orange: #e77d11; /* var(--mars-mid-orange); */
+  --mars-light-orange: #fda600; /* var(--mars-light-orange); */
+  --mars-light-orange-2: #fda4003a; /* var(--mars-light-orange-2); */
+  --modal-bg-shadow: rgba(0, 0, 0, 0.482); /* var(--modal-bg-shadow); */
+}
+
+
+
+* {
+  margin: 0;
+}
+
+.game {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--mars-mid-redish);
+  display: flex;
+  justify-content: space-around;
+  background-image: url(assets/SolisPlanum.jpg);
+}
+
+.state {
+display: flex;
+height: 75%;
+margin: auto 0;
+}
+
+.terraformingRating {
+  position: absolute;
+  width: 96px;
+  height: 968px;
+  left: 423px;
+  top: 61px;
+  background: #12c0e7;
+}
+
+.oxygenSensor {
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 2px 20px var(--modal-bg-shadow);
+}
+
+.oxygen {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 36px;
+  position: relative;
+  width: 96px;
+  height: 64.5px;
+  box-sizing: border-box;
+}
+
+.black {
+  background: black;
+  color: white;
+}
+
+.white {
+  background: white;
+  color: black;
+}
+
+.temperatureSensor {
+  width: 96px;
+  background: linear-gradient(180deg, #ff001f 0%, #2b3abd 100%);
+  margin-left: 20px;
+  box-shadow: 1px 2px 20px var(--modal-bg-shadow);
+}
+
+.temperatureIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+.temperatureText {
+  color: white;
+  font-size: 36px;
+}
+
+.current-oxygen {
+  border: red 4px outset;
+}
+
+.cards {
+  position: absolute;
+  width: 700px;
+  height: 224px;
+  left: 610px;
+  top: 805px;
+  background: #2cd53d;
+}
+.card {
+  position: relative;
+  height: 260px;
+  width: 190px;
+  transition: transform 0.5s;
+}
+.permanent{
+  position: absolute;
+  top: 180px;
+  left: 30px;
+  text-align: center
+}
+.to-place{
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  text-align: center;
+}
+
+.card:hover {
+  transform: scale(2);
+  z-index: 1;
+}
+.board {
+  width: 700px;
+  height: 700px;
+  /* background-image: url(assets/SolisPlanum.jpg); */
+  margin: auto 0;
+  box-shadow: 1px 2px 40px var(--mars-dark-color);
+}
+.row {
+  display: flex;
+  width: 100%;
+  height: 20%;
+}
+
+.cell,
+.empty {
+  width: 20%;
+  height: 100%;
+  background-color: var(--mars-light-orange-2);
+  border: var(--mars-dark-color) solid 2px;
+  box-sizing: border-box;
+}
+
+.legalMove {
+  border: outset lime 8px;
+}
+.forest {
+  background-image: url(assets/forest.png);
+  background-size: cover;
+}
+
+.city {
+  background-image: url(assets/city.png);
+  background-size: cover;
+}
+.stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.player1,
+.player2,
+.player3,
+.player4 {
+    width: 323px;
+    height: 150px;
+    background-color: var(--mars-mid-orange);
+    color: var(--mars-light-color);
+    text-shadow: 1px 1px var(--mars-dark-color);
+    box-shadow: 1px 1px 20px var(--modal-bg-shadow);
+}
+
+.player2 {
+  top: 317px;
+}
+.player3 {
+  top: 573px;
+}
+.player4 {
+  top: 829px;
+}
+.production-modal,
+.action-modal {
+  position: absolute;
+  background-color: var(--modal-bg-shadow);
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  justify-content: center;
+  align-items: center;
+}
+
+.production-modal {
+  display: none;
+}
+
+.action-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.current-player-stats {
+  position: absolute;
+  background-color: grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 10%;
+}
+
+.card-display {
+  display: flex;
+  position: absolute;
+  height: 60%;
+  top: 20%;
+  width: 65%;
+  top: 270px;
+  left: 190px;
+  background-color: grey;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  height: 205px;
+  width: 150px;
+  background-color: white;
+  border: 1px solid black;
+  margin: 2px;
+}
+
+.resource-display {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 90%;
+  width: 24.25%;
+  margin: 2px;
+}
+
+.resource-name {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 1.75rem;
+}
+
+.current,
+.rate {
+  display: flex;
+  position: relative;
+  height: 70%;
+  width: 48%;
+  margin: 0.25%;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 2.5rem;
+}
+
+.resource-number-header {
+  background-color: none;
+  display: flex;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  width: 90%;
+  height: 90%;
+  background-color: rgb(255, 255, 255);
+}
+.modal-title {
+  background-color: rgb(88, 79, 255);
+  text-align: center;
+}
+.modal-player {
+  width: 300px;
+  height: 400px;
+  background-color: rgb(92, 92, 92);
+  margin-top: 20px;
+}
+.modal-stats {
+  margin-top: 20px;
+  width: 300px;
+  height: 820px;
+  background-color: rgb(92, 92, 92);
+}
+.modal-contents {
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: center; */
+}
+.production-modal-button {
+  position: absolute;
+  width: 200px;
+  height: 80px;
+  left: 1580px;
+  top: 940px;
+  background: #c4c4c4;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.global-stats {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60%;
+  width: 7.5%;
+  margin: 2px;
+  top: 270px;
+  left: 1600px;
+  background-color: gray;
+  padding: 10px;
+}
+
+.global {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  height: 12%;
+  width: 80%;
+  background-color: darkslategray;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.global > p {
+  font-size: 1.4rem;
+}
+
+#view-board {
+  background-color: #12c0e7;
+}
+
+#pass-button {
+  background-color: red;
+}
+
+.hidden {
+  display: none;
+}
