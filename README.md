@@ -1,60 +1,35 @@
-# 919_hackathon1
+# Terraforming Mars
 
-# complete the project assigned to your group.  All projects MUST be in OOP
+A simple game to test your memory-- match the logos of common web development technologies to win!
 
-- 1 person fork this repo.
-- other people in the team clone their repo
-- base your branches off the dev branch
-- make sure to make a figma and supply the link to the figma in this readme at the top.
+## Technologies Used
 
-## Teams
+- JavaScript
+- jQuery
+- HTML5
+- CSS3
 
-### Team 1
-- Project : Bears Versus Babies
-- members:
-  - Ziyaad Motala
-  - Tomas Cormons
-  - Vicky Huyncao
+## Live Demo
 
-### Team 2
-- Project : king of tokyo
-- members:
-  - Khoa Cao
-  - Kiana Fukuda
-  - Ernest Hubbard
 
-### Team 3
-- Project : potion explosion
-- members:
-  - Michael Chang
-  - Kimberly Roque
-  - Julie Chung
+## Features
 
-### Team 4
-- Project : gemstone mining
-- members:
-  - Jeff Lee
-  - Andy Robins
-  - Jacob Hassler
 
-### Team 5
-- Project : terreforming mars
-- members: 
-  - AChristian Parizeau
-  - Rapha Bolet
-  - Roger Enand
-  
-### Team 6
-- Project : sagrada
-- members: 
-  - Kris Ringler
-  - Vandana Khaparde
-  - Samantha Nagle
-  
-### Team 7
-- Project : boss monster
-- members: 
-  - Christian Haney
-  - Wenhao Wang
-  - Kevin Akohoshi
+## Preview
 
+
+## Development
+
+#### System Requirements
+
+#### Getting Started
+
+1. Clone the repository.
+
+    ```shell
+    git clone https://github.com/rbolet/terraforming-mars.git
+    cd terraforming-mars
+    ```
+
+1. Start the application by opening index.html locally in your browser.
+`
