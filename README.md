@@ -1,6 +1,6 @@
 # Terraforming Mars
 
-A simple game to test your memory-- match the logos of common web development technologies to win!
+A digital version of the Terraforming Mars board game. Manage your resources carefully to terraform Mars!
 
 ## Technologies Used
 
